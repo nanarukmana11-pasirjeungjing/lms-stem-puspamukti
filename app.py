@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-LMS STEM — Gugus Cidugaleun
-(SDN Parentas, SDN Sirnagalih, SDN Karamatjaya, SDN Cidugaleun,
- SDN Panglayungan, SDN Giriatikan)
+LMS STEM — Gugus Puspamukti
+(SDN Puspamukti, SDN Puspasari, SDN 2 Pusparaja, SDN Girilintang,
+ SDN 1 Cigalontang) — Kecamatan Cigalontang, Kabupaten Tasikmalaya
 
 Struktur proyek:
-    lms_stem_cidugaleun/
+    lms_stem_cidugaleun/   (folder aplikasi; nama folder boleh diganti, mis. lms_stem_puspamukti)
         app.py               <- titik masuk (halaman ini)
         data/content.py      <- teks & data konten, dipisah dari tampilan
         assets/style.css     <- styling mobile-first
@@ -17,6 +17,7 @@ Struktur proyek:
 
 Menu:
     🏠 Beranda       — gambaran STEM, karakteristik, 7 tahap praktik, sekolah anggota, KKG
+    🎞️ KKG           — presentasi HTML KKG STEM 21 Oktober 2026 (proyek, alat-bahan, supervisi)
     📖 Panduan       — ringkasan Panduan Pembelajaran STEM Kemendikdasmen 2025
     📚 Modul Kelas   — 56 proyek STEM Kelas 1–6 + uraian per pertemuan
     🗂️ Administrasi  — template administrasi STEM per kelas & dokumen gugus
@@ -65,6 +66,7 @@ from data.content import (
     STATUS_WARNA,
     LAMPIRAN_TABS,
     KELAS_DATA,
+    KKG_HTML,
 )
 
 try:
@@ -486,8 +488,8 @@ def get_projects(kelas: int):
 
 def download_btn(label: str, path: Path, key: str):
     if path.exists():
-        mime = ("application/pdf" if path.suffix.lower() == ".pdf"
-                else "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        mime = {".pdf": "application/pdf", ".html": "text/html"}.get(
+            path.suffix.lower(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         st.download_button(label, data=path.read_bytes(), file_name=path.name, mime=mime,
                            width="stretch", key=key)
 
@@ -545,6 +547,7 @@ def render_login():
 # ============================================================================
 NAV_ALL = {
     "🏠 Beranda": "landing",
+    "🎞️ KKG": "kkg",
     "📚 Modul": "modul_kelas",
     "📖 Panduan": "panduan",
     "🗂️ Administrasi": "administrasi",
@@ -613,6 +616,15 @@ def render_landing():
         unsafe_allow_html=True,
     )
 
+    st.markdown(
+        f'<div class="kkg-banner"><b>🎞️ {EVENT["waktu"]}</b>'
+        f'<p>{EVENT["tema"]}. Presentasi berisi materi STEM, 6 proyek beserta langkah pembuatannya, '
+        f'daftar alat &amp; bahan yang dibawa, dan Program Supervisi Kepala Sekolah.</p></div>',
+        unsafe_allow_html=True,
+    )
+    if st.button("🎞️ Buka Presentasi KKG 21 Oktober 2026", width="stretch", key="cta_kkg", type="primary"):
+        _goto("kkg")
+
     section("📘", "Gambaran Umum")
     card(f"<p>{OVERVIEW['definisi']}</p><p>{OVERVIEW['pendekatan']}</p>")
     goals = "".join(
@@ -677,7 +689,7 @@ def render_landing():
                 </div>""",
                 unsafe_allow_html=True,
             )
-    with st.expander("👥 Proyek yang dipraktikkan tiap kelompok kelas"):
+    with st.expander("👥 Proyek yang dibuat tiap kelompok kelas"):
         for kk in KELOMPOK_KELAS:
             st.markdown(f"**{kk['kelas']}** ({kk['fase']}) — {kk['modul']}")
     st.markdown(f'<div class="footer-note">Sumber: {EVENT["referensi"]} • {OVERVIEW["referensi"]}</div>',
@@ -691,6 +703,63 @@ def render_landing():
     with c2:
         if st.button("📊 Lihat Progres Gugus", width="stretch", key="cta_progres"):
             _goto("progres")
+
+
+# ============================================================================
+# Halaman: KKG 21 Oktober 2026 (presentasi HTML)
+# ============================================================================
+def render_kkg():
+    import streamlit.components.v1 as components
+
+    # halaman ini lebih lebar agar slide 16:9 terbaca
+    st.markdown("<style>.block-container{max-width:1180px !important}</style>", unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <div class="hero-banner">
+            <div class="hero-eyebrow">🎞️ KKG STEM • {GUGUS['nama']}</div>
+            <div class="hero-title">{EVENT['waktu']}</div>
+            <div class="hero-subtitle">{EVENT['tema']}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    path = umum_path(KKG_HTML)
+    if not path.exists():
+        st.error(f"Berkas presentasi '{KKG_HTML}' tidak ditemukan di docs/umum.")
+        return
+    st.markdown(
+        '<div class="footer-note" style="text-align:left">Klik slide lalu gunakan tombol ◀ ▶ atau panah keyboard. '
+        'Tombol ☰ membuka daftar isi. Untuk layar penuh di proyektor, unduh berkas HTML lalu buka di browser (tekan F).</div>',
+        unsafe_allow_html=True,
+    )
+    if hasattr(st, "iframe"):
+        st.iframe(path, height=640)
+    else:  # Streamlit versi lama
+        components.html(path.read_text(encoding="utf-8"), height=640, scrolling=False)
+    download_btn("⬇️ Unduh Presentasi (HTML) — buka di Chrome/Edge untuk layar penuh", path, "dl_kkg_html")
+
+    c1, c2 = st.columns(2)
+    with c1:
+        section("👥", "Proyek tiap kelompok kelas")
+        st.markdown(
+            '<div class="kkg-list">' + "".join(
+                f'<div class="kkg-item"><b>{kk["kelas"]}</b>{_esc(kk["modul"])}</div>' for kk in KELOMPOK_KELAS
+            ) + "</div>",
+            unsafe_allow_html=True,
+        )
+    with c2:
+        section("🕒", "Rundown")
+        for item in AGENDA:
+            color = PRINSIP_WARNA.get(item["prinsip"], "#9CA3AF")
+            st.markdown(
+                f"""<div class="timeline-item" style="border-left-color:{color}">
+                    <div class="timeline-time">{item['waktu']}</div>
+                    <div class="timeline-activity">{item['kegiatan']}</div>
+                    <div class="timeline-meta">{item['bentuk']} • PJ: {item['penanggung_jawab']}</div>
+                </div>""",
+                unsafe_allow_html=True,
+            )
+    st.markdown(f'<div class="footer-note">Sekolah peserta: {" • ".join(SEKOLAH)}</div>', unsafe_allow_html=True)
 
 
 # ============================================================================
@@ -842,16 +911,20 @@ def render_project_detail(kelas: int, proj: dict):
     identitas = _get_identitas_dict(document) if document else {}
     pertemuan = parse_pertemuan(document) if document else []
 
-    st.markdown(
-        f"""<div class="project-card project-card-active">
-            <span class="project-chip">Kelas {kelas} • {FASE[kelas]} • Semester {proj['smt']}</span>
-            <div class="project-title">{_esc(identitas.get('Judul Proyek', judul))}</div>
-            {f'<div class="project-produk">🎯 <b>Produk akhir:</b> {_esc(proj["produk"])}</div>' if proj["produk"] else ''}
-            {f'<div class="project-produk">⏱️ {_esc(identitas.get("Alokasi Waktu",""))}</div>' if identitas.get("Alokasi Waktu") else ''}
-            {f'<div class="project-produk">🌱 {_esc(identitas.get("Dimensi Profil Lulusan",""))}</div>' if identitas.get("Dimensi Profil Lulusan") else ''}
-        </div>""",
-        unsafe_allow_html=True,
-    )
+    # baris HTML digabung tanpa baris kosong agar Markdown tidak mengubah </div> menjadi blok kode
+    parts = [
+        '<div class="project-card project-card-active">',
+        f'<span class="project-chip">Kelas {kelas} • {FASE[kelas]} • Semester {proj["smt"]}</span>',
+        f'<div class="project-title">{_esc(identitas.get("Judul Proyek", judul))}</div>',
+    ]
+    if proj["produk"]:
+        parts.append(f'<div class="project-produk">🎯 <b>Produk akhir:</b> {_esc(proj["produk"])}</div>')
+    if identitas.get("Alokasi Waktu"):
+        parts.append(f'<div class="project-produk">⏱️ {_esc(identitas["Alokasi Waktu"])}</div>')
+    if identitas.get("Dimensi Profil Lulusan"):
+        parts.append(f'<div class="project-produk">🌱 {_esc(identitas["Dimensi Profil Lulusan"])}</div>')
+    parts.append("</div>")
+    st.markdown("".join(parts), unsafe_allow_html=True)
 
     if auth.get("sekolah"):
         s = get_status(load_progress(), auth["sekolah"], kelas, judul).get("status", "Belum dimulai")
@@ -1435,7 +1508,7 @@ def render_lampiran4(data):
         for r in rows:
             csv.write(";".join(str(v) for v in r.values()) + "\n")
         st.download_button("⬇️ Unduh Rekap (CSV)", csv.getvalue().encode("utf-8-sig"),
-                           file_name="rekap_supervisi_stem_cidugaleun.csv", mime="text/csv", width="stretch")
+                           file_name="rekap_supervisi_stem_puspamukti.csv", mime="text/csv", width="stretch")
     else:
         st.info("Belum ada hasil supervisi yang disimpan.")
 
@@ -1449,7 +1522,7 @@ def render_lampiran4(data):
 def render_supervisi():
     auth = st.session_state.auth
     section("👨‍💼", "Portal Supervisi STEM")
-    lingkup = "seluruh sekolah Gugus Cidugaleun" if auth["role"] == ROLE_PENGURUS else auth["sekolah"]
+    lingkup = f"seluruh sekolah {GUGUS['nama']}" if auth["role"] == ROLE_PENGURUS else auth["sekolah"]
     card(f"<p>Instrumen supervisi pembelajaran STEM berbasis proyek Kelas 1–6 untuk <b>{lingkup}</b>, "
          "dibaca langsung dari dokumen Program Supervisi Kepala Sekolah — STEM.</p>")
     if docx is None:
@@ -1492,6 +1565,7 @@ def main():
         page = "landing"
     {
         "landing": render_landing,
+        "kkg": render_kkg,
         "modul_kelas": render_modul_kelas,
         "panduan": render_panduan,
         "administrasi": render_administrasi,

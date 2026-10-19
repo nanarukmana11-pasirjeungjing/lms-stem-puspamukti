@@ -1,52 +1,55 @@
 # -*- coding: utf-8 -*-
 """
-Konten LMS STEM Gugus Cidugaleun.
+Konten LMS STEM Gugus Puspamukti
+(SDN Puspamukti, SDN Puspasari, SDN 2 Pusparaja, SDN Girilintang, SDN 1 Cigalontang).
 
 Semua teks & data dipisah dari tampilan (app.py) supaya mudah diperbarui.
 
 Sumber dokumen (dibundel di folder docs/ agar aplikasi siap di-deploy):
 - docs/kelas1 .. docs/kelas6 -> Daftar Proyek, Daftar Alat & Bahan, 56 Modul Proyek
   STEM, Panduan Guru Pembuatan Produk, dan template Administrasi STEM (00-06).
-  Rujukan disusun oleh SD Negeri Panglayungan (anggota Gugus Cidugaleun),
-  Tahun Pelajaran 2026/2027, dan dipakai bersama oleh seluruh sekolah gugus.
+  Modul rujukan disusun oleh SD Negeri Panglayungan (Gugus Cidugaleun), Tahun
+  Pelajaran 2026/2027, dan dipakai bersama oleh seluruh sekolah Gugus Puspamukti
+  (identitas sekolah, guru, dan tanggal disesuaikan masing-masing sekolah).
+- docs/umum/Presentasi_STEM_KKG_Gugus_Puspamukti_21_Oktober_2026.html -> bahan
+  KKG 21 Oktober 2026 (materi STEM, proyek & langkah, alat-bahan, supervisi KS).
 - docs/umum -> Program Supervisi Kepala Sekolah STEM, contoh Program Pembelajaran
   STEM sekolah, Instrumen Program STEM, Skenario Kegiatan KKG STEM, dan
   Panduan Pembelajaran STEM Kemendikdasmen 2025 (PDF).
 """
 
-APP_NAMA = "LMS STEM Gugus Cidugaleun"
+APP_NAMA = "LMS STEM Gugus Puspamukti"
 
 GUGUS = {
-    "nama": "Gugus Cidugaleun",
+    "nama": "Gugus Puspamukti",
     "wilayah": "Kecamatan Cigalontang, Kabupaten Tasikmalaya",
     "tahun_pelajaran": "2026/2027",
 }
 
 # Sekolah anggota gugus (urutan sesuai daftar dari pengurus gugus)
 SEKOLAH = [
-    "SDN Parentas",
-    "SDN Sirnagalih",
-    "SDN Karamatjaya",
-    "SDN Cidugaleun",
-    "SDN Panglayungan",
-    "SDN Giriatikan",
+    "SDN Puspamukti",
+    "SDN Puspasari",
+    "SDN 2 Pusparaja",
+    "SDN Girilintang",
+    "SDN 1 Cigalontang",
 ]
 
 # Warna aksen kartu tiap sekolah (dipakai di Beranda & Rekap)
 SEKOLAH_WARNA = {
-    "SDN Parentas": "#2563EB",
-    "SDN Sirnagalih": "#16A34A",
-    "SDN Karamatjaya": "#F59E0B",
-    "SDN Cidugaleun": "#7C3AED",
-    "SDN Panglayungan": "#DB2777",
-    "SDN Giriatikan": "#0EA5E9",
+    "SDN Puspamukti": "#FFD60A",
+    "SDN Puspasari": "#22E06A",
+    "SDN 2 Pusparaja": "#00C2FF",
+    "SDN Girilintang": "#FF8A00",
+    "SDN 1 Cigalontang": "#FF4FD8",
 }
 
-SEKOLAH_PENYUSUN_RUJUKAN = "SDN Panglayungan"
+# Modul rujukan berasal dari SDN Panglayungan (Gugus Cidugaleun) — bukan anggota gugus ini.
+SEKOLAH_PENYUSUN_RUJUKAN = "SDN Panglayungan (Gugus Cidugaleun)"
 
 OVERVIEW = {
     "judul": "Pembelajaran STEM Berbasis Proyek",
-    "subjudul": "Kelas 1–6 • 6 Sekolah • Tahun Pelajaran 2026/2027",
+    "subjudul": "Kelas 1–6 • 5 Sekolah • Tahun Pelajaran 2026/2027",
     "definisi": (
         "Pembelajaran STEM (Sains, Teknologi, Enjinering, Matematika) adalah pembelajaran yang "
         "mengintegrasikan berbagai mata pelajaran — <b>tidak hanya IPA dan Matematika</b> — serta "
@@ -70,7 +73,7 @@ OVERVIEW = {
         "Menyediakan bank modul proyek STEM Kelas 1–6 (56 proyek) yang memuat seluruh komponen Tabel 10 Panduan STEM",
         "Memudahkan guru menjalankan 7 tahap praktik saintifik dan enjinering per pertemuan, lengkap dengan kriteria & batasan proyek",
         "Menyediakan template administrasi dan asesmen autentik pembelajaran STEM",
-        "Memantau keterlaksanaan proyek dan supervisi STEM di 6 sekolah dalam satu dasbor gugus",
+        "Memantau keterlaksanaan proyek dan supervisi STEM di 5 sekolah dalam satu dasbor gugus",
     ],
     "referensi": "Panduan Pembelajaran STEM, Pusat Kurikulum dan Pembelajaran, Kemendikdasmen 2025",
 }
@@ -210,15 +213,18 @@ PROFIL_LULUSAN = [
 
 FASE = {1: "Fase A", 2: "Fase A", 3: "Fase B", 4: "Fase B", 5: "Fase C", 6: "Fase C"}
 
-# Skenario pertemuan KKG STEM (rujukan rundown — tanggal ditetapkan pengurus gugus)
+# Pertemuan KKG STEM Gugus Puspamukti — Rabu, 21 Oktober 2026
 EVENT = {
-    "nama": "Pertemuan KKG STEM Gugus Cidugaleun",
-    "tema": "Penerapan Modul Proyek STEM Kelas 1–6: Praktik Saintifik–Enjinering, Pengalaman Belajar (Memahami–Mengaplikasi–Merefleksi), dan Prinsip Pembelajaran Mendalam",
-    "waktu": "07.30 – 12.10 WIB (tanggal ditetapkan pengurus KKG gugus)",
-    "sasaran": "Guru Kelas 1–6 dan Kepala Sekolah dari 6 SD anggota Gugus Cidugaleun",
-    "kelompok": "6 kelompok kelas lintas sekolah (Kelas 1 s.d. Kelas 6)",
-    "referensi": "Skenario Kegiatan KKG STEM (docs/umum/Skenario_Kegiatan_KKG_STEM_Rujukan.docx)",
+    "nama": "KKG STEM Gugus Puspamukti",
+    "tema": "Membuat Contoh Produk Proyek STEM Kelas 1–6 (7 Tahap Praktik Saintifik–Enjinering) dan Program Supervisi Kepala Sekolah",
+    "waktu": "Rabu, 21 Oktober 2026 • 07.30 – 12.10 WIB",
+    "sasaran": "Guru Kelas 1–6 dan Kepala Sekolah dari 5 SD anggota Gugus Puspamukti",
+    "kelompok": "6 kelompok kelas lintas sekolah (5 guru, 2 tim) + 1 kelompok kepala sekolah",
+    "referensi": "Presentasi KKG STEM 21 Oktober 2026 (menu 🎞️ KKG) & Skenario Kegiatan KKG STEM",
 }
+
+# Berkas presentasi HTML KKG (docs/umum)
+KKG_HTML = "Presentasi_STEM_KKG_Gugus_Puspamukti_21_Oktober_2026.html"
 
 PRINSIP_WARNA = {
     "Berkesadaran": "#2563EB",
@@ -237,28 +243,28 @@ PENGALAMAN_WARNA = {
 AGENDA = [
     {"waktu": "07.30–08.00", "kegiatan": "Registrasi & Pembukaan",
      "bentuk": "Pleno", "penanggung_jawab": "Ketua KKG Gugus", "prinsip": "Berkesadaran"},
-    {"waktu": "08.00–08.20", "kegiatan": "Paparan Umum: STEM PjBL, Kalender Pendidikan, Daftar Alat & Bahan",
-     "bentuk": "Pleno", "penanggung_jawab": "Ketua KKG / Narasumber", "prinsip": "Bermakna"},
-    {"waktu": "08.20–08.30", "kegiatan": "Pembentukan Kelompok Kelas Lintas Sekolah",
+    {"waktu": "08.00–08.20", "kegiatan": "Paparan: STEM PjBL, daftar proyek, alat & bahan, program supervisi",
+     "bentuk": "Pleno", "penanggung_jawab": "Narasumber / Pengawas", "prinsip": "Bermakna"},
+    {"waktu": "08.20–08.30", "kegiatan": "Pembentukan 6 kelompok kelas + 1 kelompok kepala sekolah",
      "bentuk": "Transisi", "penanggung_jawab": "Panitia", "prinsip": "—"},
-    {"waktu": "08.30–11.15", "kegiatan": "Sesi Kelompok Kelas — Memahami, Mengaplikasi, Merefleksi (6 kelas paralel)",
-     "bentuk": "Kelompok (6 kelas)", "penanggung_jawab": "Fasilitator per kelas", "prinsip": "3M Lengkap"},
-    {"waktu": "11.15–11.45", "kegiatan": "Berbagi Hasil Antarkelompok (Gallery Walk)",
+    {"waktu": "08.30–11.15", "kegiatan": "Guru: membuat contoh produk proyek (7 tahap). Kepala sekolah: kajian & latihan instrumen supervisi",
+     "bentuk": "Kelompok paralel", "penanggung_jawab": "Fasilitator kelas & Pengawas", "prinsip": "3M Lengkap"},
+    {"waktu": "11.15–11.45", "kegiatan": "Gallery Walk 6 contoh produk + umpan balik kepala sekolah",
      "bentuk": "Pleno", "penanggung_jawab": "Perwakilan tiap kelompok", "prinsip": "Bermakna"},
-    {"waktu": "11.45–12.00", "kegiatan": "Refleksi Bersama & Rencana Tindak Lanjut (RTL) per Sekolah",
+    {"waktu": "11.45–12.00", "kegiatan": "Refleksi, RTL per sekolah & penetapan jadwal supervisi",
      "bentuk": "Pleno", "penanggung_jawab": "Ketua KKG Gugus", "prinsip": "Berkesadaran"},
     {"waktu": "12.00–12.10", "kegiatan": "Penutup",
      "bentuk": "Pleno", "penanggung_jawab": "Ketua KKG Gugus", "prinsip": "Menggembirakan"},
 ]
 
-# Proyek yang dipraktikkan pada sesi kelompok KKG (sesuai Skenario rujukan)
+# Proyek yang dibuat tiap kelompok kelas pada KKG 21 Oktober 2026
 KELOMPOK_KELAS = [
-    {"kelas": "Kelas 1", "modul": "Berhitung Asyik dengan Benda Kesayangan", "fase": "Fase A"},
-    {"kelas": "Kelas 2", "modul": "Menara Bentuk: Membangun dari Bangun Ruang", "fase": "Fase A"},
-    {"kelas": "Kelas 3", "modul": "Es Krim Kantong Ajaib: Mengamati Perubahan Wujud", "fase": "Fase B"},
-    {"kelas": "Kelas 4", "modul": "Zat Ajaib: Mengamati Perubahan Wujud di Sekitar Kita", "fase": "Fase B"},
-    {"kelas": "Kelas 5", "modul": "Detektif Zat: Memisahkan Campuran di Sekitar Kita", "fase": "Fase C"},
-    {"kelas": "Kelas 6", "modul": "Kompas dan Peta Harta Karun", "fase": "Fase C"},
+    {"kelas": "Kelas 1", "modul": "Ayo Mengukur Tanpa Penggaris!", "fase": "Fase A"},
+    {"kelas": "Kelas 2", "modul": "Rumah Pola: Motif Berulang pada Dinding Rumah Mainan", "fase": "Fase A"},
+    {"kelas": "Kelas 3", "modul": "Lampu Senter Sederhana: Mengenal Sumber Energi", "fase": "Fase B"},
+    {"kelas": "Kelas 4", "modul": "Peta Kampungku: Mengenal Letak Wilayah Tempat Tinggal", "fase": "Fase B"},
+    {"kelas": "Kelas 5", "modul": "Sahabat Bumi: Siklus Air dan Konservasi Lingkungan", "fase": "Fase C"},
+    {"kelas": "Kelas 6", "modul": "Peta Timbul Wilayah Indonesia", "fase": "Fase C"},
 ]
 
 # Template administrasi pembelajaran STEM per kelas (berkas berawalan 00_..06_)
@@ -276,14 +282,16 @@ ADMIN_DOCS = [
 DOKUMEN_UMUM = [
     ("📕", "Panduan Pembelajaran STEM — Kemendikdasmen 2025", "Panduan_Pembelajaran_STEM_Kemendikdasmen_2025.pdf",
      "Acuan resmi: karakteristik STEM, 7 tahap praktik saintifik & enjinering, komponen perencanaan (Tabel 10), dan asesmen."),
+    ("🎞️", "Presentasi KKG STEM — Rabu, 21 Oktober 2026", KKG_HTML,
+     "Slide HTML: materi STEM, 6 proyek & langkah pembuatan, alat & bahan yang dibawa, dan Program Supervisi Kepala Sekolah."),
     ("🏫", "Contoh Program Pembelajaran STEM Sekolah 2026/2027", "Contoh_Program_Pembelajaran_STEM_Sekolah_2026-2027.docx",
-     "Program STEM tingkat sekolah (disusun SDN Panglayungan) — dapat diadaptasi tiap sekolah gugus."),
+     "Contoh program STEM tingkat sekolah (rujukan SDN Panglayungan) — diadaptasi tiap sekolah Gugus Puspamukti."),
     ("🧾", "Instrumen Program STEM 2026/2027", "Instrumen_Program_STEM_2026-2027.docx",
      "Instrumen pemantauan & evaluasi keterlaksanaan program STEM sekolah."),
     ("👨‍💼", "Program Supervisi Kepala Sekolah — STEM", "Program_Supervisi_Kepala_Sekolah_STEM.docx",
      "Instrumen observasi kelas, telaah modul, tindak lanjut, dan rekap supervisi (dipakai di Portal Supervisi)."),
     ("🤝", "Skenario Kegiatan KKG STEM (Rujukan)", "Skenario_Kegiatan_KKG_STEM_Rujukan.docx",
-     "Rundown & skenario sesi kelompok kelas (Memahami–Mengaplikasi–Merefleksi) untuk pertemuan KKG gugus."),
+     "Skenario sesi kelompok kelas (Memahami–Mengaplikasi–Merefleksi) untuk pertemuan KKG gugus."),
 ]
 
 SUPERVISI_FILE = "Program_Supervisi_Kepala_Sekolah_STEM.docx"
