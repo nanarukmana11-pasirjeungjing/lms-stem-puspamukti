@@ -1,0 +1,700 @@
+/* ============================================================
+   Mobile-first styling untuk LMS STEM Gugus Cidugaleun
+   Prinsip: satu kolom, kartu besar, tombol besar, kontras tinggi
+   ============================================================ */
+
+:root {
+    --primary: #2563EB;
+    --primary-dark: #1D4ED8;
+    --accent: #F59E0B;
+    --success: #16A34A;
+    --bg-soft: #F5F7FB;
+    --text-dark: #1F2937;
+    --text-muted: #6B7280;
+    --radius: 18px;
+}
+
+/* Batasi lebar konten agar tampak seperti layar HP, bahkan di desktop */
+.block-container {
+    max-width: 480px;
+    padding-top: 1rem !important;
+    padding-bottom: 6rem !important;
+    margin: 0 auto;
+}
+
+/* Sembunyikan menu/footer bawaan Streamlit agar tampilan bersih */
+#MainMenu, footer, header {visibility: hidden;}
+
+/* ---------- Hero / Header ---------- */
+.hero-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    color: white;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+.hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 6px;
+}
+.hero-title {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 4px 0;
+}
+.hero-subtitle {
+    font-size: 14px;
+    opacity: 0.92;
+    margin: 0;
+}
+
+/* ---------- Section heading ---------- */
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 22px 0 10px 0;
+}
+.section-title .icon { font-size: 18px; }
+
+/* ---------- Kartu umum ---------- */
+.card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+    margin-bottom: 12px;
+    border: 1px solid #EEF1F6;
+}
+.card p { margin: 0 0 8px 0; color: var(--text-dark); font-size: 14px; line-height: 1.55; }
+.card p:last-child { margin-bottom: 0; }
+
+/* ---------- Info kegiatan (identitas) ---------- */
+.info-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 10px;
+    font-size: 13.5px;
+}
+.info-grid .label { color: var(--text-muted); }
+.info-grid .value { color: var(--text-dark); font-weight: 600; }
+
+/* ---------- Chip tujuan ---------- */
+.goal-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+.goal-item:last-child { margin-bottom: 0; }
+.goal-bullet {
+    flex: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* ---------- Timeline (Lini Masa) ---------- */
+.timeline-item {
+    position: relative;
+    padding: 10px 14px 10px 16px;
+    border-left: 4px solid var(--primary);
+    background: white;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 6px rgba(15, 23, 42, 0.05);
+}
+.timeline-time {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 2px;
+}
+.timeline-activity {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.4;
+}
+.timeline-meta {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+.badge {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    color: white;
+    margin-top: 4px;
+}
+
+/* ---------- Tombol besar utama ---------- */
+div.stButton > button {
+    width: 100%;
+    padding: 16px 20px !important;
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    border-radius: 16px !important;
+    border: none !important;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+    color: white !important;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35) !important;
+    transition: transform 0.15s ease;
+}
+div.stButton > button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+}
+
+.footer-note {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+/* ---------- Menu navigasi Kelas 1-6 (kompak, ramah HP) ---------- */
+.st-key-kelas-menu div.stButton > button {
+    width: 100% !important;
+    padding: 8px 2px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+.st-key-kelas-menu div.stButton > button:hover {
+    transform: none !important;
+}
+.kelas-chip {
+    background: #EEF2FF;
+    color: var(--primary-dark);
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 10px 0 4px 0;
+}
+
+/* ---------- Kartu & tombol Buku Cerita (Storybook) ---------- */
+.storybook-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #FDF4FF 0%, #FCE7F3 100%);
+    border: 1px solid #F5D0FE;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin: 10px 0 6px 0;
+}
+.storybook-icon {
+    flex: none;
+    width: 38px; height: 38px;
+    border-radius: 12px;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px;
+    box-shadow: 0 2px 6px rgba(219, 39, 119, 0.15);
+}
+.storybook-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #9D174D;
+}
+.storybook-sub {
+    font-size: 11.5px;
+    color: #A21CAF;
+    line-height: 1.4;
+    margin-top: 1px;
+}
+div[data-testid="stLinkButton"] > a {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    border-radius: 14px !important;
+    border: none !important;
+    background: linear-gradient(135deg, #DB2777 0%, #9D174D 100%) !important;
+    color: white !important;
+    box-shadow: 0 8px 18px rgba(219, 39, 119, 0.3) !important;
+    margin-bottom: 12px;
+    transition: transform 0.15s ease;
+}
+div[data-testid="stLinkButton"] > a:hover {
+    transform: translateY(-2px);
+    color: white !important;
+}
+
+/* ---------- Kartu Proyek STEM per kelas ---------- */
+.project-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #EEF1F6;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+.project-chip {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #EEF2FF;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+}
+.project-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.4;
+}
+.project-produk {
+    font-size: 12.5px;
+    color: var(--text-dark);
+    background: #FFFBEB;
+    border-left: 3px solid var(--accent);
+    padding: 6px 10px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+.project-produk b { color: #92400E; }
+
+/* ---------- Jadwal pelaksanaan per pertemuan ---------- */
+.pertemuan-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+.pertemuan-chip {
+    background: #ECFDF5;
+    border-left: 3px solid var(--success);
+    color: #065F46;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 0 8px 8px 0;
+    line-height: 1.5;
+}
+.pertemuan-chip b { color: #047857; }
+.pertemuan-chip-generic {
+    background: #FFFBEB;
+    border-left: 3px dashed var(--accent);
+    color: #92400E;
+}
+.pertemuan-chip-generic b { color: #92400E; }
+.pertemuan-note {
+    background: #F1F5F9;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+/* ---------- Menu pilih pertemuan (P1, P2, ...) ---------- */
+div[class*="st-key-pert_menu_"] div.stButton > button {
+    width: 100% !important;
+    padding: 6px 2px !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+div[class*="st-key-pert_menu_"] div.stButton > button:hover { transform: none !important; }
+
+/* ---------- Kartu uraian detail satu pertemuan ---------- */
+.pert-detail-card {
+    background: #F8FAFC;
+    border: 1px solid #EEF1F6;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin: 10px 0 8px 0;
+}
+.pert-detail-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 4px;
+}
+.pert-detail-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.4;
+}
+.pert-detail-jp {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+.pert-perkiraan-tag {
+    background: #FEF3C7;
+    color: #92400E;
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 999px;
+    vertical-align: middle;
+}
+
+.pert-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+.pert-badge {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 4px 9px;
+    border-radius: 999px;
+    border: 1px solid #E2E8F0;
+    background: #F1F5F9;
+    color: var(--text-dark);
+}
+.pert-badge-tahap {
+    background: #EEF2FF;
+    color: var(--primary-dark);
+    border-color: #C7D2FE;
+}
+
+.pert-section-label {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin: 10px 0 4px 0;
+}
+.pert-list {
+    margin: 0 0 4px 0;
+    padding-left: 18px;
+}
+.pert-list li {
+    font-size: 12.5px;
+    color: var(--text-dark);
+    line-height: 1.55;
+    margin-bottom: 5px;
+}
+.pert-list li:last-child { margin-bottom: 0; }
+
+/* Expander & uploader sedikit dirapikan untuk layar sempit */
+div[data-testid="stExpander"] { border-radius: 12px !important; }
+div[data-testid="stFileUploaderDropzone"] { border-radius: 14px !important; }
+
+/* ---------- Menu navigasi utama (Beranda / Modul Kelas / Supervisi) ---------- */
+.st-key-top-nav {
+    background: #F1F5F9;
+    padding: 6px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+}
+.st-key-top-nav div[role="radiogroup"] {
+    display: flex;
+    gap: 4px;
+    flex-wrap: nowrap;
+}
+.st-key-top-nav div[role="radiogroup"] label {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    padding: 8px 2px !important;
+    border-radius: 10px !important;
+    margin: 0 !important;
+    background: transparent;
+}
+.st-key-top-nav div[role="radiogroup"] label:has(input:checked) {
+    background: white;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+    color: var(--primary-dark) !important;
+}
+
+/* ---------- Instrumen Supervisi ---------- */
+.skala-note {
+    background: #EEF2FF;
+    color: var(--primary-dark);
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+.instrumen-card {
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #EEF1F6;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+.instrumen-kategori {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+}
+.instrumen-list {
+    margin: 0;
+    padding-left: 18px;
+}
+.instrumen-list li {
+    font-size: 12.5px;
+    color: var(--text-dark);
+    line-height: 1.55;
+    margin-bottom: 6px;
+}
+.instrumen-list li:last-child { margin-bottom: 0; }
+
+.indikator-text {
+    font-size: 12.5px;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin: 6px 0 4px 0;
+}
+
+/* ---------- Chip pengguna login (top nav) ---------- */
+.user-chip {
+    background: #EEF2FF;
+    color: var(--primary-dark);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 8px 6px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+div[data-testid="column"]:has(.user-chip) div.stButton > button {
+    padding: 6px 4px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    background: white !important;
+    color: var(--text-muted) !important;
+    border: 1.5px solid #E2E8F0 !important;
+}
+
+/* ---------- Menu tab Lampiran (Portal Supervisi) ---------- */
+.st-key-lampiran-menu div.stButton > button {
+    width: 100% !important;
+    padding: 8px 2px !important;
+    font-size: 10.5px !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    transform: none !important;
+    white-space: normal !important;
+    line-height: 1.3 !important;
+}
+.st-key-lampiran-menu div.stButton > button:hover { transform: none !important; }
+
+/* ---------- Isi dokumen generik (Modul Proyek & Panduan Guru) ---------- */
+.doc-heading {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin: 14px 0 6px 0;
+}
+.doc-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 8px 0 4px 0;
+}
+.doc-text {
+    font-size: 12.5px;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+.doc-caption {
+    font-size: 11px;
+    font-style: italic;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.5;
+    margin: -4px 0 14px 0;
+}
+.doc-table-card {
+    background: #F8FAFC;
+    border: 1px solid #EEF1F6;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+}
+.doc-kv {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+    border-bottom: 1px dashed #E2E8F0;
+}
+.doc-kv:last-child { border-bottom: none; }
+.doc-k {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+.doc-v {
+    font-size: 12px;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+.tip-box {
+    background: #FFFBEB;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #78350F;
+    line-height: 1.55;
+    margin-bottom: 10px;
+}
+.worksheet-note {
+    background: #F1F5F9;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+/* ============================================================
+   Tambahan LMS STEM Gugus Cidugaleun
+   ============================================================ */
+.block-container { max-width: 760px; }
+.hero-banner { background: linear-gradient(135deg, #0F766E 0%, #2563EB 55%, #7C3AED 100%); }
+.st-key-top-nav div[role="radiogroup"] { flex-wrap: wrap; }
+.st-key-top-nav div[role="radiogroup"] label { min-width: 88px; }
+.user-chip { text-align: left; font-size: 12px; padding: 9px 12px; }
+.muted { color: var(--text-muted) !important; font-size: 13px !important; }
+
+[class*="st-key-kelas-menu"] div.stButton > button,
+[class*="st-key-pert-menu"] div.stButton > button,
+.st-key-lampiran-menu div.stButton > button {
+    padding: 6px 2px !important; font-size: 13px !important; font-weight: 700 !important;
+    border-radius: 10px !important; min-height: 0 !important;
+}
+
+/* Statistik */
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 6px; }
+.stat { background: white; border: 1px solid #EEF1F6; border-radius: 14px; padding: 12px 6px; text-align: center;
+        box-shadow: 0 2px 8px rgba(15,23,42,.05); }
+.stat-num { font-size: 22px; font-weight: 800; color: var(--primary-dark); line-height: 1.1; }
+.stat-lbl { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* Siklus enjinering */
+.siklus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+.siklus-tile { background: white; border: 1px solid #EEF1F6; border-top: 4px solid #0F766E; border-radius: 12px;
+               padding: 10px; }
+.siklus-head { font-weight: 800; font-size: 13px; color: #0F766E; margin-bottom: 4px; }
+.siklus-body { font-size: 12px; color: var(--text-dark); line-height: 1.45; }
+.siklus-fase { font-size: 11px; color: var(--text-muted); margin-top: 6px; font-style: italic; }
+
+/* Sekolah */
+.school-chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.school-chip { border: 1.5px solid; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700;
+               background: white; }
+.school-card { background: white; border: 1px solid #EEF1F6; border-left: 5px solid; border-radius: 12px;
+               padding: 10px 14px; margin-bottom: 8px; }
+.school-name { font-weight: 800; font-size: 14px; color: var(--text-dark); }
+.school-tag { font-weight: 500; font-size: 11.5px; color: var(--text-muted); }
+.school-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 4px; }
+.bar { height: 8px; background: #EEF1F6; border-radius: 999px; overflow: hidden; margin-top: 6px; }
+.bar-fill { height: 100%; border-radius: 999px; }
+
+/* Daftar proyek ringkas */
+.proj-list { background: white; border: 1px solid #EEF1F6; border-radius: 14px; padding: 6px 10px; margin-bottom: 6px; }
+.proj-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px dashed #E2E8F0;
+            font-size: 13px; color: var(--text-dark); }
+.proj-row:last-child { border-bottom: none; }
+.proj-smt { flex: none; font-size: 10.5px; font-weight: 800; color: white; background: var(--primary);
+            border-radius: 6px; padding: 2px 6px; }
+.dot { flex: none; width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.project-card-active { border: 2px solid var(--primary) !important; }
+.status-pill { display: inline-block; border: 1px solid; border-radius: 999px; padding: 4px 12px; font-size: 12px;
+               margin: 0 0 10px 0; }
+
+/* Dokumen */
+.doc-row { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 600; color: var(--text-dark);
+           padding: 8px 0; }
+.doc-code { flex: none; width: 30px; text-align: center; font-size: 11px; font-weight: 800; color: white;
+            background: #0F766E; border-radius: 8px; padding: 3px 0; }
+.doc-bullet { font-size: 12.5px; color: var(--text-dark); line-height: 1.55; padding-left: 10px; margin-bottom: 4px; }
+
+@media (max-width: 560px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .siklus-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Menu tombol kelas/pertemuan/lampiran tetap satu baris di HP */
+[class*="st-key-kelas-menu"] [data-testid="stHorizontalBlock"],
+[class*="st-key-pert-menu"] [data-testid="stHorizontalBlock"],
+.st-key-lampiran-menu [data-testid="stHorizontalBlock"] { flex-wrap: nowrap !important; gap: 6px !important; }
+[class*="st-key-kelas-menu"] [data-testid="stColumn"],
+[class*="st-key-pert-menu"] [data-testid="stColumn"],
+.st-key-lampiran-menu [data-testid="stColumn"] { min-width: 0 !important; width: auto !important; flex: 1 1 0 !important; }
+
+/* Tombol sekunder (tidak terpilih) berwarna putih */
+div.stButton > button[data-testid="stBaseButton-secondary"] {
+    background: white !important; color: var(--primary-dark) !important;
+    border: 1.5px solid #DBE3F0 !important; box-shadow: none !important;
+}
+div.stButton > button[data-testid="stBaseButton-secondary"]:hover { background: #EEF2FF !important; transform: none !important; }
+
+/* Tombol keluar kecil */
+.st-key-btn_logout div.stButton > button {
+    padding: 8px 6px !important; font-size: 12px !important; border-radius: 10px !important;
+    background: white !important; color: #B91C1C !important; border: 1.5px solid #FECACA !important;
+    box-shadow: none !important;
+}
+/* Sembunyikan lingkaran radio pada menu atas */
+.st-key-top-nav label[data-testid="stRadioOption"] > div > div:not([data-testid="stMarkdownContainer"]) { display: none !important; }
+
+/* Tombol unduh lebih ramping */
+div.stDownloadButton > button { padding: 8px 12px !important; font-size: 13px !important; border-radius: 10px !important; }
+
+/* Panduan STEM */
+.tahap-flow { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.tahap-step { background: white; border: 1px solid #DBE3F0; border-radius: 999px; padding: 5px 12px 5px 5px;
+              font-size: 12.5px; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 6px; }
+.tahap-no { width: 22px; height: 22px; border-radius: 50%; background: #0F766E; color: white; font-size: 11px;
+            display: inline-flex; align-items: center; justify-content: center; }
+.tahap-loop { font-size: 12px; color: #0F766E; font-weight: 700; padding: 6px 4px; }
+.tantangan-card { background: #F0FDFA; border: 1px solid #99F6E4; border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; }
+.tantangan-title { font-weight: 800; color: #0F766E; font-size: 13.5px; margin-bottom: 6px; }
+.tantangan-sub { font-weight: 700; font-size: 12.5px; color: var(--text-dark); margin-top: 6px; }
+.tantangan-text { font-size: 12.5px; line-height: 1.55; color: var(--text-dark); }
+.tantangan-card ul { margin: 2px 0 0 0; padding-left: 18px; font-size: 12.5px; }
+.cek-row { font-size: 13px; padding: 3px 0; color: var(--text-dark); }
