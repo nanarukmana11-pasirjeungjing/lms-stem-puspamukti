@@ -283,7 +283,7 @@ DOKUMEN_UMUM = [
     ("📕", "Panduan Pembelajaran STEM — Kemendikdasmen 2025", "Panduan_Pembelajaran_STEM_Kemendikdasmen_2025.pdf",
      "Acuan resmi: karakteristik STEM, 7 tahap praktik saintifik & enjinering, komponen perencanaan (Tabel 10), dan asesmen."),
     ("🎞️", "Presentasi KKG STEM — Rabu, 21 Oktober 2026", KKG_HTML,
-     "Slide HTML: materi STEM, 6 proyek & langkah pembuatan, alat & bahan yang dibawa, dan Program Supervisi Kepala Sekolah."),
+     "Slide HTML: materi STEM, 6 proyek & langkah pembuatan, alat & bahan yang dibawa (slide Supervisi KS khusus akun Kepala Sekolah/Pengurus)."),
     ("🏫", "Contoh Program Pembelajaran STEM Sekolah 2026/2027", "Contoh_Program_Pembelajaran_STEM_Sekolah_2026-2027.docx",
      "Contoh program STEM tingkat sekolah (rujukan SDN Panglayungan) — diadaptasi tiap sekolah Gugus Puspamukti."),
     ("🧾", "Instrumen Program STEM 2026/2027", "Instrumen_Program_STEM_2026-2027.docx",
@@ -295,6 +295,28 @@ DOKUMEN_UMUM = [
 ]
 
 SUPERVISI_FILE = "Program_Supervisi_Kepala_Sekolah_STEM.docx"
+
+# Dokumen yang hanya tampil/bisa diunduh oleh Kepala Sekolah & Pengurus KKG/Pengawas
+DOKUMEN_KHUSUS_PIMPINAN = {SUPERVISI_FILE}
+
+# Dokumen KKG 21 Oktober 2026 (folder docs/umum/kkg_21_oktober_2026)
+KKG_DIR = "kkg_21_oktober_2026"
+KKG_DOCS = [
+    ("🧰", "Daftar Alat dan Bahan KKG STEM (Word)", "Daftar_Alat_dan_Bahan_KKG_STEM_21_Oktober_2026.docx"),
+    ("🧰", "Daftar Alat dan Bahan KKG STEM (PDF)", "Daftar_Alat_dan_Bahan_KKG_STEM_21_Oktober_2026.pdf"),
+    ("K1", "Langkah Pembuatan Proyek — Ayo Mengukur (Word)", "Langkah_Pembuatan_Proyek_STEM_Kelas1_Ayo_Mengukur.docx"),
+    ("K1", "Langkah Pembuatan Proyek — Ayo Mengukur (PDF)", "Langkah_Pembuatan_Proyek_STEM_Kelas1_Ayo_Mengukur.pdf"),
+    ("K2", "Langkah Pembuatan Proyek — Rumah Pola (Word)", "Langkah_Pembuatan_Proyek_STEM_Kelas2_Rumah_Pola.docx"),
+    ("K2", "Langkah Pembuatan Proyek — Rumah Pola (PDF)", "Langkah_Pembuatan_Proyek_STEM_Kelas2_Rumah_Pola.pdf"),
+    ("K3", "Langkah Pembuatan Proyek — Lampu Senter (Word)", "Langkah_Pembuatan_Proyek_STEM_Kelas3_Lampu_Senter.docx"),
+    ("K3", "Langkah Pembuatan Proyek — Lampu Senter (PDF)", "Langkah_Pembuatan_Proyek_STEM_Kelas3_Lampu_Senter.pdf"),
+    ("K4", "Langkah Pembuatan Proyek — Peta Kampungku (Word)", "Langkah_Pembuatan_Proyek_STEM_Kelas4_Peta_Kampungku.docx"),
+    ("K4", "Langkah Pembuatan Proyek — Peta Kampungku (PDF)", "Langkah_Pembuatan_Proyek_STEM_Kelas4_Peta_Kampungku.pdf"),
+    ("K5", "Langkah Pembuatan Proyek — Sahabat Bumi (Word)", "Langkah_Pembuatan_Proyek_STEM_Kelas5_Sahabat_Bumi.docx"),
+    ("K5", "Langkah Pembuatan Proyek — Sahabat Bumi (PDF)", "Langkah_Pembuatan_Proyek_STEM_Kelas5_Sahabat_Bumi.pdf"),
+    ("K6", "Langkah Pembuatan Proyek — Peta Timbul (Word)", "Langkah_Pembuatan_Proyek_STEM_Kelas6_Peta_Timbul.docx"),
+    ("K6", "Langkah Pembuatan Proyek — Peta Timbul (PDF)", "Langkah_Pembuatan_Proyek_STEM_Kelas6_Peta_Timbul.pdf"),
+]
 
 # Tautan Storybook (Gemini) yang sudah dibuat untuk sebagian proyek
 STORYBOOK_LINKS = {
@@ -318,6 +340,7 @@ LAMPIRAN_TABS = {
     "✅ Telaah": "lampiran2",
     "🤝 Tindak Lanjut": "lampiran3",
     "📊 Rekap": "lampiran4",
+    "📑 Unduh": "unduh",
 }
 
 # Peta kelas -> berkas Daftar Proyek, Daftar Alat & Bahan, dan pasangan

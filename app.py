@@ -22,7 +22,10 @@ Menu:
     📚 Modul Kelas   — 56 proyek STEM Kelas 1–6 + uraian per pertemuan
     🗂️ Administrasi  — template administrasi STEM per kelas & dokumen gugus
     📊 Progres Gugus — status proyek tiap sekolah, unggah bukti, galeri
-    👨‍💼 Supervisi     — instrumen supervisi STEM (Kepala Sekolah & Pengurus)
+    📝 LKPD          — Lembar Kerja Peserta Didik tiap proyek + peta pemakaian per pertemuan
+    ⬇️ Unduh         — pusat unduhan: modul, LKPD, panduan, administrasi, dokumen KKG (ZIP)
+    👨‍💼 Supervisi KS  — instrumen supervisi STEM (HANYA Kepala Sekolah & Pengurus;
+                       tidak tampil untuk Guru Kelas, termasuk slide supervisi di presentasi KKG)
 """
 
 import datetime
@@ -67,6 +70,18 @@ from data.content import (
     LAMPIRAN_TABS,
     KELAS_DATA,
     KKG_HTML,
+    KKG_DIR,
+    KKG_DOCS,
+    DOKUMEN_KHUSUS_PIMPINAN,
+)
+from dokumen_tools import (
+    ekstrak_lkpd_docx,
+    bagian_lkpd,
+    peta_lkpd_pertemuan,
+    pertemuan_pakai_lkpd,
+    hasil_supervisi_docx,
+    html_tanpa_supervisi,
+    buat_zip,
 )
 
 try:
@@ -87,6 +102,7 @@ STORAGE_DIR = APP_DIR / "storage"
 UPLOAD_DIR = STORAGE_DIR / "uploads"
 PROGRESS_FILE = STORAGE_DIR / "progres_proyek.json"
 SUPERVISI_LOG = STORAGE_DIR / "hasil_supervisi.json"
+KKG_DIR_PATH = DOCS_DIR / "umum" / KKG_DIR
 
 ROLE_GURU, ROLE_KS, ROLE_PENGURUS = ROLES
 IMG_EXT = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
@@ -132,6 +148,12 @@ def card(html: str):
 def _goto(page_key: str):
     st.session_state.page = page_key
     st.rerun()
+
+
+def is_pimpinan() -> bool:
+    """Kepala Sekolah atau Pengurus KKG/Pengawas (boleh melihat menu & dokumen supervisi)."""
+    auth = st.session_state.get("auth") or {}
+    return auth.get("role") in (ROLE_KS, ROLE_PENGURUS)
 
 
 def kelas_dir(kelas: int) -> Path:
@@ -486,12 +508,106 @@ def get_projects(kelas: int):
     return load_class_projects(kelas, _mtime(path))
 
 
+MIME_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+MIME_MAP = {".pdf": "application/pdf", ".html": "text/html", ".zip": "application/zip",
+            ".csv": "text/csv", ".docx": MIME_DOCX}
+
+
 def download_btn(label: str, path: Path, key: str):
+    """Tombol unduh berkas di disk. Isi berkas baru dibaca saat tombol diklik (hemat memori)."""
     if path.exists():
-        mime = {".pdf": "application/pdf", ".html": "text/html"}.get(
-            path.suffix.lower(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-        st.download_button(label, data=path.read_bytes(), file_name=path.name, mime=mime,
-                           width="stretch", key=key)
+        st.download_button(label, data=lambda p=path: p.read_bytes(), file_name=path.name,
+                           mime=MIME_MAP.get(path.suffix.lower(), MIME_DOCX), width="stretch", key=key)
+    else:
+        st.caption(f"⚠️ Berkas {path.name} belum tersedia.")
+
+
+def download_data(label: str, data, file_name: str, key: str):
+    """Tombol unduh untuk isi yang dibuat aplikasi (bytes atau fungsi tanpa argumen)."""
+    st.download_button(label, data=data, file_name=file_name,
+                       mime=MIME_MAP.get(Path(file_name).suffix.lower(), "application/octet-stream"),
+                       width="stretch", key=key)
+
+
+# ----------------------------------------------------------------------------
+# LKPD (Lembar Kerja Peserta Didik) — diambil dari bagian LKPD tiap Modul Proyek
+# ----------------------------------------------------------------------------
+def modul_path_of(kelas: int, judul: str):
+    info = KELAS_DATA[kelas]["proyek"].get(judul, {})
+    return kelas_dir(kelas) / info["modul"] if info.get("modul") else None
+
+
+def lkpd_filename(kelas: int, judul: str) -> str:
+    mp = modul_path_of(kelas, judul)
+    stem = mp.stem.replace("Modul_Proyek_STEM_", "") if mp else _slug(judul)
+    if f"Kelas{kelas}" not in stem:
+        stem += f"_Kelas{kelas}"
+    return f"LKPD_{stem}.docx"
+
+
+@st.cache_data(show_spinner="Menyiapkan LKPD...")
+def _lkpd_bytes_cached(path_str: str, mtime: float, judul: str, kelas: int):
+    try:
+        return ekstrak_lkpd_docx(path_str, judul, kelas)
+    except Exception:
+        return None
+
+
+@st.cache_data(show_spinner=False)
+def _lkpd_bagian_cached(path_str: str, mtime: float):
+    try:
+        return bagian_lkpd(path_str)
+    except Exception:
+        return []
+
+
+def get_lkpd_bytes(kelas: int, judul: str):
+    mp = modul_path_of(kelas, judul)
+    if not mp or not mp.exists() or docx is None:
+        return None
+    return _lkpd_bytes_cached(str(mp), _mtime(mp), judul, kelas)
+
+
+def get_lkpd_bagian(kelas: int, judul: str):
+    mp = modul_path_of(kelas, judul)
+    if not mp or not mp.exists() or docx is None:
+        return []
+    return _lkpd_bagian_cached(str(mp), _mtime(mp))
+
+
+def lkpd_raw(kelas: int, judul: str):
+    """Versi tanpa cache/session (aman dipanggil dari tombol unduh yang berjalan di thread terpisah)."""
+    mp = modul_path_of(kelas, judul)
+    if not mp or not mp.exists():
+        return None
+    try:
+        return ekstrak_lkpd_docx(str(mp), judul, kelas)
+    except Exception:
+        return None
+
+
+def lkpd_zip_kelas(kelas: int) -> bytes:
+    return buat_zip((lkpd_filename(kelas, j), lkpd_raw(kelas, j)) for j in KELAS_DATA[kelas]["proyek"])
+
+
+def files_zip(paths) -> bytes:
+    return buat_zip((p.name, p.read_bytes()) for p in paths if p.exists())
+
+
+def render_lkpd_peta(kelas: int, judul: str, pertemuan: list, document=None, key: str = "lkpd"):
+    """Tabel: bagian LKPD mana dikerjakan pada pertemuan/tahap pelaksanaan STEM yang mana."""
+    peta = peta_lkpd_pertemuan(get_lkpd_bagian(kelas, judul), pertemuan)
+    eksplisit = pertemuan_pakai_lkpd(document, pertemuan) if document is not None else []
+    if peta:
+        rows = "".join(
+            f'<div class="lkpd-map-row"><span class="lkpd-map-p">{f"P{n}" if n else "—"}</span>'
+            f'<div><div class="lkpd-map-b">{_esc(h)}. {_esc(j)}</div>'
+            f'<div class="lkpd-map-t">{("Pertemuan " + str(n) + " • " + _esc(t.split("(")[0].strip())) if n else "Sesuai arahan guru"}'
+            f'</div></div></div>' for h, j, n, _, t in peta)
+        st.markdown(f'<div class="lkpd-map">{rows}</div>', unsafe_allow_html=True)
+    if eksplisit:
+        st.caption("📌 Langkah kegiatan di modul menyebut LKPD pada: "
+                   + ", ".join(f"Pertemuan {n}" for n in eksplisit) + ".")
 
 
 # ============================================================================
@@ -527,7 +643,8 @@ def render_login():
 
     st.markdown(
         '<div class="footer-note">Login sederhana tanpa kata sandi. Peran menentukan menu: '
-        'Portal Supervisi untuk Kepala Sekolah & Pengurus KKG/Pengawas.</div>',
+        'menu <b>Supervisi KS</b> hanya tampil untuk Kepala Sekolah & Pengurus KKG/Pengawas; '
+        'Guru Kelas melihat Modul, LKPD, Administrasi, Progres, dan Unduh.</div>',
         unsafe_allow_html=True,
     )
 
@@ -549,18 +666,19 @@ NAV_ALL = {
     "🏠 Beranda": "landing",
     "🎞️ KKG": "kkg",
     "📚 Modul": "modul_kelas",
+    "📝 LKPD": "lkpd",
     "📖 Panduan": "panduan",
     "🗂️ Administrasi": "administrasi",
     "📊 Progres": "progres",
-    "👨‍💼 Supervisi": "supervisi",
+    "⬇️ Unduh": "unduh",
+    "👨‍💼 Supervisi KS": "supervisi",
 }
+NAV_PIMPINAN = {"supervisi"}  # halaman yang hanya untuk Kepala Sekolah & Pengurus
 
 
 def render_top_nav():
     auth = st.session_state.auth
-    pages = dict(NAV_ALL)
-    if auth["role"] == ROLE_GURU:
-        pages.pop("👨‍💼 Supervisi")
+    pages = {k: v for k, v in NAV_ALL.items() if is_pimpinan() or v not in NAV_PIMPINAN}
     labels = list(pages.keys())
     key_to_label = {v: k for k, v in pages.items()}
     current = key_to_label.get(st.session_state.page, labels[0])
@@ -618,12 +736,27 @@ def render_landing():
 
     st.markdown(
         f'<div class="kkg-banner"><b>🎞️ {EVENT["waktu"]}</b>'
-        f'<p>{EVENT["tema"]}. Presentasi berisi materi STEM, 6 proyek beserta langkah pembuatannya, '
-        f'daftar alat &amp; bahan yang dibawa, dan Program Supervisi Kepala Sekolah.</p></div>',
+        f'<p>{EVENT["tema"]}. Presentasi berisi materi STEM, 6 proyek beserta langkah pembuatannya'
+        + (', daftar alat &amp; bahan yang dibawa, dan Program Supervisi Kepala Sekolah.' if is_pimpinan()
+           else ', serta daftar alat &amp; bahan yang dibawa.') + '</p></div>',
         unsafe_allow_html=True,
     )
     if st.button("🎞️ Buka Presentasi KKG 21 Oktober 2026", width="stretch", key="cta_kkg", type="primary"):
         _goto("kkg")
+    if is_pimpinan():
+        st.markdown(
+            '<div class="ks-banner"><b>👨‍💼 Menu khusus Kepala Sekolah</b><p>Portal Supervisi KS: observasi kelas, '
+            'telaah modul, tindak lanjut/coaching, rekap, dan unduh hasil supervisi (Word/ZIP/CSV). '
+            'Menu ini tidak tampil saat guru login.</p></div>', unsafe_allow_html=True)
+        if st.button("👨‍💼 Buka Supervisi Kepala Sekolah", width="stretch", key="cta_sup", type="primary"):
+            _goto("supervisi")
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("📝 LKPD Proyek STEM", width="stretch", key="cta_lkpd"):
+            _goto("lkpd")
+    with c2:
+        if st.button("⬇️ Pusat Unduh Dokumen", width="stretch", key="cta_unduh"):
+            _goto("unduh")
 
     section("📘", "Gambaran Umum")
     card(f"<p>{OVERVIEW['definisi']}</p><p>{OVERVIEW['pendekatan']}</p>")
@@ -732,11 +865,18 @@ def render_kkg():
         'Tombol ☰ membuka daftar isi. Untuk layar penuh di proyektor, unduh berkas HTML lalu buka di browser (tekan F).</div>',
         unsafe_allow_html=True,
     )
+    html = kkg_html_for_role()
+    if not is_pimpinan():
+        st.caption("ℹ️ Slide Program Supervisi Kepala Sekolah hanya tampil untuk akun Kepala Sekolah/Pengurus.")
     if hasattr(st, "iframe"):
-        st.iframe(path, height=640)
+        st.iframe(html, height=640)
     else:  # Streamlit versi lama
-        components.html(path.read_text(encoding="utf-8"), height=640, scrolling=False)
-    download_btn("⬇️ Unduh Presentasi (HTML) — buka di Chrome/Edge untuk layar penuh", path, "dl_kkg_html")
+        components.html(html, height=640, scrolling=False)
+    download_data("⬇️ Unduh Presentasi (HTML) — buka di Chrome/Edge untuk layar penuh",
+                  html.encode("utf-8"), path.name, "dl_kkg_html")
+
+    section("⬇️", "Dokumen KKG untuk diunduh")
+    render_kkg_docs("kkg")
 
     c1, c2 = st.columns(2)
     with c1:
@@ -760,6 +900,38 @@ def render_kkg():
                 unsafe_allow_html=True,
             )
     st.markdown(f'<div class="footer-note">Sekolah peserta: {" • ".join(SEKOLAH)}</div>', unsafe_allow_html=True)
+
+
+@st.cache_data(show_spinner=False)
+def _kkg_html_cached(path_str: str, mtime: float, untuk_guru: bool) -> str:
+    html = Path(path_str).read_text(encoding="utf-8")
+    return html_tanpa_supervisi(html) if untuk_guru else html
+
+
+def kkg_html_for_role() -> str:
+    """Presentasi KKG: lengkap untuk KS/Pengurus, tanpa slide Supervisi KS untuk guru."""
+    path = umum_path(KKG_HTML)
+    return _kkg_html_cached(str(path), _mtime(path), not is_pimpinan())
+
+
+def kkg_doc_paths():
+    return [(ic, nama, KKG_DIR_PATH / f) for ic, nama, f in KKG_DOCS]
+
+
+def render_kkg_docs(prefix: str):
+    items = [(ic, n, p) for ic, n, p in kkg_doc_paths() if p.exists()]
+    if not items:
+        st.info("Dokumen KKG belum ditempatkan di folder docs/umum/kkg_21_oktober_2026.")
+        return
+    for n, (ic, nama, p) in enumerate(items):
+        c1, c2 = st.columns([3, 1.4])
+        with c1:
+            st.markdown(f'<div class="doc-row"><span class="doc-code">{ic}</span>{_esc(nama)}'
+                        f'<span class="doc-ext">{p.suffix[1:].upper()}</span></div>', unsafe_allow_html=True)
+        with c2:
+            download_btn("⬇️ Unduh", p, f"dl_{prefix}_{n}")
+    download_data("📦 Unduh semua dokumen KKG (ZIP)", lambda: files_zip([p for _, _, p in items]),
+                  "Dokumen_KKG_STEM_21_Oktober_2026.zip", f"dl_{prefix}_zip")
 
 
 # ============================================================================
@@ -899,6 +1071,38 @@ def render_tantangan(t: dict):
     st.markdown(html + "</div>", unsafe_allow_html=True)
 
 
+def render_lkpd_callout(kelas: int, judul: str, chosen: dict, pertemuan: list, document, key: str):
+    """Di tampilan per pertemuan: tunjukkan bagian LKPD yang dikerjakan pada pertemuan ini."""
+    peta = peta_lkpd_pertemuan(get_lkpd_bagian(kelas, judul), pertemuan)
+    bagian = [f"{h}. {j}" for h, j, n, _, _ in peta if n == chosen["nomor"]]
+    disebut = chosen["nomor"] in pertemuan_pakai_lkpd(document, pertemuan) if document is not None else False
+    if not bagian and not disebut:
+        return
+    isi = ("Bagian yang dikerjakan: <b>" + _esc("; ".join(bagian)) + "</b>") if bagian \
+        else "Langkah kegiatan pertemuan ini memakai LKPD."
+    st.markdown(f'<div class="lkpd-callout">📝 <b>LKPD dipakai pada Pertemuan {chosen["nomor"]}</b><br>{isi}</div>',
+                unsafe_allow_html=True)
+    download_data("⬇️ Unduh LKPD (Word) untuk dicetak", lambda: lkpd_raw(kelas, judul),
+                  lkpd_filename(kelas, judul), f"dl_lkpd_p_{key}_{chosen['nomor']}")
+
+
+def render_lkpd_box(kelas: int, judul: str, pertemuan: list, document, key: str, preview_default=False):
+    """Isi tab/halaman LKPD satu proyek: peta pemakaian per pertemuan, unduh, pratinjau."""
+    data = get_lkpd_bytes(kelas, judul)
+    if not data:
+        st.info("Proyek ini tidak memerlukan LKPD terpisah / modul belum memuat bagian LKPD.")
+        return
+    st.markdown('<div class="footer-note" style="text-align:left">LKPD diambil langsung dari bagian '
+                '<b>Lembar Kerja Peserta Didik</b> pada modul proyek, siap dicetak untuk tiap kelompok. '
+                'Sesuaikan identitas sekolah bila perlu.</div>', unsafe_allow_html=True)
+    section("🗓️", "Pemakaian LKPD pada pelaksanaan STEM")
+    if pertemuan:
+        render_lkpd_peta(kelas, judul, pertemuan, document, key=f"{key}_lk")
+    download_data("⬇️ Unduh LKPD (Word)", data, lkpd_filename(kelas, judul), f"dl_lkpd_{key}")
+    if st.toggle("👁️ Pratinjau LKPD", value=preview_default, key=f"tg_lkpd_{key}"):
+        render_docx_generic(docx.Document(io.BytesIO(data)), key_prefix=f"{key}_lkpdprev")
+
+
 def render_project_detail(kelas: int, proj: dict):
     auth = st.session_state.auth
     judul = proj["judul"]
@@ -941,7 +1145,10 @@ def render_project_detail(kelas: int, proj: dict):
     if sb:
         st.link_button("📖 Baca Buku Cerita (Storybook) →", sb, width="stretch", key=f"sb_{key}")
 
+    lkpd_ok = bool(get_lkpd_bytes(kelas, judul))
     tab_names = ["🗓️ Per Pertemuan", "📘 Modul Lengkap"]
+    if lkpd_ok:
+        tab_names.append("📝 LKPD")
     if panduan_path:
         tab_names.append("🛠️ Panduan Produk")
     tab_names += ["📌 CP & Integrasi", "✅ Kesesuaian Panduan"]
@@ -969,6 +1176,8 @@ def render_project_detail(kelas: int, proj: dict):
                             st.rerun()
             chosen = next((p for p in pertemuan if p["nomor"] == st.session_state[sel_key]), pertemuan[0])
             render_pertemuan_detail(chosen, len(pertemuan))
+            if lkpd_ok:
+                render_lkpd_callout(kelas, judul, chosen, pertemuan, document, key)
 
     with tabs[1]:
         if err:
@@ -985,6 +1194,10 @@ def render_project_detail(kelas: int, proj: dict):
                 render_docx_generic(document, key_prefix=f"{key}_modul")
 
     ti = 2
+    if lkpd_ok:
+        with tabs[ti]:
+            render_lkpd_box(kelas, judul, pertemuan, document, key)
+        ti += 1
     if panduan_path:
         with tabs[ti]:
             download_btn("⬇️ Unduh Panduan Guru (Word)", panduan_path, f"dl_pan_{key}")
@@ -1056,6 +1269,146 @@ def render_modul_kelas():
     proj = next(p for p in filtered if p["judul"] == pilih)
     render_project_detail(kelas, proj)
 
+
+
+# ============================================================================
+# Halaman: LKPD
+# ============================================================================
+def render_lkpd():
+    auth = st.session_state.auth
+    section("📝", "LKPD — Lembar Kerja Peserta Didik Proyek STEM")
+    card("<p>LKPD dipakai murid saat <b>mendesain solusi</b> (sketsa rancangan), <b>menguji & mengevaluasi</b> "
+         "(tabel data uji coba), dan <b>merefleksi</b> (pertanyaan analisis). Pilih kelas dan proyek untuk melihat "
+         "bagian LKPD yang dikerjakan di setiap pertemuan, lalu unduh untuk dicetak.</p>"
+         + (f"<p class='muted'>Default: kelas yang Anda ampu (Kelas {auth['kelas']}).</p>" if auth.get("kelas") else ""))
+    kelas = kelas_picker("lk")
+    data, err = get_projects(kelas)
+    if err:
+        st.error(err)
+        return
+    projects = data["projects"]
+    with_lkpd = [p for p in projects if get_lkpd_bytes(kelas, p["judul"])]
+    tanpa = [p["judul"] for p in projects if p not in with_lkpd]
+
+    st.caption(f"{len(with_lkpd)} dari {len(projects)} proyek Kelas {kelas} memiliki LKPD.")
+    rows = "".join(
+        f'<div class="proj-row"><span class="proj-smt">S{p["smt"]}</span>'
+        f'<span class="proj-name">{_esc(p["judul"])}</span><span class="lkpd-tag">📝 LKPD</span></div>'
+        for p in with_lkpd)
+    if rows:
+        st.markdown(f'<div class="proj-list">{rows}</div>', unsafe_allow_html=True)
+    if tanpa:
+        st.caption("Tanpa LKPD terpisah: " + "; ".join(tanpa))
+    if not with_lkpd:
+        st.info("Belum ada LKPD untuk kelas ini.")
+        return
+    download_data(f"📦 Unduh semua LKPD Kelas {kelas} (ZIP)", lambda: lkpd_zip_kelas(kelas),
+                  f"LKPD_STEM_Kelas{kelas}.zip", f"dl_lkpd_zip_{kelas}")
+
+    section("🔎", "LKPD per Proyek")
+    pilih = st.selectbox("Pilih proyek", [p["judul"] for p in with_lkpd], key=f"lk_pilih_{kelas}",
+                         label_visibility="collapsed")
+    mp = modul_path_of(kelas, pilih)
+    document, _ = open_doc(mp) if mp else (None, None)
+    pertemuan = parse_pertemuan(document) if document else []
+    render_lkpd_box(kelas, pilih, pertemuan, document, key=f"lkpage_{kelas}_{_slug(pilih)}")
+
+
+# ============================================================================
+# Halaman: Pusat Unduh Dokumen
+# ============================================================================
+def admin_paths(kelas: int):
+    items = [(kode, nama, kelas_dir(kelas) / pat.format(k=kelas)) for kode, nama, pat in ADMIN_DOCS]
+    items.append(("AB", "Daftar Alat dan Bahan STEM", kelas_dir(kelas) / KELAS_DATA[kelas]["alat"]))
+    items.append(("DP", "Daftar Proyek STEM", kelas_dir(kelas) / KELAS_DATA[kelas]["daftar"]))
+    return items
+
+
+def modul_paths(kelas: int):
+    out = []
+    for judul, info in KELAS_DATA[kelas]["proyek"].items():
+        for k in ("modul", "panduan"):
+            if info.get(k):
+                out.append(kelas_dir(kelas) / info[k])
+    return out
+
+
+def umum_docs_for_role():
+    return [d for d in DOKUMEN_UMUM if is_pimpinan() or d[2] not in DOKUMEN_KHUSUS_PIMPINAN]
+
+
+def render_unduh():
+    section("⬇️", "Pusat Unduh Dokumen STEM")
+    card("<p>Semua dokumen yang perlu diunduh dikumpulkan di sini: modul proyek, LKPD, panduan pembuatan produk, "
+         "administrasi per kelas, dokumen gugus, dan dokumen KKG. Gunakan tombol <b>ZIP</b> untuk mengunduh "
+         "sekaligus satu paket.</p>")
+    tabs_label = ["📁 Per Kelas", "🏛️ Gugus & KKG"] + (["👨‍💼 Supervisi KS"] if is_pimpinan() else [])
+    tabs = st.tabs(tabs_label)
+
+    with tabs[0]:
+        kelas = kelas_picker("ud")
+        st.markdown(f"**📦 Paket Kelas {kelas}**")
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            download_data("Modul + Panduan (ZIP)", lambda: files_zip(modul_paths(kelas)),
+                          f"Modul_STEM_Kelas{kelas}.zip", f"ud_zip_modul_{kelas}")
+        with c2:
+            download_data("Semua LKPD (ZIP)", lambda: lkpd_zip_kelas(kelas),
+                          f"LKPD_STEM_Kelas{kelas}.zip", f"ud_zip_lkpd_{kelas}")
+        with c3:
+            download_data("Administrasi (ZIP)", lambda: files_zip([p for _, _, p in admin_paths(kelas)]),
+                          f"Administrasi_STEM_Kelas{kelas}.zip", f"ud_zip_adm_{kelas}")
+
+        st.markdown(f"**📚 Per proyek Kelas {kelas}**")
+        data, err = get_projects(kelas)
+        judul_list = [p["judul"] for p in data["projects"]] if data else list(KELAS_DATA[kelas]["proyek"])
+        pilih = st.selectbox("Pilih proyek", judul_list, key=f"ud_proj_{kelas}", label_visibility="collapsed")
+        info = KELAS_DATA[kelas]["proyek"].get(pilih, {})
+        cols = st.columns(3)
+        with cols[0]:
+            if info.get("modul"):
+                download_btn("📘 Modul (Word)", kelas_dir(kelas) / info["modul"], f"ud_mod_{kelas}_{_slug(pilih)}")
+        with cols[1]:
+            if get_lkpd_bytes(kelas, pilih):
+                download_data("📝 LKPD (Word)", lambda: lkpd_raw(kelas, pilih), lkpd_filename(kelas, pilih),
+                              f"ud_lkpd_{kelas}_{_slug(pilih)}")
+            else:
+                st.caption("Tanpa LKPD terpisah")
+        with cols[2]:
+            if info.get("panduan"):
+                download_btn("🛠️ Panduan Produk", kelas_dir(kelas) / info["panduan"], f"ud_pan_{kelas}_{_slug(pilih)}")
+            else:
+                st.caption("Tanpa panduan produk")
+
+        st.markdown(f"**🗂️ Administrasi Kelas {kelas}**")
+        for kode, nama, path in admin_paths(kelas):
+            c1, c2 = st.columns([3, 1.4])
+            with c1:
+                st.markdown(f'<div class="doc-row"><span class="doc-code">{kode}</span>{nama}</div>',
+                            unsafe_allow_html=True)
+            with c2:
+                download_btn("⬇️ Unduh", path, f"ud_adm_{kelas}_{kode}")
+
+    with tabs[1]:
+        st.markdown("**🏛️ Dokumen Gugus**")
+        docs_umum = umum_docs_for_role()
+        for icon, nama, fname, ket in docs_umum:
+            c1, c2 = st.columns([3, 1.4])
+            with c1:
+                st.markdown(f'<div class="doc-row"><span class="doc-code">{icon}</span>{_esc(nama)}'
+                            f'<span class="doc-ext">{fname.rsplit(".", 1)[1].upper()}</span></div>',
+                            unsafe_allow_html=True)
+            with c2:
+                if fname == KKG_HTML:
+                    download_data("⬇️ Unduh", kkg_html_for_role().encode("utf-8"), fname, f"ud_umum_{_slug(fname)}")
+                else:
+                    download_btn("⬇️ Unduh", umum_path(fname), f"ud_umum_{_slug(fname)}")
+        st.markdown("**🎞️ Dokumen KKG 21 Oktober 2026**")
+        render_kkg_docs("ud_kkg")
+
+    if is_pimpinan():
+        with tabs[2]:
+            render_supervisi_downloads("ud_sup")
 
 
 # ============================================================================
@@ -1134,6 +1487,9 @@ def render_administrasi():
                             unsafe_allow_html=True)
             with c2:
                 download_btn("⬇️ Unduh", path, f"dl_adm_{kelas}_{kode}")
+        download_data(f"📦 Unduh semua administrasi Kelas {kelas} (ZIP)",
+                      lambda: files_zip([kelas_dir(kelas) / f for _, _, f in items]),
+                      f"Administrasi_STEM_Kelas{kelas}.zip", f"dl_adm_zip_{kelas}")
         st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
         lihat = st.selectbox("👁️ Pratinjau dokumen", ["—"] + [n for _, n, _ in items], key=f"prev_adm_{kelas}")
         if lihat != "—":
@@ -1145,10 +1501,18 @@ def render_administrasi():
                 render_docx_generic(document, key_prefix=f"adm_{kelas}_{_slug(lihat)}")
 
     with tab_umum:
-        for icon, nama, fname, ket in DOKUMEN_UMUM:
+        docs_umum = umum_docs_for_role()
+        for icon, nama, fname, ket in docs_umum:
             card(f"<p><b>{icon} {nama}</b></p><p class='muted'>{ket}</p>")
-            download_btn(f"⬇️ Unduh {fname.rsplit('.', 1)[1].upper()}", umum_path(fname), f"dl_umum_{_slug(fname)}")
-        docx_umum = [(n, f) for _, n, f, _ in DOKUMEN_UMUM if f.endswith(".docx")]
+            label = f"⬇️ Unduh {fname.rsplit('.', 1)[1].upper()}"
+            if fname == KKG_HTML:
+                download_data(label, kkg_html_for_role().encode("utf-8"), fname, f"dl_umum_{_slug(fname)}")
+            else:
+                download_btn(label, umum_path(fname), f"dl_umum_{_slug(fname)}")
+        card("<p><b>🎞️ Dokumen KKG 21 Oktober 2026</b></p><p class='muted'>Langkah pembuatan 6 proyek "
+             "dan daftar alat &amp; bahan yang dibawa.</p>")
+        render_kkg_docs("adm_kkg")
+        docx_umum = [(n, f) for _, n, f, _ in docs_umum if f.endswith(".docx")]
         lihat = st.selectbox("👁️ Pratinjau dokumen", ["—"] + [n for n, _ in docx_umum], key="prev_umum")
         if lihat != "—":
             fname = dict(docx_umum)[lihat]
@@ -1416,18 +1780,20 @@ def render_lampiran1(data):
     section("📋", "Identitas Observasi")
     sekolah, kelas, guru = _sup_target("l1")
     with st.expander("Isian identitas lainnya"):
-        for label in lamp["identitas"]:
-            render_identity_field(label, "l1", auth["name"] if "kepala sekolah" in label.lower() else "")
+        ident = {label: render_identity_field(label, "l1", auth["name"] if "kepala sekolah" in label.lower() else "")
+                 for label in lamp["identitas"]}
     if lamp["skala"]:
         st.markdown(f'<div class="skala-note">📏 {lamp["skala"]}</div>', unsafe_allow_html=True)
     section("✍️", "Penilaian per Indikator")
-    skor = []
+    skor, rincian = [], []
     for kat in lamp["kategori"]:
         with st.expander(kat["kategori"]):
             for i, ind in enumerate(kat["indikator"]):
                 st.markdown(f'<div class="indikator-text">{_esc(ind)}</div>', unsafe_allow_html=True)
-                skor.append(st.select_slider("Skor", options=[1, 2, 3, 4], value=3, label_visibility="collapsed",
-                                             key=f"l1_skor_{_slug(kat['kategori'])}_{i}"))
+                v = st.select_slider("Skor", options=[1, 2, 3, 4], value=3, label_visibility="collapsed",
+                                     key=f"l1_skor_{_slug(kat['kategori'])}_{i}")
+                skor.append(v)
+                rincian.append([str(len(rincian) + 1), f"{kat['kategori']} — {ind}", str(v)])
     section("📝", "Catatan Hasil Observasi")
     catatan = {label: st.text_area(label, key=f"l1_cat_{_slug(label)}") for label in lamp["catatan_aspek"]}
     if st.button("💾 Simpan Instrumen Observasi Kelas", width="stretch", key="btn_simpan_l1"):
@@ -1435,9 +1801,16 @@ def render_lampiran1(data):
             st.error("Isi nama guru yang disupervisi.")
             return
         rata = sum(skor) / len(skor) if skor else 0
+        nilai100 = round(sum(skor) / (4 * len(skor)) * 100) if skor else 0
+        predikat = ("Sangat Baik" if nilai100 >= 86 else "Baik" if nilai100 >= 71
+                    else "Cukup" if nilai100 >= 56 else "Perlu Bimbingan")
         log_supervisi({"jenis": "Observasi Kelas", "sekolah": sekolah, "kelas": kelas, "guru": guru.strip(),
-                       "supervisor": auth["name"], "nilai": f"{rata:.2f} / 4", "catatan": catatan})
-        st.success(f"✅ Observasi tersimpan. Rata-rata skor: **{rata:.2f} / 4**.")
+                       "supervisor": auth["name"], "nilai": f"{rata:.2f} / 4 (nilai {nilai100})",
+                       "predikat": predikat, "catatan": catatan,
+                       "identitas": {k: v for k, v in ident.items() if v},
+                       "rincian_header": ["No", "Indikator", "Skor (1–4)"], "rincian": rincian})
+        st.success(f"✅ Observasi tersimpan. Rata-rata skor: **{rata:.2f} / 4** — nilai {nilai100} ({predikat}). "
+                   "Unduh hasilnya (Word) di tab 📊 Rekap atau 📑 Unduh.")
         st.balloons()
 
 
@@ -1447,8 +1820,8 @@ def render_lampiran2(data):
     section("📋", "Identitas Telaah")
     sekolah, kelas, guru = _sup_target("l2")
     with st.expander("Isian identitas lainnya"):
-        for label in lamp["identitas"]:
-            render_identity_field(label, "l2", auth["name"] if "penelaah" in label.lower() else "")
+        ident = {label: render_identity_field(label, "l2", auth["name"] if "penelaah" in label.lower() else "")
+                 for label in lamp["identitas"]}
     section("✅", f"Checklist Komponen Tabel 10 Panduan STEM ({len(lamp['checklist'])} butir)")
     hasil = []
     for row in lamp["checklist"]:
@@ -1468,7 +1841,9 @@ def render_lampiran2(data):
         ya = hasil.count("Ya")
         log_supervisi({"jenis": "Telaah Modul", "sekolah": sekolah, "kelas": kelas, "guru": guru.strip(),
                        "supervisor": auth["name"], "nilai": f"{ya}/{len(hasil)} sesuai", "kesimpulan": kes,
-                       "catatan": catatan})
+                       "catatan": catatan, "identitas": {k: v for k, v in ident.items() if v},
+                       "rincian_header": ["No", "Komponen", "Sesuai?"],
+                       "rincian": [[row[0], row[1], h] for row, h in zip(lamp["checklist"], hasil)]})
         st.success(f"✅ Telaah tersimpan: {ya}/{len(hasil)} komponen sesuai.")
         st.balloons()
 
@@ -1479,8 +1854,7 @@ def render_lampiran3(data):
     section("📋", "Identitas Supervisi")
     sekolah, kelas, guru = _sup_target("l3")
     with st.expander("Isian identitas lainnya"):
-        for label in lamp["identitas"]:
-            render_identity_field(label, "l3")
+        ident = {label: render_identity_field(label, "l3") for label in lamp["identitas"]}
     section("🤝", "Tindak Lanjut / Coaching")
     isian = {label: st.text_area(label, key=f"l3_{_slug(label)}") for label in lamp["aspek"]}
     if st.button("💾 Simpan Lembar Tindak Lanjut", width="stretch", key="btn_simpan_l3"):
@@ -1488,7 +1862,8 @@ def render_lampiran3(data):
             st.error("Isi nama guru yang disupervisi.")
             return
         log_supervisi({"jenis": "Tindak Lanjut", "sekolah": sekolah, "kelas": kelas, "guru": guru.strip(),
-                       "supervisor": auth["name"], "nilai": "-", "catatan": isian})
+                       "supervisor": auth["name"], "nilai": "-", "catatan": isian,
+                       "identitas": {k: v for k, v in ident.items() if v}})
         st.success("✅ Lembar tindak lanjut tersimpan.")
         st.balloons()
 
@@ -1496,9 +1871,7 @@ def render_lampiran3(data):
 def render_lampiran4(data):
     auth = st.session_state.auth
     section("🗃️", "Hasil Supervisi Tersimpan")
-    logs = _read_json(SUPERVISI_LOG, [])
-    if auth["role"] == ROLE_KS:
-        logs = [x for x in logs if x.get("sekolah") == auth["sekolah"]]
+    logs = supervisi_logs_for_role()
     if logs:
         rows = [{"Waktu": x["disimpan"], "Sekolah": x["sekolah"], "Kelas": x["kelas"], "Guru": x["guru"],
                  "Jenis": x["jenis"], "Hasil": x["nilai"], "Supervisor": x["supervisor"]} for x in reversed(logs)]
@@ -1509,6 +1882,7 @@ def render_lampiran4(data):
             csv.write(";".join(str(v) for v in r.values()) + "\n")
         st.download_button("⬇️ Unduh Rekap (CSV)", csv.getvalue().encode("utf-8-sig"),
                            file_name="rekap_supervisi_stem_puspamukti.csv", mime="text/csv", width="stretch")
+        render_hasil_word(logs, "rekap")
     else:
         st.info("Belum ada hasil supervisi yang disimpan.")
 
@@ -1517,6 +1891,66 @@ def render_lampiran4(data):
         section("📅", "Jadwal Supervisi Satu Tahun (dari dokumen)")
         st.dataframe([dict(zip(lamp["rekap_header"], r)) for r in lamp["rekap"]], width="stretch",
                      hide_index=True, key="rekap_dok")
+
+
+def supervisi_logs_for_role():
+    logs = _read_json(SUPERVISI_LOG, [])
+    if st.session_state.auth["role"] == ROLE_KS:
+        logs = [x for x in logs if x.get("sekolah") == st.session_state.auth["sekolah"]]
+    return logs
+
+
+def _hasil_fname(x: dict) -> str:
+    return (f"Hasil_Supervisi_{_slug(x.get('jenis', ''))}_{_slug(x.get('guru', ''))}_"
+            f"Kelas{x.get('kelas', '')}_{x.get('disimpan', '')[:10]}.docx")
+
+
+def render_hasil_word(logs: list, prefix: str):
+    """Unduh hasil supervisi sebagai Word (per guru) atau seluruhnya dalam ZIP."""
+    if not logs:
+        return
+    st.markdown("**📄 Unduh hasil supervisi (Word, siap ditandatangani)**")
+    opsi = list(reversed(logs))
+    label = lambda x: f"{x['disimpan']} • {x['jenis']} • {x['guru']} (Kelas {x['kelas']}, {x['sekolah']})"
+    i = st.selectbox("Pilih hasil", range(len(opsi)), format_func=lambda k: label(opsi[k]),
+                     key=f"{prefix}_pilih_hasil", label_visibility="collapsed")
+    rec = dict(opsi[i])
+    g, tp = GUGUS["nama"], GUGUS["tahun_pelajaran"]
+    download_data("⬇️ Unduh hasil terpilih (Word)", hasil_supervisi_docx(rec, g, tp), _hasil_fname(rec),
+                  f"{prefix}_dl_hasil")
+    semua = [dict(x) for x in logs]
+    download_data(f"📦 Unduh semua hasil ({len(semua)}) — ZIP Word",
+                  lambda: buat_zip((f"{n:02d}_" + _hasil_fname(x), hasil_supervisi_docx(x, g, tp))
+                                   for n, x in enumerate(semua, 1)),
+                  "Hasil_Supervisi_STEM.zip", f"{prefix}_dl_hasil_zip")
+
+
+def render_supervisi_downloads(prefix: str):
+    """Dokumen supervisi untuk Kepala Sekolah/Pengurus: program, instrumen kosong, hasil tersimpan."""
+    st.markdown("**📑 Program & instrumen supervisi**")
+    for icon, nama, fname, ket in DOKUMEN_UMUM:
+        if fname in DOKUMEN_KHUSUS_PIMPINAN or fname.startswith("Instrumen"):
+            c1, c2 = st.columns([3, 1.4])
+            with c1:
+                st.markdown(f'<div class="doc-row"><span class="doc-code">{icon}</span>{_esc(nama)}</div>',
+                            unsafe_allow_html=True)
+            with c2:
+                download_btn("⬇️ Unduh", umum_path(fname), f"{prefix}_{_slug(fname)}")
+    download_data("🎞️ Presentasi KKG lengkap (dengan slide Supervisi KS)", kkg_html_for_role().encode("utf-8"),
+                  KKG_HTML, f"{prefix}_kkg_full")
+    st.markdown("**🗃️ Hasil supervisi tersimpan**")
+    logs = supervisi_logs_for_role()
+    if logs:
+        csv = io.StringIO()
+        csv.write("Waktu;Sekolah;Kelas;Guru;Jenis;Hasil;Predikat;Supervisor\n")
+        for x in logs:
+            csv.write(";".join(str(x.get(k, "")) for k in
+                               ("disimpan", "sekolah", "kelas", "guru", "jenis", "nilai", "predikat", "supervisor")) + "\n")
+        download_data("⬇️ Rekap hasil supervisi (CSV)", csv.getvalue().encode("utf-8-sig"),
+                      "rekap_supervisi_stem_puspamukti.csv", f"{prefix}_csv")
+        render_hasil_word(logs, prefix)
+    else:
+        st.info("Belum ada hasil supervisi yang disimpan.")
 
 
 def render_supervisi():
@@ -1538,7 +1972,7 @@ def render_supervisi():
                 st.markdown(f"{i+1}. {g}")
     labels = list(LAMPIRAN_TABS.keys())
     with st.container(key="lampiran-menu"):
-        cols = st.columns(4, gap="small")
+        cols = st.columns(len(labels), gap="small")
         for col, label in zip(cols, labels):
             with col:
                 if st.button(label, key=f"btn_tab_{LAMPIRAN_TABS[label]}", width="stretch",
@@ -1546,7 +1980,8 @@ def render_supervisi():
                     st.session_state.lampiran_tab = LAMPIRAN_TABS[label]
                     st.rerun()
     {"lampiran1": render_lampiran1, "lampiran2": render_lampiran2,
-     "lampiran3": render_lampiran3, "lampiran4": render_lampiran4}[st.session_state.lampiran_tab](data)
+     "lampiran3": render_lampiran3, "lampiran4": render_lampiran4,
+     "unduh": lambda _d: render_supervisi_downloads("sup")}[st.session_state.lampiran_tab](data)
     st.markdown(f'<div class="footer-note">Sumber: {SUPERVISI_FILE}</div>', unsafe_allow_html=True)
 
 
@@ -1561,12 +1996,14 @@ def main():
         return
     render_top_nav()
     page = st.session_state.page
-    if page == "supervisi" and st.session_state.auth["role"] == ROLE_GURU:
+    if page in NAV_PIMPINAN and not is_pimpinan():  # guru tidak boleh membuka halaman supervisi
         page = "landing"
     {
         "landing": render_landing,
         "kkg": render_kkg,
         "modul_kelas": render_modul_kelas,
+        "lkpd": render_lkpd,
+        "unduh": render_unduh,
         "panduan": render_panduan,
         "administrasi": render_administrasi,
         "progres": render_progres,
