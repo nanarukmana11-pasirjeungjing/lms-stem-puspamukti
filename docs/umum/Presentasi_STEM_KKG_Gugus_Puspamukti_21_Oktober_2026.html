@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STEM KKG Puspamukti</title>
+<meta name="description" content="Presentasi KKG STEM Gugus Puspamukti, Rabu, 21 Oktober 2026: materi STEM, daftar proyek dan langkah pembuatan, alat dan bahan, serta program supervisi kepala sekolah.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>:root{
+  --bg:#070707; --slide:#0B0B0B; --panel:#151515; --panel2:#1C1C1C; --line:#2A2A2A;
+  --tx:#F6F6EE; --mut:#A9A99C; --y:#FFD60A; --g:#22E06A; --c:#00C2FF; --o:#FF8A00; --p:#FF4FD8;
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font-family:var(--font);overflow:hidden}
+button{font-family:inherit;cursor:pointer}
+#progress{position:fixed;top:0;left:0;right:0;height:4px;background:#1a1a1a;z-index:30}
+#progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--y),var(--g));transition:width .25s}
+#viewport{position:fixed;inset:0}
+#stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center center}
+.slide{position:absolute;inset:0;background:var(--slide);display:none;flex-direction:column;overflow:hidden;
+  background-image:radial-gradient(circle at 100% 0%,rgba(255,214,10,.07),transparent 40%),radial-gradient(circle at 0% 100%,rgba(34,224,106,.06),transparent 40%)}
+.slide.active{display:flex;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.topbar,.foot{display:flex;justify-content:space-between;align-items:center;padding:0 56px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);flex:none}
+.topbar{height:44px;border-bottom:1px solid #191919}
+.topbar span:first-child{color:var(--y);font-weight:700}
+.foot{height:34px;border-top:1px solid #191919;font-size:11px}
+.foot .pg{font-family:var(--mono);color:var(--y)}
+.content{flex:1;padding:22px 56px 14px;position:relative;min-height:0}
+.kicker{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--y)}
+h1,h2,h3,h4{margin:0;line-height:1.15}
+h2{font-size:38px;font-weight:800;margin-top:6px;letter-spacing:-.01em}
+.h2s{font-size:30px;margin-top:2px}
+h3{font-size:21px;font-weight:800}
+h4{font-size:15px;font-weight:800}
+p{margin:0}
+.lead{font-size:19px;line-height:1.5;color:#DADACC;margin-top:14px}
+.narrow{max-width:980px}
+.y{color:var(--y)} .g{color:var(--g)} .c{color:var(--c)} .o{color:var(--o)}
+.mt{margin-top:22px} .mt-s{margin-top:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.label{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+.mono{font-family:var(--mono);font-size:.92em}
+.note{background:#121208;border:1px solid #3b3510;border-left:5px solid var(--y);border-radius:10px;padding:12px 16px;font-size:16px;line-height:1.45;color:#E9E6C8}
+.note.sm{font-size:14px;padding:10px 14px}.note.xs{font-size:12.5px;padding:8px 12px}
+.warn{background:#1a0f05;border:1px solid #4a2a08;border-left:5px solid var(--o);border-radius:10px;padding:10px 14px;font-size:14px;color:#F5D9B8}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
+.list{margin:0;padding:0;list-style:none}
+.list li{position:relative;padding-left:20px;margin:7px 0;font-size:15.5px;line-height:1.4}
+.list li:before{content:"";position:absolute;left:2px;top:.55em;width:9px;height:9px;background:var(--y);transform:rotate(45deg)}
+.olist{margin:0;padding-left:22px}.olist li{margin:8px 0;font-size:16px;line-height:1.45}
+.olist li::marker{color:var(--y);font-weight:800}
+
+/* tables */
+.kv{width:100%;border-collapse:collapse;font-size:16px}
+.kv th{width:150px;text-align:left;vertical-align:top;color:var(--y);font-weight:700;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+.kv td{padding:10px 0;border-bottom:1px solid var(--line);line-height:1.4}
+.kv.sm{font-size:14.5px}.kv.sm th{width:130px;padding:8px 10px 8px 0}.kv.sm td{padding:8px 0}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:14.5px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tbl th{background:var(--y);color:#0A0A0A;text-align:left;padding:10px 12px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+.tbl td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;line-height:1.35}
+.tbl tbody tr:nth-child(even) td{background:#111}
+.tbl .nm{font-weight:700}
+.tbl tr.total td{background:#1d1a05 !important;color:var(--y);font-weight:800}
+
+/* cover */
+.cover-slide .content{padding-top:30px}
+.cover{display:grid;grid-template-columns:1.35fr 1fr;gap:40px;height:100%;align-items:center}
+.mega{font-size:66px;font-weight:800;letter-spacing:-.025em;line-height:1.02;margin-top:14px}
+.mega .y{background:var(--y);color:#0A0A0A;padding:0 14px;border-radius:10px}
+.cover-meta{display:flex;gap:28px;margin-top:30px}
+.cover-meta div{border-left:4px solid var(--g);padding-left:14px}
+.cover-meta b{display:block;font-size:18px}.cover-meta span{color:var(--mut);font-size:14px}
+.stem-tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.st{border-radius:18px;padding:16px 18px;height:130px;display:flex;flex-direction:column;justify-content:space-between;color:#0A0A0A}
+.st b{font-size:58px;line-height:1;font-weight:800}.st span{font-weight:800;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.st.s{background:var(--c)}.st.t{background:var(--y)}.st.e{background:var(--o)}.st.m{background:var(--g)}
+.schools{display:flex;flex-direction:column;gap:6px;margin-top:18px}
+.schools.row{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:10px 22px}
+.school{font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px}
+.school .dot{width:10px;height:10px;border-radius:50%;background:var(--y);box-shadow:0 0 0 3px rgba(255,214,10,.2)}
+.school-big{display:flex;flex-direction:column;gap:10px}
+.school-big div{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:20px;font-weight:800}
+.school-big .n{width:34px;height:34px;border-radius:9px;background:var(--y);color:#0A0A0A;display:grid;place-items:center;font-size:17px}
+
+/* goals */
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.goal{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;gap:18px;align-items:flex-start}
+.goal-no{font-family:var(--mono);font-weight:700;font-size:34px;color:var(--y);line-height:1}
+.goal p{font-size:17.5px;line-height:1.45}
+.goal:nth-child(2) .goal-no{color:var(--g)}.goal:nth-child(3) .goal-no{color:var(--c)}.goal:nth-child(4) .goal-no{color:var(--o)}
+
+/* divider */
+.dark-divider{background:#0A0A0A}
+.divider,.closing{height:100%;display:flex;flex-direction:column;justify-content:center;position:relative}
+.hazard{position:absolute;left:-56px;right:-56px;top:-22px;height:26px;background:repeating-linear-gradient(-45deg,var(--y) 0 22px,#0A0A0A 22px 44px)}
+.hazard.bottom{top:auto;bottom:-14px}
+.div-no{font-family:var(--mono);font-size:150px;font-weight:700;color:var(--y);line-height:1;-webkit-text-stroke:0}
+.div-title{font-size:58px;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+.div-sub{font-size:21px;color:var(--g);margin-top:14px;font-weight:700}
+.closing{align-items:center;text-align:center}
+.thanks{font-size:120px;font-weight:800;letter-spacing:-.03em;line-height:1;margin:16px 0 10px}
+.closing .schools{margin-top:30px}
+
+/* pillars */
+.pillar{background:var(--panel);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:16px;padding:18px}
+.pillar b{display:block;font-size:46px;font-weight:800;color:var(--c);line-height:1}
+.pillar h4{font-size:18px;margin:8px 0 6px}.pillar p{font-size:14.5px;line-height:1.45;color:#D7D7CB}
+.big-cards .bc{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 24px;min-height:330px}
+.bc:nth-child(1){border-bottom:6px solid var(--y)}.bc:nth-child(2){border-bottom:6px solid var(--g)}.bc:nth-child(3){border-bottom:6px solid var(--c)}
+.bc-ico{font-size:50px;margin-bottom:14px}.bc h3{font-size:24px;margin-bottom:12px}.bc p{font-size:17px;line-height:1.5;color:#D7D7CB}
+
+/* cycle */
+.cycle-wrap{display:grid;grid-template-columns:600px 1fr;gap:26px;margin-top:4px}
+.cycle{position:relative;width:600px;height:540px;transform:scale(.93);transform-origin:top left}
+.cycle svg{position:absolute;inset:0}
+.cycle-center{position:absolute;left:300px;top:270px;transform:translate(-50%,-50%);text-align:center}
+.cycle-center b{display:block;font-size:44px;color:var(--y);line-height:1}
+.cycle-center span{display:block;font-weight:800;font-size:20px}.cycle-center small{color:var(--mut);font-size:12.5px}
+.node{position:absolute;width:156px;min-height:80px;background:#121212;border:2px solid var(--c);border-radius:14px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.node .nn{width:26px;height:26px;border-radius:50%;background:var(--c);color:#0A0A0A;font-weight:800;display:grid;place-items:center;font-size:14px}
+.node .nt{font-size:13.5px;font-weight:700;line-height:1.25}
+.cycle-side{display:flex;flex-direction:column;gap:12px;padding-top:18px}
+.legend-item{background:var(--panel);border-left:6px solid var(--c);border-radius:12px;padding:14px 16px}
+.legend-item b{display:block;font-size:19px;color:var(--c)}.legend-item span{font-size:15px;color:#D7D7CB;line-height:1.4}
+
+/* 3M */
+.m3{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;overflow:hidden}
+.m3:before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--c)}
+.m3 h3{color:var(--c);font-size:26px;margin-bottom:10px}.m3 p{font-size:16.5px;line-height:1.5}
+.prinsip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.prinsip div{background:#0f0f0f;border:2px dashed #3a3a3a;border-radius:14px;padding:14px 16px}
+.prinsip b{display:block;font-size:19px;color:var(--y)}.prinsip span{font-size:14.5px;color:#D7D7CB}
+.prinsip.sm4{grid-template-columns:repeat(4,1fr)}.prinsip.sm4 div{padding:10px 14px}.prinsip.sm4 b{font-size:16px}
+
+.profil{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.profil div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:800;font-size:16px;display:flex;gap:12px;align-items:center}
+.profil span{font-size:24px}
+.roles{display:flex;flex-direction:column;gap:10px}
+.roles div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.roles b{display:block;font-size:17px;margin-bottom:3px}.roles span{font-size:14.5px;color:#D7D7CB;line-height:1.4}
+
+/* proyek */
+.pgrid .pcard{background:var(--panel);border:1px solid var(--line);border-top:7px solid var(--c);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.pk{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
+.pcard h3{font-size:21px}.psub{font-size:13.5px;color:var(--mut)}
+.pprod{font-size:13.5px;line-height:1.4;margin-top:4px}.pprod span{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--y)}
+.pmeta{margin-top:auto;font-family:var(--mono);font-size:12.5px;color:var(--g)}
+.phead{display:flex;align-items:center;gap:18px}
+.kbadge{background:var(--c);color:#0A0A0A;font-weight:800;font-size:17px;border-radius:12px;padding:12px 14px;white-space:nowrap}
+.phead .kicker{color:var(--c)}
+.ready{margin-left:auto;font-family:var(--mono);background:#111;border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px}
+.ready .rc{color:var(--g);font-weight:700}
+.grid-proj{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+.masalah{background:#0c1a12;border:1px solid #1f4d31;border-radius:14px;padding:14px 16px;font-size:15.5px;line-height:1.5}
+.masalah span{display:block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:4px}
+.kb{display:flex;flex-direction:column;gap:12px}
+.kb-box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.kb-box h4{margin-bottom:2px}.kb-box.ok h4{color:var(--g)}.kb-box.lim h4{color:var(--o)}
+.kb-box .list li{font-size:14.5px;margin:5px 0}
+.kb-box.ok .list li:before{background:var(--g)}.kb-box.lim .list li:before{background:var(--o)}
+.tbar{display:flex;height:22px;border-radius:8px;overflow:hidden;gap:2px}
+.tbar div{display:grid;place-items:center;font-size:11px;font-weight:800;color:#0A0A0A}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.tile{background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:12px;padding:9px 11px;height:232px;overflow:hidden}
+.tile-h{display:flex;justify-content:space-between;align-items:center}
+.tn{width:26px;height:26px;border-radius:7px;background:var(--c);color:#0A0A0A;font-weight:800;display:grid;place-items:center;font-size:14px}
+.tm{font-family:var(--mono);font-size:13px;color:var(--c);font-weight:700}
+.tile h4{font-size:14px;margin:6px 0 2px;line-height:1.2}
+.tl{margin:0;padding:0;list-style:none}
+.tl li{font-size:12.6px;line-height:1.33;margin:4px 0;padding-left:12px;position:relative;color:#E2E2D6}
+.tl li:before{content:"›";position:absolute;left:0;color:var(--c);font-weight:800}
+.tile-sum{border-top-color:#fff;background:#121208}
+.tile-sum h4{color:var(--y)}.tl.check li:before{content:"☐";color:var(--y);font-size:11px}
+.tot{font-family:var(--mono);color:var(--y);font-weight:700;font-size:14px;margin-top:6px}
+
+/* alat */
+.ab td{padding:7px 12px}.ab .by{color:var(--g);font-weight:700}
+.cb{width:24px;height:24px;border-radius:6px;border:2px solid #555;background:transparent;color:#0A0A0A;font-weight:800;padding:0}
+.cb.on{background:var(--g);border-color:var(--g)}.cb.on:after{content:"✓"}
+tr.done td{opacity:.55}tr.done td:first-child{opacity:1}
+.bring .bb{background:var(--panel);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:16px;padding:16px 18px}
+.bb h3{font-size:19px;margin-bottom:6px}.bb .list li{font-size:14px;margin:6px 0}.bb .list li:before{background:var(--c)}
+.safety div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:16.5px;line-height:1.45}
+.safety b{color:var(--y)}
+
+/* supervisi */
+.flow{display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;align-items:stretch}
+.fl{background:var(--panel);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:16px;padding:16px 18px}
+.fl-no{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--c);line-height:1}
+.fl h3{margin:4px 0 6px}.fl .list li{font-size:14.5px}.fl .list li:before{background:var(--c)}
+.arrow{display:grid;place-items:center;color:var(--y);font-size:24px}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+
+.timeline .tli{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;position:relative;min-height:170px}
+.timeline .tli:before{content:"";position:absolute;top:-1px;left:16px;right:16px;height:5px;border-radius:0 0 4px 4px;background:var(--y)}
+.timeline .tli:nth-child(n+5):before{background:var(--g)}
+.tl-d{font-family:var(--mono);font-size:13.5px;color:var(--y);font-weight:700;margin-top:4px}
+.timeline .tli:nth-child(n+5) .tl-d{color:var(--g)}
+.tl-t{font-size:18px;font-weight:800;margin:4px 0 6px}
+.timeline .tli p{font-size:14px;line-height:1.42;color:#D7D7CB}
+.kb2{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;color:#0A0A0A;font-weight:800}
+
+.inst-slide .content{padding-bottom:10px}
+.inst{display:grid;grid-template-columns:1fr 300px;gap:18px;height:520px}
+.inst-list{overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 12px;scrollbar-color:#FFD60A #1a1a1a}
+.ic{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--y);padding:10px 0 4px;position:sticky;top:-6px;background:var(--panel);z-index:1}
+.ir,.tr{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid #222}
+.in{font-family:var(--mono);color:var(--mut);font-size:12.5px}
+.it{font-size:14.2px;line-height:1.35}
+.sc,.yn{display:flex;gap:5px}
+.sc button,.yn button{min-width:34px;height:32px;border-radius:8px;border:1.5px solid #444;background:#0e0e0e;color:var(--tx);font-weight:800;font-size:14px}
+.yn button{min-width:58px}
+.sc button.on{background:var(--y);border-color:var(--y);color:#0A0A0A}
+.sc button.on[data-v="1"]{background:var(--o);border-color:var(--o)}
+.yn button.on[data-v="y"]{background:var(--g);border-color:var(--g);color:#0A0A0A}
+.yn button.on[data-v="n"]{background:var(--o);border-color:var(--o);color:#0A0A0A}
+.inst-side{display:flex;flex-direction:column;gap:10px}
+.idf{display:flex;flex-direction:column;gap:8px}
+.idf label{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);display:flex;flex-direction:column;gap:4px}
+.idf select,.idf input{background:#0e0e0e;border:1.5px solid #3a3a3a;color:var(--tx);border-radius:8px;padding:8px 10px;font-family:var(--font);font-size:14px;text-transform:none;letter-spacing:0;font-weight:500}
+.score{background:#121208;border:2px solid var(--y);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 10px}
+.score div{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--y)}
+.score small{font-size:14px;color:var(--mut)}
+.score b{font-family:var(--mono);font-size:30px;color:var(--g);grid-row:span 2;align-self:center}
+.score em{font-style:normal;font-weight:800;font-size:14px}
+.scale{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.scale div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:12.5px}
+.scale b{color:var(--y);font-family:var(--mono);margin-right:4px}
+.pred-tbl{font-size:12.5px;line-height:1.5;color:#D7D7CB;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.btn-s{background:transparent;border:1.5px solid #555;color:var(--tx);border-radius:8px;padding:8px;font-weight:700}
+.btn-s:hover{border-color:var(--y);color:var(--y)}
+.tirta{display:flex;flex-direction:column;gap:10px}
+.tirta div{display:grid;grid-template-columns:62px 1fr;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.tirta b{font-family:var(--mono);font-size:26px;color:#0A0A0A;background:var(--y);border-radius:10px;text-align:center;padding:6px 0}
+.tirta div:nth-child(2) b{background:var(--g)}.tirta div:nth-child(3) b{background:var(--c)}.tirta div:nth-child(4) b{background:var(--o)}
+.tirta span{font-size:15px;line-height:1.4}.tirta i{font-style:normal;font-weight:800;color:var(--y)}
+.ikgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ikb{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.ikb b{display:block;font-family:var(--mono);font-size:22px;color:var(--g)}.ikb span{font-size:13px;color:#D7D7CB}
+.rtl td{height:52px}.rtl td[contenteditable]:focus{outline:2px solid var(--y);background:#151505}
+.refl div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.4}
+
+/* controls */
+#controls{position:fixed;right:14px;bottom:12px;z-index:40;display:flex;gap:6px;align-items:center;background:rgba(10,10,10,.85);border:1px solid #2a2a2a;border-radius:999px;padding:5px 8px;backdrop-filter:blur(6px)}
+#controls button{width:38px;height:38px;border-radius:50%;border:0;background:#1d1d1d;color:var(--tx);font-size:15px}
+#controls button:hover,#controls button:focus-visible{background:var(--y);color:#0A0A0A;outline:none}
+#counter{font-family:var(--mono);font-size:13px;color:var(--y);min-width:64px;text-align:center}
+#menu{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:#0d0d0d;border-left:2px solid var(--y);z-index:50;display:flex;flex-direction:column;padding:16px;overflow:auto}
+#menu[hidden]{display:none}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:18px}
+.mhead button{background:#1d1d1d;border:0;color:var(--tx);width:34px;height:34px;border-radius:50%}
+.msec{display:grid;gap:6px;margin-bottom:14px}
+.msec button{display:flex;gap:12px;align-items:center;background:var(--y);color:#0A0A0A;border:0;border-radius:10px;padding:10px 12px;font-weight:800;font-size:15px;text-align:left}
+.msec span{font-family:var(--mono)}
+.mthumbs{display:grid;gap:4px}
+.mthumbs button{display:flex;gap:10px;background:#151515;color:var(--tx);border:1px solid #222;border-radius:8px;padding:7px 10px;text-align:left;font-size:13.5px}
+.mthumbs button b{font-family:var(--mono);color:var(--y);min-width:24px}
+.mthumbs button.cur{border-color:var(--g)}
+.mhelp{font-size:12px;color:var(--mut);margin-top:12px}
+
+@media (max-width:700px){#controls{left:50%;right:auto;transform:translateX(-50%)}#bPrint{display:none}}
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible;height:auto;background:#0B0B0B;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #progress,#controls,#menu{display:none !important}
+  #viewport{position:static}
+  #stage{position:static;transform:none !important;width:1280px;height:auto}
+  .slide{position:relative;display:flex !important;width:1280px;height:720px;break-after:page;animation:none}
+  .inst-list{overflow:hidden}
+}
+.grid-proj .kv.sm{font-size:16.5px}.grid-proj .kv.sm th{width:150px}
+.grid-proj .masalah{font-size:17.5px;padding:18px 20px}
+.grid-proj .kb-box{padding:16px 20px}.grid-proj .kb-box h4{font-size:18px}.grid-proj .kb-box .list li{font-size:16.5px;margin:9px 0}
+.tl li{font-size:13.2px}
+</style>
+</head>
+<body>
+<div id="progress"><i></i></div>
+<div id="viewport"><div id="stage">
+<section class="slide cover-slide" data-sec="Pembuka" data-title="Sampul" aria-label="Slide 1: Sampul"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Pembuka</span></div><div class="content">
+  <div class="cover">
+    <div class="cover-left">
+      <div class="kicker">Kelompok Kerja Guru · Gugus Puspamukti</div>
+      <h1 class="mega">Pembelajaran<br><span class="y">STEM</span> Berbasis Proyek</h1>
+      <p class="lead">Membuat contoh produk 6 proyek STEM Kelas 1–6, menyiapkan alat &amp; bahan,
+      dan menyepakati Program Supervisi Kepala Sekolah.</p>
+      <div class="cover-meta">
+        <div><b>Rabu, 21 Oktober 2026</b><span>07.30 – 12.10 WIB</span></div>
+        <div><b>Kecamatan Cigalontang, Kabupaten Tasikmalaya</b><span>Tahun Pelajaran 2026/2027</span></div>
+      </div>
+    </div>
+    <div class="cover-right">
+      <div class="stem-tiles">
+        <div class="st s"><b>S</b><span>Sains</span></div>
+        <div class="st t"><b>T</b><span>Teknologi</span></div>
+        <div class="st e"><b>E</b><span>Enjinering</span></div>
+        <div class="st m"><b>M</b><span>Matematika</span></div>
+      </div>
+      <div class="schools"><div class="school"><span class="dot"></span>SDN Puspamukti</div><div class="school"><span class="dot"></span>SDN Puspasari</div><div class="school"><span class="dot"></span>SDN 2 Pusparaja</div><div class="school"><span class="dot"></span>SDN Girilintang</div><div class="school"><span class="dot"></span>SDN 1 Cigalontang</div></div>
+    </div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">01 / 44</span></div></section>
+<section class="slide " data-sec="Pembuka" data-title="Identitas kegiatan" aria-label="Slide 2: Identitas kegiatan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Pembuka</span></div><div class="content">
+  <div class="kicker">Identitas Kegiatan</div>
+  <h2>KKG STEM Gugus Puspamukti</h2>
+  <div class="grid2 mt">
+    <table class="kv">
+      <tr><th>Tema</th><td>Penerapan proyek STEM Kelas 1–6 melalui 7 tahap praktik saintifik–enjinering, pengalaman belajar 3M, dan supervisi kepala sekolah</td></tr>
+      <tr><th>Hari, tanggal</th><td>Rabu, 21 Oktober 2026, pukul 07.30–12.10 WIB</td></tr>
+      <tr><th>Tempat</th><td>Ditetapkan pengurus KKG Gugus Puspamukti</td></tr>
+      <tr><th>Peserta</th><td>Guru Kelas 1–6 dan Kepala Sekolah dari 5 SD anggota gugus</td></tr>
+      <tr><th>Kelompok</th><td>6 kelompok kelas lintas sekolah (5 guru, 2 tim) + 1 kelompok kepala sekolah</td></tr>
+      <tr><th>Acuan</th><td>Panduan Pembelajaran STEM Kemendikdasmen 2025 · Kepka BSKAP 046/H/KR/2025 · Modul Proyek STEM LMS gugus</td></tr>
+    </table>
+    <div>
+      <div class="label">Sekolah anggota</div>
+      <div class="school-big"><div><span class="n">1</span>SDN Puspamukti</div><div><span class="n">2</span>SDN Puspasari</div><div><span class="n">3</span>SDN 2 Pusparaja</div><div><span class="n">4</span>SDN Girilintang</div><div><span class="n">5</span>SDN 1 Cigalontang</div></div>
+    </div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">02 / 44</span></div></section>
+<section class="slide " data-sec="Pembuka" data-title="Tujuan kegiatan" aria-label="Slide 3: Tujuan kegiatan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Pembuka</span></div><div class="content">
+  <div class="kicker">Tujuan Kegiatan</div>
+  <h2>Hari ini kita akan …</h2>
+  <div class="goals mt">
+    <div class="goal"><div class="goal-no">01</div><p>Menyamakan pemahaman guru dan kepala sekolah tentang pembelajaran STEM berbasis proyek (Panduan STEM Kemendikdasmen 2025).</p></div><div class="goal"><div class="goal-no">02</div><p>Membuat contoh produk 6 proyek STEM (Kelas 1–6) dengan menjalani sendiri 7 tahap praktik saintifik dan enjinering.</p></div><div class="goal"><div class="goal-no">03</div><p>Menyiapkan penerapan proyek di kelas pada minggu ke-4 Oktober s.d. minggu ke-3 November 2026, sebelum ASAS dan Gelar Karya STEM.</p></div><div class="goal"><div class="goal-no">04</div><p>Menyepakati Program Supervisi Kepala Sekolah untuk memantau dan membina penerapan proyek STEM di 5 SD anggota gugus.</p></div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">03 / 44</span></div></section>
+<section class="slide " data-sec="Pembuka" data-title="Rundown" aria-label="Slide 4: Rundown"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Pembuka</span></div><div class="content">
+  <div class="kicker">Susunan Acara · Rabu, 21 Oktober 2026</div>
+  <h2>Rundown Kegiatan</h2>
+  <table class="tbl mt"><thead><tr><th>Waktu</th><th>Kegiatan</th><th>Bentuk</th><th>Penanggung jawab</th><th>Prinsip</th></tr></thead>
+  <tbody><tr><td class="mono">07.30–08.00</td><td>Registrasi peserta &amp; pembukaan</td><td>Pleno</td><td>Ketua KKG Gugus</td><td><span class="chip" style="background:#00C2FF;color:#0A0A0A">Berkesadaran</span></td></tr><tr><td class="mono">08.00–08.20</td><td>Paparan: STEM PjBL, daftar proyek, alat &amp; bahan, program supervisi</td><td>Pleno</td><td>Narasumber / Pengawas</td><td><span class="chip" style="background:#22E06A;color:#0A0A0A">Bermakna</span></td></tr><tr><td class="mono">08.20–08.30</td><td>Pembentukan 6 kelompok kelas + 1 kelompok kepala sekolah</td><td>Transisi</td><td>Panitia</td><td><span class="chip" style="background:#3a3a3a;color:#fff">—</span></td></tr><tr><td class="mono">08.30–11.15</td><td>Guru: membuat contoh produk proyek (7 tahap). Kepala sekolah: kajian &amp; latihan instrumen supervisi dengan mengamati kelompok guru</td><td>Kelompok paralel</td><td>Fasilitator kelas &amp; Pengawas</td><td><span class="chip" style="background:#FFD60A;color:#0A0A0A">3M lengkap</span></td></tr><tr><td class="mono">11.15–11.45</td><td>Gallery walk: pameran 6 contoh produk + umpan balik kepala sekolah</td><td>Pleno</td><td>Perwakilan kelompok</td><td><span class="chip" style="background:#22E06A;color:#0A0A0A">Bermakna</span></td></tr><tr><td class="mono">11.45–12.00</td><td>Refleksi, RTL per sekolah &amp; penetapan jadwal supervisi</td><td>Pleno</td><td>Ketua KKG Gugus</td><td><span class="chip" style="background:#00C2FF;color:#0A0A0A">Berkesadaran</span></td></tr><tr><td class="mono">12.00–12.10</td><td>Penutup &amp; foto bersama</td><td>Pleno</td><td>Ketua KKG Gugus</td><td><span class="chip" style="background:#FF8A00;color:#0A0A0A">Menggembirakan</span></td></tr></tbody></table></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">04 / 44</span></div></section>
+<section class="slide dark-divider" data-sec="Memahami STEM" data-title="Memahami STEM" aria-label="Slide 5: Memahami STEM"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Memahami STEM</span></div><div class="content">
+      <div class="divider">
+        <div class="hazard"></div>
+        <div class="div-no">01</div>
+        <div class="div-title">Memahami STEM</div>
+        <div class="div-sub">Apa, mengapa, dan bagaimana pembelajaran STEM di SD</div>
+        <div class="hazard bottom"></div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">05 / 44</span></div></section>
+<section class="slide " data-sec="Memahami STEM" data-title="Apa itu STEM" aria-label="Slide 6: Apa itu STEM"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Memahami STEM</span></div><div class="content">
+  <div class="kicker">Apa itu STEM?</div>
+  <h2>Belajar memecahkan masalah nyata — lintas mata pelajaran</h2>
+  <p class="lead narrow">Pembelajaran yang mengintegrasikan berbagai mata pelajaran — <b class="y">tidak hanya IPA dan Matematika</b> —
+  untuk memecahkan masalah sehari-hari melalui penyelidikan ilmiah, siklus enjinering yang berulang, pemodelan matematis,
+  dan teknologi tepat guna.</p>
+  <div class="grid4 mt">
+    <div class="pillar" style="--c:#00C2FF"><b>S</b><h4>Sains</h4><p>Konsep, praktik, dan sikap ilmiah sebagai dasar merencanakan ide solusi.</p></div>
+    <div class="pillar" style="--c:#FFD60A"><b>T</b><h4>Teknologi</h4><p>Alat dan perangkat — sederhana maupun digital — untuk membangun solusi.</p></div>
+    <div class="pillar" style="--c:#FF8A00"><b>E</b><h4>Enjinering</h4><p>Mendesain, membuat, menguji, mengevaluasi, lalu memperbaiki solusi.</p></div>
+    <div class="pillar" style="--c:#22E06A"><b>M</b><h4>Matematika</h4><p>Mengukur, mengolah data, pola, dan skala untuk menganalisis solusi.</p></div>
+  </div>
+  <div class="note mt">Prinsip <b>mudah</b> (tantangan sesuai perkembangan murid) dan <b>murah</b> (alat-bahan sederhana &amp; bekas pakai yang aman).</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">06 / 44</span></div></section>
+<section class="slide " data-sec="Memahami STEM" data-title="Tiga karakteristik" aria-label="Slide 7: Tiga karakteristik"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Memahami STEM</span></div><div class="content">
+  <div class="kicker">Panduan STEM 2025 · Karakteristik</div>
+  <h2>Tiga karakteristik utama STEM</h2>
+  <div class="grid3 mt big-cards">
+    <div class="bc"><div class="bc-ico">🧩</div><h3>Penyelesaian Masalah</h3><p>Persoalan kontekstual — boleh sederhana namun bermakna — yang membangun kepedulian pada isu lokal dan rasa ingin tahu.</p></div>
+    <div class="bc"><div class="bc-ico">🔬</div><h3>Praktik Saintifik &amp; Enjinering</h3><p>Keterampilan ilmuwan dan insinyur, dilakukan berulang (iteratif) hingga diperoleh solusi paling optimal.</p></div>
+    <div class="bc"><div class="bc-ico">🔗</div><h3>Integrasi Lintas Disiplin</h3><p>Konsep berbagai mata pelajaran dipadukan: multidisipliner → interdisipliner → transdisipliner.</p></div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">07 / 44</span></div></section>
+<section class="slide " data-sec="Memahami STEM" data-title="Tujuh tahap" aria-label="Slide 8: Tujuh tahap"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Memahami STEM</span></div><div class="content">
+  <div class="kicker">Praktik Saintifik &amp; Enjinering</div>
+  <h2>7 tahap yang dijalani murid — dan guru hari ini</h2>
+  <div class="cycle-wrap">
+    <div class="cycle">
+      <svg width="600" height="540" viewBox="0 0 600 540" aria-hidden="true">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#FFD60A"/></marker></defs>
+        <circle cx="300" cy="270" r="210" fill="none" stroke="#2c2c2c" stroke-width="14"/>
+        <circle cx="300" cy="270" r="210" fill="none" stroke="#FFD60A" stroke-width="3" stroke-dasharray="10 12"/>
+        <path d="M 370 230 A 80 80 0 1 1 230 230" fill="none" stroke="#FFD60A" stroke-width="4" marker-end="url(#ar)"/>
+      </svg>
+      <div class="cycle-center"><b>↻</b><span>Iteratif</span><small>uji → perbaiki → uji</small></div>
+      <div class="node" style="left:222px;top:20px;--c:#00C2FF"><span class="nn">1</span><span class="nt">Bertanya &amp; Mengidentifikasi Masalah</span></div><div class="node" style="left:386px;top:99px;--c:#00C2FF"><span class="nn">2</span><span class="nt">Bertukar Pikiran Menentukan Solusi</span></div><div class="node" style="left:427px;top:277px;--c:#FFD60A"><span class="nn">3</span><span class="nt">Mendesain Solusi</span></div><div class="node" style="left:313px;top:419px;--c:#FFD60A"><span class="nn">4</span><span class="nt">Membuat Solusi</span></div><div class="node" style="left:131px;top:419px;--c:#FFD60A"><span class="nn">5</span><span class="nt">Menguji &amp; Mengevaluasi</span></div><div class="node" style="left:17px;top:277px;--c:#22E06A"><span class="nn">6</span><span class="nt">Mendesain Ulang</span></div><div class="node" style="left:58px;top:99px;--c:#22E06A"><span class="nn">7</span><span class="nt">Mengomunikasikan</span></div>
+    </div>
+    <div class="cycle-side">
+      <div class="legend-item" style="--c:#00C2FF"><b>Memahami</b><span>Tahap 1–2: menemukan masalah, bertanya, menimbang ide.</span></div>
+      <div class="legend-item" style="--c:#FFD60A"><b>Mengaplikasi</b><span>Tahap 3–5: merancang, membuat purwarupa, menguji dengan kriteria.</span></div>
+      <div class="legend-item" style="--c:#22E06A"><b>Merefleksi</b><span>Tahap 6–7: memperbaiki dan mengomunikasikan hasil.</span></div>
+      <div class="note sm">Fase A (Kelas 1–2): tahap boleh disederhanakan atau digabung dalam satu pertemuan, tanpa menghilangkan tahapnya.</div>
+    </div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">08 / 44</span></div></section>
+<section class="slide " data-sec="Memahami STEM" data-title="3M dan prinsip" aria-label="Slide 9: 3M dan prinsip"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Memahami STEM</span></div><div class="content">
+  <div class="kicker">Pembelajaran Mendalam</div>
+  <h2>Pengalaman belajar 3M &amp; tiga prinsip</h2>
+  <div class="grid3 mt">
+    <div class="m3" style="--c:#00C2FF"><h3>Memahami</h3><p>Mengaitkan konsep lintas disiplin dengan masalah nyata dan menjelaskan sebab–akibat.</p></div>
+    <div class="m3" style="--c:#FFD60A"><h3>Mengaplikasi</h3><p>Menerapkan konsep pada situasi autentik, mengambil keputusan desain, mengoptimasi solusi.</p></div>
+    <div class="m3" style="--c:#22E06A"><h3>Merefleksi</h3><p>Jurnal, log desain, dan diskusi menilai kualitas solusi, proses, dan rencana perbaikan.</p></div>
+  </div>
+  <div class="prinsip mt">
+    <div><b>Berkesadaran</b><span>Murid tahu tujuan belajar dan ikut mengatur strateginya.</span></div>
+    <div><b>Bermakna</b><span>Masalah diambil dari lingkungan sekitar murid.</span></div>
+    <div><b>Menggembirakan</b><span>Suasana aman untuk bertanya, mencoba, dan gagal.</span></div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">09 / 44</span></div></section>
+<section class="slide " data-sec="Memahami STEM" data-title="Profil lulusan &amp; peran" aria-label="Slide 10: Profil lulusan &amp; peran"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Memahami STEM</span></div><div class="content">
+  <div class="kicker">Dampak &amp; Peran</div>
+  <h2>8 dimensi profil lulusan · peran tiap pihak</h2>
+  <div class="grid2 mt">
+    <div class="profil"><div><span>🙏</span>Keimanan &amp; Ketakwaan</div><div><span>🇮🇩</span>Kewargaan</div><div><span>🧠</span>Penalaran Kritis</div><div><span>💡</span>Kreativitas</div><div><span>🤝</span>Kolaborasi</div><div><span>🧭</span>Kemandirian</div><div><span>💪</span>Kesehatan</div><div><span>🗣️</span>Komunikasi</div></div>
+    <div class="roles">
+      <div><b class="y">Kepala Sekolah</b><span>Menjadikan STEM program sekolah, mengatur waktu &amp; sumber daya, menyupervisi dan membina guru.</span></div>
+      <div><b class="g">Guru</b><span>Menghubungkan konsep dengan masalah nyata, memfasilitasi eksplorasi, menilai secara autentik.</span></div>
+      <div><b class="c">Pengawas &amp; KKG</b><span>Mengawal pelaksanaan dan mengembangkan komunitas belajar antarguru.</span></div>
+      <div><b class="o">Orang Tua</b><span>Mendukung tanpa mengambil alih pekerjaan anak.</span></div>
+    </div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">10 / 44</span></div></section>
+<section class="slide dark-divider" data-sec="Proyek &amp; Langkah" data-title="Daftar Proyek &amp; Langkah Pembuatan" aria-label="Slide 11: Daftar Proyek &amp; Langkah Pembuatan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="divider">
+        <div class="hazard"></div>
+        <div class="div-no">02</div>
+        <div class="div-title">Daftar Proyek &amp; Langkah Pembuatan</div>
+        <div class="div-sub">6 kelompok kelas · 165 menit · 7 tahap praktik saintifik–enjinering</div>
+        <div class="hazard bottom"></div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">11 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="Daftar proyek" aria-label="Slide 12: Daftar proyek"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+  <div class="kicker">Daftar Proyek yang Dibuat di KKG</div>
+  <h2>6 proyek · 1 kelompok kelas = 5 guru (2 tim)</h2>
+  <div class="grid3 mt pgrid">
+  <div class="pcard" style="--c:#FFD60A">
+    <div class="pk">Kelas 1 · Fase A</div>
+    <h3>Ayo Mengukur Tanpa Penggaris!</h3>
+    <p class="psub">Mengukur benda kelas dengan jengkal, langkah, dan pensil</p>
+    <div class="pprod"><span>Produk</span>Poster hasil pengukuran benda kelas dengan satuan tidak baku</div>
+    <div class="pmeta">3 pertemuan · 6 JP</div>
+  </div>
+  <div class="pcard" style="--c:#22E06A">
+    <div class="pk">Kelas 2 · Fase A</div>
+    <h3>Rumah Pola</h3>
+    <p class="psub">Motif berulang pada dinding rumah mainan</p>
+    <div class="pprod"><span>Produk</span>Rumah mainan dari kardus bekas berhias pola berulang + presentasi lisan</div>
+    <div class="pmeta">3 pertemuan · 6 JP</div>
+  </div>
+  <div class="pcard" style="--c:#FF8A00">
+    <div class="pk">Kelas 3 · Fase B</div>
+    <h3>Lampu Senter Sederhana</h3>
+    <p class="psub">Mengenal sumber energi dan rangkaian listrik</p>
+    <div class="pprod"><span>Produk</span>Lampu senter dari baterai, kabel, LED, dan kardus/botol bekas + tabel data uji</div>
+    <div class="pmeta">4 pertemuan · 9 JP</div>
+  </div>
+  <div class="pcard" style="--c:#00C2FF">
+    <div class="pk">Kelas 4 · Fase B</div>
+    <h3>Peta Kampungku</h3>
+    <p class="psub">Mengenal letak wilayah tempat tinggal</p>
+    <div class="pprod"><span>Produk</span>Denah lingkungan sekitar sekolah dengan simbol, legenda, judul, dan arah mata angin</div>
+    <div class="pmeta">4 pertemuan · 9 JP</div>
+  </div>
+  <div class="pcard" style="--c:#B4FF39">
+    <div class="pk">Kelas 5 · Fase C</div>
+    <h3>Sahabat Bumi</h3>
+    <p class="psub">Model siklus air tertutup dan konservasi air</p>
+    <div class="pprod"><span>Produk</span>Model siklus air dalam toples/botol bening + jurnal pengamatan + poster hemat air</div>
+    <div class="pmeta">4 pertemuan · 10 JP</div>
+  </div>
+  <div class="pcard" style="--c:#FF4FD8">
+    <div class="pk">Kelas 6 · Fase C</div>
+    <h3>Peta Timbul Wilayah Indonesia</h3>
+    <p class="psub">Peta timbul berskala Pulau Jawa / Jawa Barat</p>
+    <div class="pprod"><span>Produk</span>Peta timbul berskala dari adonan tepung/bubur kertas lengkap dengan legenda</div>
+    <div class="pmeta">4 pertemuan · 10 JP</div>
+  </div></div>
+  <div class="note sm mt">Diterapkan di kelas pada minggu ke-4 Oktober s.d. minggu ke-3 November 2026, sebelum ASAS &amp; Gelar Karya STEM. Modul lengkap tersedia di menu <b>Modul</b> LMS gugus.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">12 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K1 Ayo Mengukur Tanpa Penggaris! — tantangan" aria-label="Slide 13: K1 Ayo Mengukur Tanpa Penggaris! — tantangan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#FFD60A"><span class="kbadge">Kelas 1</span><div><div class="kicker">Fase A · 3 pertemuan · 6 JP</div><h2 class="h2s">Ayo Mengukur Tanpa Penggaris!</h2></div></div>
+      <div class="grid-proj mt">
+        <div>
+          <table class="kv sm">
+            <tr><th>Produk</th><td>Poster hasil pengukuran benda kelas dengan satuan tidak baku</td></tr>
+            <tr><th>Mapel terpadu</th><td>Matematika (Pengukuran), Bahasa Indonesia (Menulis), PJOK, Pendidikan Pancasila</td></tr>
+            <tr><th>Target di KKG</th><td>1 LKPD terisi + 1 poster pengukuran per tim</td></tr>
+          </table>
+          <div class="masalah mt-s"><span>Konten masalah</span>Murid kelas 1 sering berdebat meja siapa yang lebih panjang, tetapi belum tahu cara membuktikannya. Tidak semua murid punya penggaris, padahal jengkal, langkah, pensil, dan klip bisa dipakai untuk mengukur.</div>
+        </div>
+        <div class="kb">
+          <div class="kb-box ok"><h4>✔ Kriteria keberhasilan</h4><ul class="list"><li>Mengukur paling sedikit 4 benda di kelas</li><li>Satuan disebutkan dengan jelas (jengkal, langkah, pensil)</li><li>Hasil ditulis dengan angka pada poster</li><li>Dapat menunjukkan benda terpanjang dan terpendek</li></ul></div>
+          <div class="kb-box lim"><h4>⛔ Batasan</h4><ul class="list"><li>Hanya satuan tidak baku</li><li>Benda di dalam kelas dan aman disentuh</li><li>Bilangan hasil ukur sampai 20</li><li>3 pertemuan (6 JP)</li></ul></div>
+        </div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">13 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K1 Ayo Mengukur Tanpa Penggaris! — langkah" aria-label="Slide 14: K1 Ayo Mengukur Tanpa Penggaris! — langkah"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#FFD60A"><span class="kbadge">Kelas 1</span><div><div class="kicker">Fase A · 3 pertemuan · 6 JP</div><h2 class="h2s">Ayo Mengukur Tanpa Penggaris!</h2></div></div>
+      <div class="tbar mt-s"><div style="flex:10;background:#00C2FF" title="Bertanya &amp; Mengidentifikasi Masalah"><span>1</span></div><div style="flex:10;background:#00C2FF" title="Bertukar Pikiran"><span>2</span></div><div style="flex:15;background:#FFD60A" title="Mendesain Solusi"><span>3</span></div><div style="flex:60;background:#FFD60A" title="Membuat Solusi"><span>4</span></div><div style="flex:20;background:#FFD60A" title="Menguji &amp; Mengevaluasi"><span>5</span></div><div style="flex:15;background:#22E06A" title="Mendesain Ulang"><span>6</span></div><div style="flex:35;background:#22E06A" title="Mengomunikasikan"><span>7</span></div></div>
+      <div class="tiles"><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">1</span><span class="tm">10′</span></div><h4>Bertanya &amp; Mengidentifikasi Masalah</h4><ul class="tl"><li>Bandingkan dua pensil berbeda panjang: mana yang lebih panjang?</li><li>Masalah: “Meja siapa yang lebih panjang, padahal tidak ada penggaris?”</li></ul></div><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">2</span><span class="tm">10′</span></div><h4>Bertukar Pikiran</h4><ul class="tl"><li>Sebutkan satuan: jengkal, langkah, pensil, klip</li><li>Pilih 4 benda: meja, buku, pintu, papan tulis</li><li>Bagi peran: pengukur, pencatat, pemeriksa</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">3</span><span class="tm">15′</span></div><h4>Mendesain Solusi</h4><ul class="tl"><li>Siapkan LKPD tabel bergambar (benda–satuan–angka)</li><li>Rancang tata letak poster: judul + 4 kotak benda</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">4</span><span class="tm">60′</span></div><h4>Membuat Solusi</h4><ul class="tl"><li>Ukur tiap benda dengan 2 satuan berbeda</li><li>Mulai dari ujung, sambung satuan tanpa celah</li><li>Catat angka di LKPD, pindahkan ke poster</li><li>Tulis kalimat: “Meja panjangnya 8 jengkal.”</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">5</span><span class="tm">20′</span></div><h4>Menguji &amp; Mengevaluasi</h4><ul class="tl"><li>Tim lain mengukur ulang benda yang sama</li><li>Diskusikan mengapa hasil jengkal berbeda antarorang</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">6</span><span class="tm">15′</span></div><h4>Mendesain Ulang</h4><ul class="tl"><li>Perbaiki angka/gambar yang belum jelas</li><li>Tandai benda terpanjang &amp; terpendek</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">7</span><span class="tm">35′</span></div><h4>Mengomunikasikan</h4><ul class="tl"><li>Gallery walk poster antar-tim</li><li>Refleksi: kesulitan murid kelas 1 &amp; diferensiasi</li><li>Tulis RTL penerapan di kelas</li></ul></div><div class="tile tile-sum"><h4>Uji produk</h4><ul class="tl check"><li>Mengukur paling sedikit 4 benda di kelas</li><li>Satuan disebutkan dengan jelas (jengkal, langkah, pensil)</li><li>Hasil ditulis dengan angka pada poster</li><li>Dapat menunjukkan benda terpanjang dan terpendek</li></ul><div class="tot">165 menit</div></div></div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">14 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K2 Rumah Pola — tantangan" aria-label="Slide 15: K2 Rumah Pola — tantangan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#22E06A"><span class="kbadge">Kelas 2</span><div><div class="kicker">Fase A · 3 pertemuan · 6 JP</div><h2 class="h2s">Rumah Pola</h2></div></div>
+      <div class="grid-proj mt">
+        <div>
+          <table class="kv sm">
+            <tr><th>Produk</th><td>Rumah mainan dari kardus bekas berhias pola berulang + presentasi lisan</td></tr>
+            <tr><th>Mapel terpadu</th><td>Matematika (Pola), Bahasa Indonesia (Berbicara), Seni Rupa, Pendidikan Pancasila</td></tr>
+            <tr><th>Target di KKG</th><td>1 rumah mainan berpola per tim</td></tr>
+          </table>
+          <div class="masalah mt-s"><span>Konten masalah</span>Rumah di kampung sekitar sekolah banyak dihiasi pola berulang — bilik bambu, susunan genteng, motif pagar. Murid sering melihatnya tetapi belum menyadari aturan pengulangannya.</div>
+        </div>
+        <div class="kb">
+          <div class="kb-box ok"><h4>✔ Kriteria keberhasilan</h4><ul class="list"><li>Rumah berdiri tegak, punya dinding, pintu, dan atap</li><li>Tiap dinding berpola, minimal 3 kali pengulangan</li><li>Murid menjelaskan aturan pola (mis. merah-kuning)</li><li>Murid dapat melanjutkan pola buatan teman</li></ul></div>
+          <div class="kb-box lim"><h4>⛔ Batasan</h4><ul class="list"><li>Pola bukan bilangan (warna, bentuk, gambar)</li><li>Kardus bekas berukuran kecil</li><li>Gunting &amp; penggaris dengan pendampingan</li><li>3 pertemuan (6 JP)</li></ul></div>
+        </div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">15 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K2 Rumah Pola — langkah" aria-label="Slide 16: K2 Rumah Pola — langkah"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#22E06A"><span class="kbadge">Kelas 2</span><div><div class="kicker">Fase A · 3 pertemuan · 6 JP</div><h2 class="h2s">Rumah Pola</h2></div></div>
+      <div class="tbar mt-s"><div style="flex:10;background:#00C2FF" title="Bertanya &amp; Mengidentifikasi Masalah"><span>1</span></div><div style="flex:10;background:#00C2FF" title="Bertukar Pikiran"><span>2</span></div><div style="flex:15;background:#FFD60A" title="Mendesain Solusi"><span>3</span></div><div style="flex:65;background:#FFD60A" title="Membuat Solusi"><span>4</span></div><div style="flex:20;background:#FFD60A" title="Menguji &amp; Mengevaluasi"><span>5</span></div><div style="flex:15;background:#22E06A" title="Mendesain Ulang"><span>6</span></div><div style="flex:30;background:#22E06A" title="Mengomunikasikan"><span>7</span></div></div>
+      <div class="tiles"><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">1</span><span class="tm">10′</span></div><h4>Bertanya &amp; Mengidentifikasi Masalah</h4><ul class="tl"><li>Amati foto bilik bambu, genteng, kain bermotif</li><li>Masalah: “Bagaimana membuat dinding rumah yang berpola teratur?”</li></ul></div><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">2</span><span class="tm">10′</span></div><h4>Bertukar Pikiran</h4><ul class="tl"><li>Usulkan pola AB, ABC, atau AAB</li><li>Sepakati pola tiap dinding &amp; bahannya</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">3</span><span class="tm">15′</span></div><h4>Mendesain Solusi</h4><ul class="tl"><li>Gambar rancangan: 4 dinding, pintu, jendela, atap</li><li>Tulis aturan pola tiap dinding</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">4</span><span class="tm">65′</span></div><h4>Membuat Solusi</h4><ul class="tl"><li>Kokohkan kardus dengan lakban</li><li>Guru memotong pintu (3 sisi) dengan cutter</li><li>Lipat karton jadi atap prisma, rekatkan</li><li>Tempel potongan kertas 2×2 cm sesuai pola</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">5</span><span class="tm">20′</span></div><h4>Menguji &amp; Mengevaluasi</h4><ul class="tl"><li>Uji: rumah berdiri tegak &amp; lengkap?</li><li>Tukar rumah: tim lain menebak &amp; melanjutkan pola</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">6</span><span class="tm">15′</span></div><h4>Mendesain Ulang</h4><ul class="tl"><li>Perbaiki pola yang tidak teratur</li><li>Perkuat sambungan atap yang goyah</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">7</span><span class="tm">30′</span></div><h4>Mengomunikasikan</h4><ul class="tl"><li>Pamerkan rumah &amp; jelaskan aturan pola</li><li>Refleksi: membimbing murid memakai gunting</li></ul></div><div class="tile tile-sum"><h4>Uji produk</h4><ul class="tl check"><li>Rumah berdiri tegak, punya dinding, pintu, dan atap</li><li>Tiap dinding berpola, minimal 3 kali pengulangan</li><li>Murid menjelaskan aturan pola (mis. merah-kuning)</li><li>Murid dapat melanjutkan pola buatan teman</li></ul><div class="tot">165 menit</div></div></div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">16 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K3 Lampu Senter Sederhana — tantangan" aria-label="Slide 17: K3 Lampu Senter Sederhana — tantangan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#FF8A00"><span class="kbadge">Kelas 3</span><div><div class="kicker">Fase B · 4 pertemuan · 9 JP</div><h2 class="h2s">Lampu Senter Sederhana</h2></div></div>
+      <div class="grid-proj mt">
+        <div>
+          <table class="kv sm">
+            <tr><th>Produk</th><td>Lampu senter dari baterai, kabel, LED, dan kardus/botol bekas + tabel data uji</td></tr>
+            <tr><th>Mapel terpadu</th><td>IPAS (Energi &amp; Perubahannya), Matematika (Pengukuran &amp; Data), Bahasa Indonesia (Teks Deskripsi), Seni Rupa</td></tr>
+            <tr><th>Target di KKG</th><td>1 lampu senter menyala + tabel data uji per tim</td></tr>
+          </table>
+          <div class="masalah mt-s"><span>Konten masalah</span>Saat listrik padam atau berjalan ke masjid/mengaji pada malam hari, warga membutuhkan penerangan. Murid sering memakai senter tetapi belum tahu mengapa senter bisa menyala dan bagaimana membuatnya sendiri.</div>
+        </div>
+        <div class="kb">
+          <div class="kb-box ok"><h4>✔ Kriteria keberhasilan</h4><ul class="list"><li>LED menyala stabil saat senter dipegang/digerakkan</li><li>Rangkaian tertutup benar: baterai–kabel–LED–baterai</li><li>Dudukan kokoh dari bahan bekas dan dihias rapi</li><li>Menjelaskan energi kimia → listrik → cahaya dan mencatat data uji</li></ul></div>
+          <div class="kb-box lim"><h4>⛔ Batasan</h4><ul class="list"><li>Sumber listrik hanya 2 baterai AA (bukan listrik PLN)</li><li>Badan senter dari kardus/botol bekas</li><li>Mengupas kabel dilakukan guru</li><li>4 pertemuan (9 JP)</li></ul></div>
+        </div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">17 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K3 Lampu Senter Sederhana — langkah" aria-label="Slide 18: K3 Lampu Senter Sederhana — langkah"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#FF8A00"><span class="kbadge">Kelas 3</span><div><div class="kicker">Fase B · 4 pertemuan · 9 JP</div><h2 class="h2s">Lampu Senter Sederhana</h2></div></div>
+      <div class="tbar mt-s"><div style="flex:10;background:#00C2FF" title="Bertanya &amp; Mengidentifikasi Masalah"><span>1</span></div><div style="flex:10;background:#00C2FF" title="Bertukar Pikiran"><span>2</span></div><div style="flex:15;background:#FFD60A" title="Mendesain Solusi"><span>3</span></div><div style="flex:60;background:#FFD60A" title="Membuat Solusi"><span>4</span></div><div style="flex:25;background:#FFD60A" title="Menguji &amp; Mengevaluasi"><span>5</span></div><div style="flex:15;background:#22E06A" title="Mendesain Ulang"><span>6</span></div><div style="flex:30;background:#22E06A" title="Mengomunikasikan"><span>7</span></div></div>
+      <div class="tiles"><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">1</span><span class="tm">10′</span></div><h4>Bertanya &amp; Mengidentifikasi Masalah</h4><ul class="tl"><li>Bandingkan senter menyala vs senter baterai habis</li><li>Masalah: “Bisakah kita membuat senter sendiri dari bahan sederhana?”</li></ul></div><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">2</span><span class="tm">10′</span></div><h4>Bertukar Pikiran</h4><ul class="tl"><li>Sebut komponen: baterai, kabel, LED, sakelar</li><li>Pilih badan senter: kardus atau botol bekas</li><li>Bagi peran: perangkai, pencatat, penghias</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">3</span><span class="tm">15′</span></div><h4>Mendesain Solusi</h4><ul class="tl"><li>Gambar skema rangkaian tertutup</li><li>Tandai kutub + / − dan kaki LED panjang (+) / pendek (−)</li><li>Sketsa badan senter &amp; lubang cahaya</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">4</span><span class="tm">60′</span></div><h4>Membuat Solusi</h4><ul class="tl"><li>Uji rangkaian di meja: + ke kaki panjang, kaki pendek ke −</li><li>Rekatkan sambungan dengan selotip/isolasi</li><li>Buat dudukan &amp; lubang cahaya, pasang rangkaian</li><li>Sakelar sederhana: klip kertas + aluminium foil; hias</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">5</span><span class="tm">25′</span></div><h4>Menguji &amp; Mengevaluasi</h4><ul class="tl"><li>Goyangkan senter: tetap menyala?</li><li>Ukur diameter lingkaran cahaya di dinding pada jarak 30 &amp; 60 cm</li><li>Bandingkan baterai baru vs baterai lama; catat di tabel</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">6</span><span class="tm">15′</span></div><h4>Mendesain Ulang</h4><ul class="tl"><li>Periksa polaritas &amp; sambungan longgar</li><li>Perbaiki posisi LED agar cahaya lurus</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">7</span><span class="tm">30′</span></div><h4>Mengomunikasikan</h4><ul class="tl"><li>Presentasi alur energi kimia → listrik → cahaya</li><li>Refleksi: keselamatan baterai &amp; korsleting</li><li>Tulis RTL penerapan di kelas</li></ul></div><div class="tile tile-sum"><h4>Uji produk</h4><ul class="tl check"><li>LED menyala stabil saat senter dipegang/digerakkan</li><li>Rangkaian tertutup benar: baterai–kabel–LED–baterai</li><li>Dudukan kokoh dari bahan bekas dan dihias rapi</li><li>Menjelaskan energi kimia → listrik → cahaya dan mencatat data uji</li></ul><div class="tot">165 menit</div></div></div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">18 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K4 Peta Kampungku — tantangan" aria-label="Slide 19: K4 Peta Kampungku — tantangan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#00C2FF"><span class="kbadge">Kelas 4</span><div><div class="kicker">Fase B · 4 pertemuan · 9 JP</div><h2 class="h2s">Peta Kampungku</h2></div></div>
+      <div class="grid-proj mt">
+        <div>
+          <table class="kv sm">
+            <tr><th>Produk</th><td>Denah lingkungan sekitar sekolah dengan simbol, legenda, judul, dan arah mata angin</td></tr>
+            <tr><th>Mapel terpadu</th><td>IPAS (Letak Wilayah), Matematika (Geometri), Bahasa Indonesia, Pendidikan Pancasila, Seni Rupa</td></tr>
+            <tr><th>Target di KKG</th><td>1 denah lingkungan tempat KKG di karton A3 per tim</td></tr>
+          </table>
+          <div class="masalah mt-s"><span>Konten masalah</span>Banyak murid belum dapat menunjukkan letak desa, Kecamatan Cigalontang, dan Kabupaten Tasikmalaya di peta, atau menggambar denah sederhana dari rumah ke sekolah.</div>
+        </div>
+        <div class="kb">
+          <div class="kb-box ok"><h4>✔ Kriteria keberhasilan</h4><ul class="list"><li>Memuat minimal 8 tempat penting</li><li>Ada simbol, legenda, judul, arah mata angin</li><li>Bangunan dari bangun datar dengan ukuran sebanding</li><li>Dapat menunjukkan Kab. Tasikmalaya di peta Jawa Barat</li></ul></div>
+          <div class="kb-box lim"><h4>⛔ Batasan</h4><ul class="list"><li>Wilayah ±500 m di sekitar sekolah</li><li>Digambar di karton A3</li><li>Jelajah lapangan bersama guru</li><li>4 pertemuan (9 JP)</li></ul></div>
+        </div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">19 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K4 Peta Kampungku — langkah" aria-label="Slide 20: K4 Peta Kampungku — langkah"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#00C2FF"><span class="kbadge">Kelas 4</span><div><div class="kicker">Fase B · 4 pertemuan · 9 JP</div><h2 class="h2s">Peta Kampungku</h2></div></div>
+      <div class="tbar mt-s"><div style="flex:10;background:#00C2FF" title="Bertanya &amp; Mengidentifikasi Masalah"><span>1</span></div><div style="flex:10;background:#00C2FF" title="Bertukar Pikiran"><span>2</span></div><div style="flex:15;background:#FFD60A" title="Mendesain Solusi"><span>3</span></div><div style="flex:65;background:#FFD60A" title="Membuat Solusi"><span>4</span></div><div style="flex:20;background:#FFD60A" title="Menguji &amp; Mengevaluasi"><span>5</span></div><div style="flex:15;background:#22E06A" title="Mendesain Ulang"><span>6</span></div><div style="flex:30;background:#22E06A" title="Mengomunikasikan"><span>7</span></div></div>
+      <div class="tiles"><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">1</span><span class="tm">10′</span></div><h4>Bertanya &amp; Mengidentifikasi Masalah</h4><ul class="tl"><li>Temukan Kec. Cigalontang di peta Kab. Tasikmalaya</li><li>Sebutkan unsur peta: judul, legenda, simbol, arah, skala</li></ul></div><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">2</span><span class="tm">10′</span></div><h4>Bertukar Pikiran</h4><ul class="tl"><li>Daftar 8 tempat penting di sekitar tempat KKG</li><li>Bagi tugas: pencatat, penghitung langkah, penentu arah</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">3</span><span class="tm">15′</span></div><h4>Mendesain Solusi</h4><ul class="tl"><li>Tentukan arah utara (kompas/matahari pagi)</li><li>Rancang simbol bangun datar untuk legenda</li><li>Sepakati: 1 kotak 2×2 cm = 10 langkah</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">4</span><span class="tm">65′</span></div><h4>Membuat Solusi</h4><ul class="tl"><li>Jelajah lingkungan ±15 menit, catat letak &amp; langkah</li><li>Buat sketsa kasar, lalu garis kotak bantu di A3</li><li>Gambar jalan dulu, lalu bangunan dengan simbol</li><li>Warnai; legenda kanan bawah, arah kiri atas</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">5</span><span class="tm">20′</span></div><h4>Menguji &amp; Mengevaluasi</h4><ul class="tl"><li>Tim lain mencari 2 tempat hanya dari denah</li><li>Catat simbol yang membingungkan</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">6</span><span class="tm">15′</span></div><h4>Mendesain Ulang</h4><ul class="tl"><li>Perbaiki simbol dan letak tempat dari masukan</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">7</span><span class="tm">30′</span></div><h4>Mengomunikasikan</h4><ul class="tl"><li>Presentasikan rute pintu masuk → ruang KKG</li><li>Refleksi: keamanan murid saat jelajah lapangan</li></ul></div><div class="tile tile-sum"><h4>Uji produk</h4><ul class="tl check"><li>Memuat minimal 8 tempat penting</li><li>Ada simbol, legenda, judul, arah mata angin</li><li>Bangunan dari bangun datar dengan ukuran sebanding</li><li>Dapat menunjukkan Kab. Tasikmalaya di peta Jawa Barat</li></ul><div class="tot">165 menit</div></div></div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">20 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K5 Sahabat Bumi — tantangan" aria-label="Slide 21: K5 Sahabat Bumi — tantangan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#B4FF39"><span class="kbadge">Kelas 5</span><div><div class="kicker">Fase C · 4 pertemuan · 10 JP</div><h2 class="h2s">Sahabat Bumi</h2></div></div>
+      <div class="grid-proj mt">
+        <div>
+          <table class="kv sm">
+            <tr><th>Produk</th><td>Model siklus air dalam toples/botol bening + jurnal pengamatan + poster hemat air</td></tr>
+            <tr><th>Mapel terpadu</th><td>IPAS (Siklus Air), Matematika (Analisis Data), Pendidikan Pancasila, Bahasa Indonesia</td></tr>
+            <tr><th>Target di KKG</th><td>2 model (tempat terang &amp; teduh) + tabel pengamatan</td></tr>
+          </table>
+          <div class="masalah mt-s"><span>Konten masalah</span>Wilayah Cigalontang di lereng Galunggung kaya mata air, tetapi saat kemarau sebagian sumur warga mengering. Murid perlu memahami siklus air dan pentingnya menjaga air bersih.</div>
+        </div>
+        <div class="kb">
+          <div class="kb-box ok"><h4>✔ Kriteria keberhasilan</h4><ul class="list"><li>Model berisi tanah, tanaman kecil, air dalam wadah bening tertutup</li><li>Pengamatan embun dicatat ≥ 5 hari</li><li>Data disajikan dalam tabel dan grafik</li><li>Menjelaskan siklus air + 3 usulan konservasi</li></ul></div>
+          <div class="kb-box lim"><h4>⛔ Batasan</h4><ul class="list"><li>Wadah toples/botol plastik bening bekas</li><li>Pengamatan pada jam yang sama</li><li>Pembanding: tempat terang vs teduh</li><li>4 pertemuan (10 JP)</li></ul></div>
+        </div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">21 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K5 Sahabat Bumi — langkah" aria-label="Slide 22: K5 Sahabat Bumi — langkah"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#B4FF39"><span class="kbadge">Kelas 5</span><div><div class="kicker">Fase C · 4 pertemuan · 10 JP</div><h2 class="h2s">Sahabat Bumi</h2></div></div>
+      <div class="tbar mt-s"><div style="flex:15;background:#00C2FF" title="Bertanya &amp; Mengidentifikasi Masalah"><span>1</span></div><div style="flex:10;background:#00C2FF" title="Bertukar Pikiran"><span>2</span></div><div style="flex:15;background:#FFD60A" title="Mendesain Solusi"><span>3</span></div><div style="flex:55;background:#FFD60A" title="Membuat Solusi"><span>4</span></div><div style="flex:25;background:#FFD60A" title="Menguji &amp; Mengevaluasi"><span>5</span></div><div style="flex:15;background:#22E06A" title="Mendesain Ulang"><span>6</span></div><div style="flex:30;background:#22E06A" title="Mengomunikasikan"><span>7</span></div></div>
+      <div class="tiles"><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">1</span><span class="tm">15′</span></div><h4>Bertanya &amp; Mengidentifikasi Masalah</h4><ul class="tl"><li>Amati embun pada gelas berisi es &amp; uap air hangat</li><li>Masalah: mengapa sumur mengering? ke mana air pergi?</li></ul></div><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">2</span><span class="tm">10′</span></div><h4>Bertukar Pikiran</h4><ul class="tl"><li>Bagaimana agar air tidak hilang dan siklus terlihat?</li><li>Sepakati 2 model: terang &amp; teduh</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">3</span><span class="tm">15′</span></div><h4>Mendesain Solusi</h4><ul class="tl"><li>Gambar skema lapisan tanah–tanaman–air–tutup</li><li>Siapkan tabel pengamatan 5 hari</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">4</span><span class="tm">55′</span></div><h4>Membuat Solusi</h4><ul class="tl"><li>Isi tanah gembur 3–4 cm, tanam tanaman kecil</li><li>Siram hingga lembap (tidak tergenang)</li><li>Tutup plastik wrap + karet gelang rapat</li><li>Buat model kedua identik; beri label</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">5</span><span class="tm">25′</span></div><h4>Menguji &amp; Mengevaluasi</h4><ul class="tl"><li>Letakkan di tempat terang &amp; teduh</li><li>Setelah 30–60 menit amati embun/tetesan</li><li>Catat data &amp; buat contoh grafik batang</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">6</span><span class="tm">15′</span></div><h4>Mendesain Ulang</h4><ul class="tl"><li>Embun belum muncul? periksa kerapatan tutup</li><li>Perbaiki rancangan bila bocor</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">7</span><span class="tm">30′</span></div><h4>Mengomunikasikan</h4><ul class="tl"><li>Rancang poster 3 usulan hemat air</li><li>Refleksi: membimbing pencatatan data harian</li></ul></div><div class="tile tile-sum"><h4>Uji produk</h4><ul class="tl check"><li>Model berisi tanah, tanaman kecil, air dalam wadah bening tertutup</li><li>Pengamatan embun dicatat ≥ 5 hari</li><li>Data disajikan dalam tabel dan grafik</li><li>Menjelaskan siklus air + 3 usulan konservasi</li></ul><div class="tot">165 menit</div></div></div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">22 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K6 Peta Timbul Wilayah Indonesia — tantangan" aria-label="Slide 23: K6 Peta Timbul Wilayah Indonesia — tantangan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#FF4FD8"><span class="kbadge">Kelas 6</span><div><div class="kicker">Fase C · 4 pertemuan · 10 JP</div><h2 class="h2s">Peta Timbul Wilayah Indonesia</h2></div></div>
+      <div class="grid-proj mt">
+        <div>
+          <table class="kv sm">
+            <tr><th>Produk</th><td>Peta timbul berskala dari adonan tepung/bubur kertas lengkap dengan legenda</td></tr>
+            <tr><th>Mapel terpadu</th><td>IPAS (Konektivitas Antarruang), Matematika (Skala &amp; Geometri), Bahasa Indonesia, Pendidikan Pancasila, Seni Rupa</td></tr>
+            <tr><th>Target di KKG</th><td>1 peta timbul (alas ±40×30 cm) per tim</td></tr>
+          </table>
+          <div class="masalah mt-s"><span>Konten masalah</span>Jawa Barat — termasuk Tasikmalaya — punya Gunung Galunggung, dataran tinggi, sungai, dan pantai selatan. Pada peta biasa murid sulit membayangkan tinggi-rendahnya permukaan bumi.</div>
+        </div>
+        <div class="kb">
+          <div class="kb-box ok"><h4>✔ Kriteria keberhasilan</h4><ul class="list"><li>Dibuat dari peta acuan dengan skala yang dihitung</li><li>Ketinggian relatif gunung–dataran–laut benar</li><li>Ada warna, legenda, skala, judul, arah mata angin</li><li>Menyusun teks deskripsi kenampakan alam</li></ul></div>
+          <div class="kb-box lim"><h4>⛔ Batasan</h4><ul class="list"><li>Wilayah: Pulau Jawa atau Jawa Barat</li><li>Alas karton/triplek ±40 × 30 cm</li><li>Adonan tepung-garam-air atau bubur kertas</li><li>4 pertemuan (10 JP)</li></ul></div>
+        </div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">23 / 44</span></div></section>
+<section class="slide " data-sec="Proyek &amp; Langkah" data-title="K6 Peta Timbul Wilayah Indonesia — langkah" aria-label="Slide 24: K6 Peta Timbul Wilayah Indonesia — langkah"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Proyek &amp; Langkah</span></div><div class="content">
+      <div class="phead" style="--c:#FF4FD8"><span class="kbadge">Kelas 6</span><div><div class="kicker">Fase C · 4 pertemuan · 10 JP</div><h2 class="h2s">Peta Timbul Wilayah Indonesia</h2></div></div>
+      <div class="tbar mt-s"><div style="flex:10;background:#00C2FF" title="Bertanya &amp; Mengidentifikasi Masalah"><span>1</span></div><div style="flex:10;background:#00C2FF" title="Bertukar Pikiran"><span>2</span></div><div style="flex:20;background:#FFD60A" title="Mendesain Solusi"><span>3</span></div><div style="flex:50;background:#FFD60A" title="Membuat Solusi"><span>4</span></div><div style="flex:15;background:#FFD60A" title="Menguji &amp; Mengevaluasi"><span>5</span></div><div style="flex:10;background:#22E06A" title="Mendesain Ulang"><span>6</span></div><div style="flex:50;background:#22E06A" title="Mengomunikasikan"><span>7</span></div></div>
+      <div class="tiles"><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">1</span><span class="tm">10′</span></div><h4>Bertanya &amp; Mengidentifikasi Masalah</h4><ul class="tl"><li>Amati peta Jawa Barat &amp; foto Galunggung</li><li>Masalah: tinggi-rendah permukaan sulit dibayangkan</li></ul></div><div class="tile" style="--c:#00C2FF"><div class="tile-h"><span class="tn">2</span><span class="tm">10′</span></div><h4>Bertukar Pikiran</h4><ul class="tl"><li>Pilih wilayah: Jawa Barat / Pulau Jawa</li><li>Pilih adonan tepung (cepat) / bubur kertas (ringan)</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">3</span><span class="tm">20′</span></div><h4>Mendesain Solusi</h4><ul class="tl"><li>Hitung skala baru agar muat di alas 40 cm</li><li>Contoh 1:1.500.000 diperbesar 2× → 1:750.000</li><li>Pindahkan garis pantai dengan sistem petak</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">4</span><span class="tm">50′</span></div><h4>Membuat Solusi</h4><ul class="tl"><li>Adonan: 2 gelas tepung + 1 gelas garam + ±¾ gelas air</li><li>Lapisan dasar 0,5 cm; dataran tinggi 1–1,5 cm</li><li>Gunung 2–3 cm: Galunggung, Ciremai, Gede</li><li>Toreh alur sungai dengan tusuk sate</li></ul></div><div class="tile" style="--c:#FFD60A"><div class="tile-h"><span class="tn">5</span><span class="tm">15′</span></div><h4>Menguji &amp; Mengevaluasi</h4><ul class="tl"><li>Bandingkan ketinggian relatif dengan peta acuan</li><li>Tim lain memeriksa letak gunung &amp; sungai</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">6</span><span class="tm">10′</span></div><h4>Mendesain Ulang</h4><ul class="tl"><li>Perbaiki selagi adonan masih lunak</li></ul></div><div class="tile" style="--c:#22E06A"><div class="tile-h"><span class="tn">7</span><span class="tm">50′</span></div><h4>Mengomunikasikan</h4><ul class="tl"><li>Warnai: hijau rendah, kuning tinggi, cokelat gunung, biru air</li><li>Lengkapi legenda, skala, judul, arah</li><li>Refleksi: membimbing hitungan skala</li></ul></div><div class="tile tile-sum"><h4>Uji produk</h4><ul class="tl check"><li>Dibuat dari peta acuan dengan skala yang dihitung</li><li>Ketinggian relatif gunung–dataran–laut benar</li><li>Ada warna, legenda, skala, judul, arah mata angin</li><li>Menyusun teks deskripsi kenampakan alam</li></ul><div class="tot">165 menit</div></div></div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">24 / 44</span></div></section>
+<section class="slide dark-divider" data-sec="Alat &amp; Bahan" data-title="Alat &amp; Bahan yang Dibawa" aria-label="Slide 25: Alat &amp; Bahan yang Dibawa"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+      <div class="divider">
+        <div class="hazard"></div>
+        <div class="div-no">03</div>
+        <div class="div-title">Alat &amp; Bahan yang Dibawa</div>
+        <div class="div-sub">Siapkan H-1 · bahan bekas dicuci bersih · centang saat sudah siap</div>
+        <div class="hazard bottom"></div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">25 / 44</span></div></section>
+<section class="slide " data-sec="Alat &amp; Bahan" data-title="Perlengkapan umum" aria-label="Slide 26: Perlengkapan umum"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+  <div class="kicker">Daftar Bawaan</div>
+  <h2>Siapa membawa apa?</h2>
+  <div class="grid3 mt bring">
+    <div class="bb" style="--c:#FFD60A"><h3>📦 Panitia KKG</h3><ul class="list"><li>Laptop + proyektor + pengeras suara (membuka presentasi &amp; LMS STEM gugus)</li><li>Cetakan LKPD tiap proyek (5 lembar per kelas) dan instrumen supervisi (Lampiran 1–3) untuk kepala sekolah</li><li>Gunting, lem, selotip, dan lakban cadangan</li><li>Daftar hadir, papan nama kelompok, dan kertas plano untuk RTL</li><li>Kantong plastik/kardus untuk membawa pulang contoh produk</li><li>Lap, ember air, koran alas meja (kelompok Kelas 5 &amp; 6)</li><li>Kotak P3K sederhana</li></ul></div>
+    <div class="bb" style="--c:#22E06A"><h3>🧑‍🏫 Setiap Guru</h3><ul class="list"><li>HP terisi daya (dokumentasi, kompas, stopwatch) — unggah foto ke menu Progres LMS</li><li>Alat tulis pribadi: pensil, penghapus, spidol, penggaris, gunting</li><li>Bahan bekas sesuai kelas (kardus, toples, botol, koran) — dicuci bersih</li><li>Modul Proyek STEM kelasnya (cetak/digital dari LMS)</li></ul></div>
+    <div class="bb" style="--c:#00C2FF"><h3>👨‍💼 Kepala Sekolah</h3><ul class="list"><li>Program Supervisi Kepala Sekolah &amp; instrumen Lampiran 1–4 (cetak/digital)</li><li>Jadwal pelajaran STEM tiap kelas di sekolahnya (untuk menyusun jadwal observasi)</li><li>Papan jalan &amp; alat tulis untuk latihan observasi</li><li>Daftar guru kelas 1–6 beserta proyek yang akan dilaksanakan</li></ul></div>
+  </div>
+  <div class="note sm mt">Kolom <b>“Dibawa oleh”</b> pada slide berikutnya menunjukkan pembagian bawaan tiap kelompok kelas. Klik kotak ☐ untuk menandai barang yang sudah siap.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">26 / 44</span></div></section>
+<section class="slide " data-sec="Alat &amp; Bahan" data-title="Alat K1" aria-label="Slide 27: Alat K1"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+      <div class="phead" style="--c:#FFD60A"><span class="kbadge">Kelas 1</span>
+        <div><div class="kicker">Alat &amp; Bahan</div><h2 class="h2s">Ayo Mengukur Tanpa Penggaris!</h2></div>
+        <div class="ready"><span class="rc" data-g="ab-1-">0</span>/6 siap</div></div>
+      <table class="tbl ab mt-s"><thead><tr><th></th><th>Alat / bahan</th><th>Jenis</th><th>Untuk KKG (2 tim)</th><th>Per kelompok murid</th><th>Dibawa oleh</th></tr></thead>
+      <tbody><tr><td><button class="cb" data-k="ab-1-0" aria-label="tandai siap"></button></td><td class="nm">Pensil dengan panjang sama (satuan ukur)</td><td>Alat</td><td class="mono">10 batang</td><td class="mono">2–3 batang</td><td class="by">Tiap guru 2 batang</td></tr><tr><td><button class="cb" data-k="ab-1-1" aria-label="tandai siap"></button></td><td class="nm">Klip kertas</td><td>Bahan</td><td class="mono">1 kotak (±100)</td><td class="mono">±30 buah</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-1-2" aria-label="tandai siap"></button></td><td class="nm">LKPD tabel pengukuran bergambar</td><td>Bahan</td><td class="mono">5 lembar</td><td class="mono">1 per murid</td><td class="by">Panitia (cetak)</td></tr><tr><td><button class="cb" data-k="ab-1-3" aria-label="tandai siap"></button></td><td class="nm">Kertas poster/karton</td><td>Bahan</td><td class="mono">2 lembar</td><td class="mono">1 lembar</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-1-4" aria-label="tandai siap"></button></td><td class="nm">Spidol warna</td><td>Bahan</td><td class="mono">2 set</td><td class="mono">1 set</td><td class="by">Tiap guru membawa spidol</td></tr><tr><td><button class="cb" data-k="ab-1-5" aria-label="tandai siap"></button></td><td class="nm">Benda yang diukur (meja, buku, pintu, papan)</td><td>—</td><td class="mono">Ada di ruang KKG</td><td class="mono">Ada di kelas</td><td class="by">Tempat KKG</td></tr></tbody></table>
+      <div class="warn mt-s">⚠ Pengukuran langkah dilakukan bergantian agar murid tidak bertabrakan.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">27 / 44</span></div></section>
+<section class="slide " data-sec="Alat &amp; Bahan" data-title="Alat K2" aria-label="Slide 28: Alat K2"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+      <div class="phead" style="--c:#22E06A"><span class="kbadge">Kelas 2</span>
+        <div><div class="kicker">Alat &amp; Bahan</div><h2 class="h2s">Rumah Pola</h2></div>
+        <div class="ready"><span class="rc" data-g="ab-2-">0</span>/9 siap</div></div>
+      <table class="tbl ab mt-s"><thead><tr><th></th><th>Alat / bahan</th><th>Jenis</th><th>Untuk KKG (2 tim)</th><th>Per kelompok murid</th><th>Dibawa oleh</th></tr></thead>
+      <tbody><tr><td><button class="cb" data-k="ab-2-0" aria-label="tandai siap"></button></td><td class="nm">Kardus bekas kecil, bersih</td><td>Bahan</td><td class="mono">5 buah (cadangan 3)</td><td class="mono">1–2 buah</td><td class="by">Tiap guru 1 buah</td></tr><tr><td><button class="cb" data-k="ab-2-1" aria-label="tandai siap"></button></td><td class="nm">Kertas warna</td><td>Bahan</td><td class="mono">2 pak</td><td class="mono">½ pak</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-2-2" aria-label="tandai siap"></button></td><td class="nm">Stiker bentuk (lingkaran, segitiga, persegi)</td><td>Bahan</td><td class="mono">1 pak</td><td class="mono">1 lembar</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-2-3" aria-label="tandai siap"></button></td><td class="nm">Lem kertas</td><td>Bahan</td><td class="mono">3 buah</td><td class="mono">1 buah</td><td class="by">Tiap tim membawa</td></tr><tr><td><button class="cb" data-k="ab-2-4" aria-label="tandai siap"></button></td><td class="nm">Gunting (ujung tumpul untuk murid)</td><td>Alat</td><td class="mono">5 buah</td><td class="mono">2 buah</td><td class="by">Tiap guru 1 buah</td></tr><tr><td><button class="cb" data-k="ab-2-5" aria-label="tandai siap"></button></td><td class="nm">Penggaris</td><td>Alat</td><td class="mono">5 buah</td><td class="mono">2 buah</td><td class="by">Tiap guru 1 buah</td></tr><tr><td><button class="cb" data-k="ab-2-6" aria-label="tandai siap"></button></td><td class="nm">Lakban kertas/selotip</td><td>Bahan</td><td class="mono">1 gulung</td><td class="mono">1 gulung/kelas</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-2-7" aria-label="tandai siap"></button></td><td class="nm">Cutter (khusus guru)</td><td>Alat</td><td class="mono">1 buah</td><td class="mono">—</td><td class="by">Fasilitator</td></tr><tr><td><button class="cb" data-k="ab-2-8" aria-label="tandai siap"></button></td><td class="nm">Foto/benda berpola (kain, ubin, anyaman)</td><td>Bahan</td><td class="mono">3–5 contoh</td><td class="mono">Untuk sekelas</td><td class="by">Fasilitator</td></tr></tbody></table>
+      <div class="warn mt-s">⚠ Cutter hanya dipakai guru; murid memakai gunting ujung tumpul.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">28 / 44</span></div></section>
+<section class="slide " data-sec="Alat &amp; Bahan" data-title="Alat K3" aria-label="Slide 29: Alat K3"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+      <div class="phead" style="--c:#FF8A00"><span class="kbadge">Kelas 3</span>
+        <div><div class="kicker">Alat &amp; Bahan</div><h2 class="h2s">Lampu Senter Sederhana</h2></div>
+        <div class="ready"><span class="rc" data-g="ab-3-">0</span>/11 siap</div></div>
+      <table class="tbl ab mt-s"><thead><tr><th></th><th>Alat / bahan</th><th>Jenis</th><th>Untuk KKG (2 tim)</th><th>Per kelompok murid</th><th>Dibawa oleh</th></tr></thead>
+      <tbody><tr><td><button class="cb" data-k="ab-3-0" aria-label="tandai siap"></button></td><td class="nm">Baterai AA baru</td><td>Bahan</td><td class="mono">6 buah (2 cadangan)</td><td class="mono">2 buah</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-3-1" aria-label="tandai siap"></button></td><td class="nm">Tempat baterai 2×AA (tambahan)</td><td>Alat</td><td class="mono">2 buah</td><td class="mono">1 buah</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-3-2" aria-label="tandai siap"></button></td><td class="nm">Lampu LED 5 mm</td><td>Bahan</td><td class="mono">6 buah</td><td class="mono">1–2 buah</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-3-3" aria-label="tandai siap"></button></td><td class="nm">Kabel tipis/kabel jumper</td><td>Bahan</td><td class="mono">2 meter</td><td class="mono">±50 cm</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-3-4" aria-label="tandai siap"></button></td><td class="nm">Selotip / isolasi listrik</td><td>Bahan</td><td class="mono">2 gulung</td><td class="mono">1 gulung</td><td class="by">Tiap tim membawa</td></tr><tr><td><button class="cb" data-k="ab-3-5" aria-label="tandai siap"></button></td><td class="nm">Kardus kecil / botol / gulungan tisu bekas</td><td>Bahan</td><td class="mono">5 buah</td><td class="mono">1 buah</td><td class="by">Tiap guru 1 buah</td></tr><tr><td><button class="cb" data-k="ab-3-6" aria-label="tandai siap"></button></td><td class="nm">Klip kertas &amp; aluminium foil (sakelar)</td><td>Bahan</td><td class="mono">Secukupnya</td><td class="mono">Secukupnya</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-3-7" aria-label="tandai siap"></button></td><td class="nm">Gunting &amp; penggaris</td><td>Alat</td><td class="mono">5 buah</td><td class="mono">2 buah</td><td class="by">Tiap guru 1 set</td></tr><tr><td><button class="cb" data-k="ab-3-8" aria-label="tandai siap"></button></td><td class="nm">Kertas warna / stiker hias</td><td>Bahan</td><td class="mono">1 pak</td><td class="mono">Beberapa lembar</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-3-9" aria-label="tandai siap"></button></td><td class="nm">Senter asli (menyala &amp; baterai habis)</td><td>Alat</td><td class="mono">2 buah</td><td class="mono">Untuk sekelas</td><td class="by">Fasilitator</td></tr><tr><td><button class="cb" data-k="ab-3-10" aria-label="tandai siap"></button></td><td class="nm">LKPD tabel data uji</td><td>Bahan</td><td class="mono">5 lembar</td><td class="mono">1 lembar</td><td class="by">Panitia (cetak)</td></tr></tbody></table>
+      <div class="warn mt-s">⚠ Jangan sambungkan kedua kutub baterai langsung tanpa LED (korsleting, baterai panas). Tidak memakai listrik stopkontak.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">29 / 44</span></div></section>
+<section class="slide " data-sec="Alat &amp; Bahan" data-title="Alat K4" aria-label="Slide 30: Alat K4"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+      <div class="phead" style="--c:#00C2FF"><span class="kbadge">Kelas 4</span>
+        <div><div class="kicker">Alat &amp; Bahan</div><h2 class="h2s">Peta Kampungku</h2></div>
+        <div class="ready"><span class="rc" data-g="ab-4-">0</span>/9 siap</div></div>
+      <table class="tbl ab mt-s"><thead><tr><th></th><th>Alat / bahan</th><th>Jenis</th><th>Untuk KKG (2 tim)</th><th>Per kelompok murid</th><th>Dibawa oleh</th></tr></thead>
+      <tbody><tr><td><button class="cb" data-k="ab-4-0" aria-label="tandai siap"></button></td><td class="nm">Karton / kertas gambar A3</td><td>Bahan</td><td class="mono">3 lembar (1 cadangan)</td><td class="mono">1 lembar</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-4-1" aria-label="tandai siap"></button></td><td class="nm">Penggaris</td><td>Alat</td><td class="mono">5 buah</td><td class="mono">1–2 buah</td><td class="by">Tiap guru 1 buah</td></tr><tr><td><button class="cb" data-k="ab-4-2" aria-label="tandai siap"></button></td><td class="nm">Pensil warna / spidol</td><td>Alat</td><td class="mono">2 set</td><td class="mono">1 set</td><td class="by">Tiap tim membawa</td></tr><tr><td><button class="cb" data-k="ab-4-3" aria-label="tandai siap"></button></td><td class="nm">Pensil &amp; penghapus</td><td>Alat</td><td class="mono">5 buah</td><td class="mono">1 per murid</td><td class="by">Tiap guru membawa</td></tr><tr><td><button class="cb" data-k="ab-4-4" aria-label="tandai siap"></button></td><td class="nm">Kertas label</td><td>Bahan</td><td class="mono">1 pak</td><td class="mono">1 lembar</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-4-5" aria-label="tandai siap"></button></td><td class="nm">Papan jalan (alas menulis)</td><td>Alat</td><td class="mono">3 buah</td><td class="mono">1 buah</td><td class="by">Tiap sekolah 1 (bila ada)</td></tr><tr><td><button class="cb" data-k="ab-4-6" aria-label="tandai siap"></button></td><td class="nm">Kompas sederhana / aplikasi kompas HP</td><td>Alat</td><td class="mono">1–2 buah</td><td class="mono">1 untuk sekelas</td><td class="by">Fasilitator</td></tr><tr><td><button class="cb" data-k="ab-4-7" aria-label="tandai siap"></button></td><td class="nm">Peta Jawa Barat &amp; Kab. Tasikmalaya</td><td>Bahan</td><td class="mono">1 lembar</td><td class="mono">1 untuk sekelas</td><td class="by">Fasilitator</td></tr><tr><td><button class="cb" data-k="ab-4-8" aria-label="tandai siap"></button></td><td class="nm">LKPD pencatatan letak, arah, jarak</td><td>Bahan</td><td class="mono">5 lembar</td><td class="mono">1 lembar</td><td class="by">Panitia (cetak)</td></tr></tbody></table>
+      <div class="warn mt-s">⚠ Jelajah lapangan bersama guru; tidak menyeberang jalan raya tanpa pendampingan.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">30 / 44</span></div></section>
+<section class="slide " data-sec="Alat &amp; Bahan" data-title="Alat K5" aria-label="Slide 31: Alat K5"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+      <div class="phead" style="--c:#B4FF39"><span class="kbadge">Kelas 5</span>
+        <div><div class="kicker">Alat &amp; Bahan</div><h2 class="h2s">Sahabat Bumi</h2></div>
+        <div class="ready"><span class="rc" data-g="ab-5-">0</span>/9 siap</div></div>
+      <table class="tbl ab mt-s"><thead><tr><th></th><th>Alat / bahan</th><th>Jenis</th><th>Untuk KKG (2 tim)</th><th>Per kelompok murid</th><th>Dibawa oleh</th></tr></thead>
+      <tbody><tr><td><button class="cb" data-k="ab-5-0" aria-label="tandai siap"></button></td><td class="nm">Toples/botol plastik bening bekas (bersih)</td><td>Alat</td><td class="mono">4 buah (2 cadangan)</td><td class="mono">2 buah</td><td class="by">Tiap guru 1 buah</td></tr><tr><td><button class="cb" data-k="ab-5-1" aria-label="tandai siap"></button></td><td class="nm">Tanah gembur</td><td>Bahan</td><td class="mono">±2 kg</td><td class="mono">±1 kg</td><td class="by">Fasilitator / tuan rumah</td></tr><tr><td><button class="cb" data-k="ab-5-2" aria-label="tandai siap"></button></td><td class="nm">Tanaman kecil (rumput, semai kacang hijau)</td><td>Bahan</td><td class="mono">4 batang</td><td class="mono">2 batang</td><td class="by">Fasilitator</td></tr><tr><td><button class="cb" data-k="ab-5-3" aria-label="tandai siap"></button></td><td class="nm">Air bersih</td><td>Bahan</td><td class="mono">1 botol 1,5 L</td><td class="mono">1 botol</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-5-4" aria-label="tandai siap"></button></td><td class="nm">Plastik wrap</td><td>Bahan</td><td class="mono">1 gulung</td><td class="mono">Untuk sekelas</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-5-5" aria-label="tandai siap"></button></td><td class="nm">Karet gelang</td><td>Bahan</td><td class="mono">1 bungkus kecil</td><td class="mono">2 buah</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-5-6" aria-label="tandai siap"></button></td><td class="nm">Sendok &amp; spidol label</td><td>Alat</td><td class="mono">2 buah</td><td class="mono">1 buah</td><td class="by">Tiap tim membawa</td></tr><tr><td><button class="cb" data-k="ab-5-7" aria-label="tandai siap"></button></td><td class="nm">Gelas, es batu, air hangat (demonstrasi)</td><td>Bahan</td><td class="mono">1 set</td><td class="mono">Untuk sekelas</td><td class="by">Tuan rumah</td></tr><tr><td><button class="cb" data-k="ab-5-8" aria-label="tandai siap"></button></td><td class="nm">Tabel pengamatan &amp; kertas berpetak</td><td>Bahan</td><td class="mono">5 lembar</td><td class="mono">1 set</td><td class="by">Panitia (cetak)</td></tr></tbody></table>
+      <div class="warn mt-s">⚠ Air hangat demonstrasi tidak mendidih dan dipegang guru. Model tidak diletakkan di tepi meja/jendela.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">31 / 44</span></div></section>
+<section class="slide " data-sec="Alat &amp; Bahan" data-title="Alat K6" aria-label="Slide 32: Alat K6"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+      <div class="phead" style="--c:#FF4FD8"><span class="kbadge">Kelas 6</span>
+        <div><div class="kicker">Alat &amp; Bahan</div><h2 class="h2s">Peta Timbul Wilayah Indonesia</h2></div>
+        <div class="ready"><span class="rc" data-g="ab-6-">0</span>/10 siap</div></div>
+      <table class="tbl ab mt-s"><thead><tr><th></th><th>Alat / bahan</th><th>Jenis</th><th>Untuk KKG (2 tim)</th><th>Per kelompok murid</th><th>Dibawa oleh</th></tr></thead>
+      <tbody><tr><td><button class="cb" data-k="ab-6-0" aria-label="tandai siap"></button></td><td class="nm">Tepung terigu</td><td>Bahan</td><td class="mono">1 kg</td><td class="mono">±500 g</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-6-1" aria-label="tandai siap"></button></td><td class="nm">Garam halus</td><td>Bahan</td><td class="mono">250 g</td><td class="mono">±125 g</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-6-2" aria-label="tandai siap"></button></td><td class="nm">Air</td><td>Bahan</td><td class="mono">1 botol 1,5 L</td><td class="mono">1 botol</td><td class="by">Panitia</td></tr><tr><td><button class="cb" data-k="ab-6-3" aria-label="tandai siap"></button></td><td class="nm">Koran bekas (bubur kertas / alas meja)</td><td>Bahan</td><td class="mono">1 ikat</td><td class="mono">Secukupnya</td><td class="by">Tiap guru membawa</td></tr><tr><td><button class="cb" data-k="ab-6-4" aria-label="tandai siap"></button></td><td class="nm">Alas karton tebal/triplek ±40×30 cm</td><td>Bahan</td><td class="mono">2 lembar</td><td class="mono">1 lembar</td><td class="by">2 guru membawa</td></tr><tr><td><button class="cb" data-k="ab-6-5" aria-label="tandai siap"></button></td><td class="nm">Wadah adonan</td><td>Alat</td><td class="mono">2 buah</td><td class="mono">1 buah</td><td class="by">Tiap tim membawa</td></tr><tr><td><button class="cb" data-k="ab-6-6" aria-label="tandai siap"></button></td><td class="nm">Cat air / pewarna &amp; kuas</td><td>Bahan</td><td class="mono">2 set + 5 kuas</td><td class="mono">1 set</td><td class="by">Tiap guru 1 kuas</td></tr><tr><td><button class="cb" data-k="ab-6-7" aria-label="tandai siap"></button></td><td class="nm">Penggaris &amp; pensil (skala, petak)</td><td>Alat</td><td class="mono">5 buah</td><td class="mono">2 buah</td><td class="by">Tiap guru membawa</td></tr><tr><td><button class="cb" data-k="ab-6-8" aria-label="tandai siap"></button></td><td class="nm">Peta cetak Pulau Jawa/Jawa Barat</td><td>Bahan</td><td class="mono">2 lembar</td><td class="mono">1 lembar</td><td class="by">Panitia (cetak)</td></tr><tr><td><button class="cb" data-k="ab-6-9" aria-label="tandai siap"></button></td><td class="nm">Lap / kain bekas</td><td>Bahan</td><td class="mono">Secukupnya</td><td class="mono">Secukupnya</td><td class="by">Tiap guru membawa</td></tr></tbody></table>
+      <div class="warn mt-s">⚠ Adonan bukan untuk dimakan; cuci tangan setelah bekerja. Bersihkan sisa adonan agar lantai tidak licin.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">32 / 44</span></div></section>
+<section class="slide " data-sec="Alat &amp; Bahan" data-title="Keselamatan" aria-label="Slide 33: Keselamatan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Alat &amp; Bahan</span></div><div class="content">
+  <div class="kicker">K3 Sederhana</div>
+  <h2>Aturan keselamatan untuk semua kelompok</h2>
+  <div class="grid2 mt safety">
+    <div>✂️ <b>Alat tajam</b> (gunting, cutter, paku) dan lem tembak hanya dipakai dengan pengawasan guru; murid memakai gunting ujung tumpul.</div>
+    <div>🔋 <b>Listrik</b>: hanya baterai kecil. Kedua kutub baterai tidak boleh disambung langsung tanpa beban (LED).</div>
+    <div>🧼 <b>Bahan bekas</b> dicuci dan dikeringkan sebelum dipakai; adonan tepung bukan untuk dimakan.</div>
+    <div>🚸 <b>Jelajah lapangan</b> bersama guru, berkelompok, tidak menyeberang jalan raya tanpa pendamping.</div>
+    <div>💧 <b>Air &amp; adonan</b>: alasi meja dengan koran, siapkan lap agar lantai tidak licin.</div>
+    <div>📸 <b>Dokumentasi</b> proses dan produk, lalu unggah ke menu Progres LMS STEM gugus.</div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">33 / 44</span></div></section>
+<section class="slide dark-divider" data-sec="Supervisi KS" data-title="Program Supervisi Kepala Sekolah" aria-label="Slide 34: Program Supervisi Kepala Sekolah"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+      <div class="divider">
+        <div class="hazard"></div>
+        <div class="div-no">04</div>
+        <div class="div-title">Program Supervisi Kepala Sekolah</div>
+        <div class="div-sub">Memantau dan membina penerapan proyek STEM · 21 Oktober – Desember 2026</div>
+        <div class="hazard bottom"></div>
+      </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">34 / 44</span></div></section>
+<section class="slide " data-sec="Supervisi KS" data-title="Identitas &amp; tujuan supervisi" aria-label="Slide 35: Identitas &amp; tujuan supervisi"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+  <div class="kicker">Program Supervisi Kepala Sekolah</div>
+  <h2>Penerapan Proyek STEM Pasca-KKG</h2>
+  <div class="grid2 mt">
+    <table class="kv sm">
+      <tr><th>Sasaran</th><td>Guru Kelas 1–6 di 5 SD Gugus Puspamukti (± 30 guru) beserta proses dan produk proyeknya</td></tr>
+      <tr><th>Supervisor</th><td>Kepala sekolah masing-masing; didampingi pengawas pembina</td></tr>
+      <tr><th>Periode</th><td>21 Oktober – Desember 2026 (Semester Ganjil 2026/2027)</td></tr>
+      <tr><th>Jenis</th><td>Supervisi dokumen · supervisi akademik (observasi kelas) · coaching · kunjungan silang</td></tr>
+      <tr><th>Instrumen</th><td>Lampiran 1 Observasi · Lampiran 2 Telaah Modul · Lampiran 3 Coaching · Lampiran 4 Rekap</td></tr>
+    </table>
+    <div><div class="label">Tujuan</div><ol class="olist"><li>Memastikan modul proyek STEM yang dipakai guru lengkap sesuai Tabel 10 Panduan STEM 2025 (supervisi dokumen).</li><li>Mengamati langsung penerapan 7 tahap praktik saintifik–enjinering, pengalaman belajar 3M, dan prinsip pembelajaran mendalam di kelas.</li><li>Memberi umpan balik dan coaching yang konstruktif paling lambat 3 hari kerja setelah observasi.</li><li>Menghimpun data keterlaksanaan proyek STEM 5 SD sebagai bahan refleksi KKG Gugus Puspamukti dan Gelar Karya STEM.</li></ol></div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">35 / 44</span></div></section>
+<section class="slide " data-sec="Supervisi KS" data-title="Alur supervisi" aria-label="Slide 36: Alur supervisi"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+  <div class="kicker">Mekanisme</div>
+  <h2>Tiga tahap supervisi</h2>
+  <div class="flow mt">
+    <div class="fl" style="--c:#00C2FF"><div class="fl-no">1</div><h3>Pra-supervisi</h3><ul class="list">
+      <li>Pelajari modul proyek &amp; jadwal STEM kelas</li><li>Tetapkan fokus dan instrumen</li>
+      <li>Informasikan jadwal ke guru ≥ 3 hari sebelumnya</li><li>Sepakati tujuan supervisi bersama guru</li></ul></div>
+    <div class="arrow">➜</div>
+    <div class="fl" style="--c:#FFD60A"><div class="fl-no">2</div><h3>Pelaksanaan</h3><ul class="list">
+      <li><b>Dokumen</b>: telaah modul dengan checklist 14 komponen</li><li><b>Kelas</b>: amati 1 pertemuan penuh dengan 20 indikator</li>
+      <li>Catat bukti (ucapan, karya, foto), bukan kesan</li><li>Tidak menginterupsi pembelajaran</li></ul></div>
+    <div class="arrow">➜</div>
+    <div class="fl" style="--c:#22E06A"><div class="fl-no">3</div><h3>Pasca-supervisi</h3><ul class="list">
+      <li>Coaching ≤ 3 hari kerja (alur TIRTA)</li><li>Apresiasi praktik baik lebih dulu</li>
+      <li>Rencana tindak lanjut + target waktu</li><li>Isi rekap &amp; pantau tindak lanjut</li></ul></div>
+  </div>
+  <div class="prinsip mt sm4">
+    <div><b>Objektif</b><span>berbasis bukti</span></div><div><b>Konstruktif</b><span>membangun &amp; reflektif</span></div>
+    <div><b>Kolaboratif</b><span>RTL disusun bersama</span></div><div><b>Berkelanjutan</b><span>terjadwal &amp; dipantau</span></div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">36 / 44</span></div></section>
+<section class="slide " data-sec="Supervisi KS" data-title="Jadwal program" aria-label="Slide 37: Jadwal program"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+  <div class="kicker">Jadwal Program Supervisi</div>
+  <h2>Garis waktu Oktober – Desember 2026</h2>
+  <div class="timeline mt"><div class="tli"><div class="tl-d">Rabu, 21 Okt 2026</div><div class="tl-t">KKG STEM</div><p>Kepala sekolah mengkaji program &amp; berlatih memakai instrumen dengan mengamati kelompok guru.</p></div><div class="tli"><div class="tl-d">22–24 Okt 2026</div><div class="tl-t">Pra-supervisi</div><p>Rapat sekolah: sosialisasi jadwal &amp; instrumen kepada guru (≥ 3 hari sebelum supervisi).</p></div><div class="tli"><div class="tl-d">26–31 Okt 2026</div><div class="tl-t">Supervisi dokumen</div><p>Telaah modul proyek &amp; LKPD tiap kelas (Lampiran 2).</p></div><div class="tli"><div class="tl-d">2–13 Nov 2026</div><div class="tl-t">Observasi kelas</div><p>Kunjungan kelas saat pertemuan Mengaplikasi / tahap membuat–menguji (Lampiran 1).</p></div><div class="tli"><div class="tl-d">≤ 3 hari kerja</div><div class="tl-t">Coaching</div><p>Umpan balik &amp; rencana tindak lanjut bersama guru (Lampiran 3, alur TIRTA).</p></div><div class="tli"><div class="tl-d">16–20 Nov 2026</div><div class="tl-t">Kunjungan silang</div><p>Kepala sekolah berkunjung ke sekolah mitra + pemantauan tindak lanjut bersama pengawas.</p></div><div class="tli"><div class="tl-d">23 Nov–11 Des 2026</div><div class="tl-t">Gelar Karya &amp; rekap</div><p>Pameran produk STEM &amp; ASAS; kepala sekolah mengisi rekap (Lampiran 4).</p></div><div class="tli"><div class="tl-d">KKG Desember 2026</div><div class="tl-t">Pelaporan</div><p>Laporan hasil supervisi tiap sekolah dipaparkan di forum KKG gugus.</p></div></div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">37 / 44</span></div></section>
+<section class="slide " data-sec="Supervisi KS" data-title="Jadwal observasi" aria-label="Slide 38: Jadwal observasi"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+  <div class="kicker">Supervisi Akademik · Observasi Kelas</div>
+  <h2>Jadwal observasi per kelas (rujukan gugus)</h2>
+  <table class="tbl mt"><thead><tr><th>Kelas</th><th>Hari, tanggal</th><th>Proyek</th><th>Pertemuan diamati</th><th>Fokus observasi</th></tr></thead><tbody><tr><td><span class="kb2" style="background:#FFD60A">1</span></td><td class="mono">Senin, 2 Nov 2026</td><td>Ayo Mengukur Tanpa Penggaris!</td><td>P2 — mengukur benda kelas</td><td>Ketepatan cara mengukur; adaptasi Fase A (tanpa IPAS)</td></tr><tr><td><span class="kb2" style="background:#FF8A00">3</span></td><td class="mono">Selasa, 3 Nov 2026</td><td>Lampu Senter Sederhana</td><td>P2 — merangkai &amp; menguji</td><td>Keselamatan rangkaian; pencatatan data uji</td></tr><tr><td><span class="kb2" style="background:#00C2FF">4</span></td><td class="mono">Rabu, 4 Nov 2026</td><td>Peta Kampungku</td><td>P3 — menggambar denah</td><td>Integrasi IPAS–Matematika; simbol &amp; skala</td></tr><tr><td><span class="kb2" style="background:#22E06A">2</span></td><td class="mono">Kamis, 5 Nov 2026</td><td>Rumah Pola</td><td>P2 — membangun rumah</td><td>Pola berulang; penggunaan alat dengan aman</td></tr><tr><td><span class="kb2" style="background:#B4FF39">5</span></td><td class="mono">Jumat, 6 Nov 2026</td><td>Sahabat Bumi</td><td>P2 — membuat model</td><td>Uji adil (variabel); data pengamatan</td></tr><tr><td><span class="kb2" style="background:#FF4FD8">6</span></td><td class="mono">Selasa, 10 Nov 2026</td><td>Peta Timbul Wilayah Indonesia</td><td>P3 — membentuk relief</td><td>Perhitungan skala; kolaborasi tim</td></tr></tbody></table>
+  <div class="grid2 mt-s">
+    <div class="note sm">Cadangan: 9–13 November 2026. Tiap sekolah menyesuaikan hari dengan jadwal STEM kelasnya, lalu mengisi jadwal final pada lembar RTL.</div>
+    <div class="note sm">Supervisi dokumen (Lampiran 2) dilakukan serentak <b>26–31 Oktober 2026</b>, sebelum proyek berjalan.</div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">38 / 44</span></div></section>
+<section class="slide " data-sec="Supervisi KS" data-title="Matriks sasaran" aria-label="Slide 39: Matriks sasaran"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+  <div class="kicker">Sasaran &amp; Kunjungan Silang</div>
+  <h2>Matriks supervisi 5 sekolah</h2>
+  <table class="tbl mt"><thead><tr><th>Sekolah</th><th>Supervisor</th><th>Telaah modul</th><th>Observasi kelas</th><th>Coaching</th><th>Kunjungan silang (16–20 Nov)</th></tr></thead>
+  <tbody><tr><td class="nm">SDN Puspamukti</td><td>Kepala SDN Puspamukti</td><td class="mono">6</td><td class="mono">6</td><td class="mono">6</td><td>→ SDN Puspasari</td></tr><tr><td class="nm">SDN Puspasari</td><td>Kepala SDN Puspasari</td><td class="mono">6</td><td class="mono">6</td><td class="mono">6</td><td>→ SDN 2 Pusparaja</td></tr><tr><td class="nm">SDN 2 Pusparaja</td><td>Kepala SDN 2 Pusparaja</td><td class="mono">6</td><td class="mono">6</td><td class="mono">6</td><td>→ SDN Girilintang</td></tr><tr><td class="nm">SDN Girilintang</td><td>Kepala SDN Girilintang</td><td class="mono">6</td><td class="mono">6</td><td class="mono">6</td><td>→ SDN 1 Cigalontang</td></tr><tr><td class="nm">SDN 1 Cigalontang</td><td>Kepala SDN 1 Cigalontang</td><td class="mono">6</td><td class="mono">6</td><td class="mono">6</td><td>→ SDN Puspamukti</td></tr><tr class="total"><td>Jumlah</td><td>5 kepala sekolah</td><td class="mono">30</td><td class="mono">30</td><td class="mono">30</td><td>5 kunjungan</td></tr></tbody></table>
+  <div class="note sm mt-s">Kunjungan silang: kepala sekolah mengamati satu kelas di sekolah mitra (rotasi), untuk berbagi praktik baik dan menyamakan cara menilai. Sekolah dengan kelas rangkap menyesuaikan jumlah sasaran.</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">39 / 44</span></div></section>
+<section class="slide inst-slide" data-sec="Supervisi KS" data-title="Instrumen observasi" aria-label="Slide 40: Instrumen observasi"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+  <div class="kicker">Lampiran 1 · Instrumen Observasi Kelas (bisa diisi langsung)</div>
+  <h2 class="h2s">Coba isi: 20 indikator, skala 1–4</h2>
+  <div class="inst mt-s">
+    <div class="inst-list" id="obsList"><div class="ic">A. Pengalaman Belajar 3M</div><div class="ir" data-i="1"><span class="in">1</span><span class="it">Memahami — murid mengaitkan konsep lintas disiplin dengan masalah nyata</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="2"><span class="in">2</span><span class="it">Mengaplikasi — murid menerapkan konsep, mengambil keputusan desain, mengoptimasi solusi</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="3"><span class="in">3</span><span class="it">Merefleksi — murid menilai solusi &amp; proses melalui jurnal/log desain/diskusi</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ic">B. Prinsip Pembelajaran Mendalam</div><div class="ir" data-i="4"><span class="in">4</span><span class="it">Berkesadaran — murid memahami tujuan dan mengatur strategi/pembagian tugas</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="5"><span class="in">5</span><span class="it">Bermakna — aktivitas terhubung dengan masalah nyata di sekitar murid</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="6"><span class="in">6</span><span class="it">Menggembirakan — suasana positif, murid antusias dan aman mencoba</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ic">C. Praktik Saintifik &amp; Enjinering</div><div class="ir" data-i="7"><span class="in">7</span><span class="it">Masalah kontekstual, kriteria, dan batasan proyek jelas bagi murid</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="8"><span class="in">8</span><span class="it">Murid bertanya, bertukar ide, dan menentukan solusi terbaik</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="9"><span class="in">9</span><span class="it">Murid membuat rancangan/sketsa lalu membangun purwarupa</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="10"><span class="in">10</span><span class="it">Murid menguji sesuai kriteria, mencatat data, dan memperbaiki (iteratif)</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="11"><span class="in">11</span><span class="it">Murid mengomunikasikan rancangan, proses, dan hasil uji</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ic">D. Integrasi Komponen STEM</div><div class="ir" data-i="12"><span class="in">12</span><span class="it">Sains — konsep/praktik saintifik sesuai CP (IPAS Fase B/C, tematik Fase A)</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="13"><span class="in">13</span><span class="it">Teknologi — alat/bahan/perangkat dipakai tepat guna</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="14"><span class="in">14</span><span class="it">Enjinering — tampak siklus desain–buat–uji–desain ulang</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="15"><span class="in">15</span><span class="it">Matematika — mengukur, mengolah data, pola, skala dipakai untuk menganalisis solusi</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="16"><span class="in">16</span><span class="it">Lintas disiplin — mapel lain terlibat bermakna</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ic">E. Pedagogi &amp; Pengelolaan Kelas</div><div class="ir" data-i="17"><span class="in">17</span><span class="it">Langkah pembelajaran sesuai modul proyek STEM</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="18"><span class="in">18</span><span class="it">Pengelolaan kelompok efektif; alat-bahan mudah, murah, aman</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="19"><span class="in">19</span><span class="it">Keselamatan kerja terjaga; akses &amp; peran adil bagi semua murid (diferensiasi)</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div><div class="ir" data-i="20"><span class="in">20</span><span class="it">Asesmen formatif autentik (observasi, rubrik, catatan anekdotal)</span><span class="sc"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button></span></div></div>
+    <div class="inst-side">
+      <div class="idf"><label>Sekolah<select id="obsSk"><option>SDN Puspamukti</option><option>SDN Puspasari</option><option>SDN 2 Pusparaja</option><option>SDN Girilintang</option><option>SDN 1 Cigalontang</option></select></label>
+        <label>Guru / Kelas<input id="obsGuru" placeholder="Nama guru · Kelas"></label></div>
+      <div class="score"><div><span id="obsTot">0</span><small>/ <span id="obsMax">0</span></small></div><b id="obsNilai">–</b><em id="obsPred">Belum diisi</em></div>
+      <div class="scale"><div><b>4</b> Sangat baik</div><div><b>3</b> Baik</div><div><b>2</b> Cukup</div><div><b>1</b> Perlu bimbingan</div></div>
+      <div class="pred-tbl">Nilai = skor ÷ skor maks × 100<br>86–100 Sangat Baik · 71–85 Baik<br>56–70 Cukup · ≤ 55 Perlu Bimbingan</div>
+      <button class="btn-s" id="obsReset">Kosongkan</button>
+      <div class="note xs">Khusus Kelas 1–2: indikator Sains dinilai dari konteks tematik/Matematika/Bahasa Indonesia (Fase A belum ada IPAS).</div>
+    </div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">40 / 44</span></div></section>
+<section class="slide inst-slide" data-sec="Supervisi KS" data-title="Telaah modul" aria-label="Slide 41: Telaah modul"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+  <div class="kicker">Lampiran 2 · Checklist Telaah Modul Proyek (Tabel 10 Panduan STEM)</div>
+  <h2 class="h2s">Telaah 14 komponen modul — 26–31 Oktober 2026</h2>
+  <div class="inst mt-s">
+    <div class="inst-list"><div class="tr" data-t="0"><span class="in">1</span><span class="it">Dimensi Profil Lulusan yang dikuatkan</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="1"><span class="in">2</span><span class="it">Topik proyek STEM</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="2"><span class="in">3</span><span class="it">Konten masalah (kontekstual)</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="3"><span class="in">4</span><span class="it">Kriteria keberhasilan</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="4"><span class="in">5</span><span class="it">Batasan (bahan, waktu, ukuran)</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="5"><span class="in">6</span><span class="it">Tujuan pembelajaran per mapel (CP 046/H/KR/2025)</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="6"><span class="in">7</span><span class="it">Integrasi komponen STEM</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="7"><span class="in">8</span><span class="it">Praktik pedagogis</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="8"><span class="in">9</span><span class="it">Kemitraan pembelajaran (opsional)</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="9"><span class="in">10</span><span class="it">Lingkungan pembelajaran</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="10"><span class="in">11</span><span class="it">Pemanfaatan digital (opsional)</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="11"><span class="in">12</span><span class="it">Pengalaman belajar: 7 tahap + 3M + prinsip</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="12"><span class="in">13</span><span class="it">Asesmen formatif &amp; sumatif</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div><div class="tr" data-t="13"><span class="in">14</span><span class="it">Khusus Kelas 1–2: adaptasi Fase A tanpa IPAS</span><span class="yn"><button data-v="y">Ya</button><button data-v="n">Tidak</button></span></div></div>
+    <div class="inst-side">
+      <div class="score"><div><span id="telY">0</span><small>/ 14 sesuai</small></div><b id="telPct">–</b><em id="telKes">Belum ditelaah</em></div>
+      <div class="pred-tbl">Kesimpulan otomatis:<br>≥ 12 wajib terpenuhi → Layak tanpa perbaikan<br>9–11 → Layak dengan perbaikan minor<br>&lt; 9 → Perlu revisi sebelum dipakai</div>
+      <div class="note xs">Komponen 9 &amp; 11 bersifat opsional; komponen 14 hanya untuk Kelas 1–2 (pilih “Ya” bila tidak relevan).</div>
+      <button class="btn-s" id="telReset">Kosongkan</button>
+    </div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">41 / 44</span></div></section>
+<section class="slide " data-sec="Supervisi KS" data-title="Coaching &amp; pelaporan" aria-label="Slide 42: Coaching &amp; pelaporan"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Supervisi KS</span></div><div class="content">
+  <div class="kicker">Lampiran 3 &amp; 4 · Tindak Lanjut</div>
+  <h2>Coaching TIRTA, rekap, dan pelaporan</h2>
+  <div class="grid2 mt">
+    <div>
+      <div class="tirta">
+        <div><b>T</b><span><i>Tujuan</i> — “Apa yang ingin Bapak/Ibu capai pada pertemuan proyek berikutnya?”</span></div>
+        <div><b>I</b><span><i>Identifikasi</i> — “Apa yang sudah berjalan baik? Bukti apa yang kita lihat di kelas?”</span></div>
+        <div><b>R</b><span><i>Rencana aksi</i> — “Langkah apa yang akan dicoba? Dukungan apa yang dibutuhkan?”</span></div>
+        <div><b>TA</b><span><i>Tanggung jawab</i> — “Kapan dilakukan, dan bagaimana kita tahu berhasil?”</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="label">Rekap &amp; pelaporan</div>
+      <ul class="list">
+        <li>Hasil tiap supervisi dicatat pada <b>Lampiran 4</b> dan menu <b>Supervisi</b> LMS (unduh CSV).</li>
+        <li>Ringkasan per sekolah dipaparkan di KKG Desember 2026.</li>
+        <li>Guru yang memerlukan pendampingan intensif mendapat coaching lanjutan / dukungan KKG &amp; pengawas.</li>
+      </ul>
+      <div class="label mt-s">Indikator keberhasilan program</div>
+      <div class="ikgrid"><div class="ikb"><b>100%</b><span>guru kelas 1–6 di 5 SD disupervisi dokumen &amp; kelas</span></div><div class="ikb"><b>≥ 80%</b><span>guru meraih predikat Baik / Sangat Baik</span></div><div class="ikb"><b>100%</b><span>hasil observasi ditindaklanjuti dengan coaching ≤ 3 hari</span></div><div class="ikb"><b>6 produk</b><span>per sekolah dipamerkan pada Gelar Karya STEM</span></div></div>
+    </div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">42 / 44</span></div></section>
+<section class="slide " data-sec="Penutup" data-title="RTL" aria-label="Slide 43: RTL"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Penutup</span></div><div class="content">
+  <div class="kicker">Refleksi &amp; Rencana Tindak Lanjut · 11.45–12.00</div>
+  <h2>RTL per sekolah</h2>
+  <table class="tbl rtl mt"><thead><tr><th>Sekolah</th><th>Proyek yang diterapkan &amp; kelas</th><th>Mulai di kelas</th><th>Jadwal supervisi (dokumen / kelas)</th><th>Dukungan gugus yang dibutuhkan</th></tr></thead>
+  <tbody><tr><td class="nm">SDN Puspamukti</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td class="nm">SDN Puspasari</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td class="nm">SDN 2 Pusparaja</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td class="nm">SDN Girilintang</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td class="nm">SDN 1 Cigalontang</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr></tbody></table>
+  <div class="grid3 mt-s refl">
+    <div>❓ Apa yang paling menantang saat Bapak/Ibu menjalani 7 tahap tadi?</div>
+    <div>🎯 Bagian mana yang perlu disederhanakan untuk murid di kelas Anda?</div>
+    <div>🤝 Dukungan apa yang Anda harapkan dari kepala sekolah?</div>
+  </div>
+  <div class="note xs mt-s">Klik sel kosong untuk mengetik langsung saat presentasi (isian tidak tersimpan — salin ke notulen).</div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">43 / 44</span></div></section>
+<section class="slide dark-divider" data-sec="Penutup" data-title="Penutup" aria-label="Slide 44: Penutup"><div class="topbar"><span>KKG STEM · Gugus Puspamukti</span><span>Penutup</span></div><div class="content">
+  <div class="closing">
+    <div class="hazard"></div>
+    <div class="kicker">KKG STEM · Gugus Puspamukti</div>
+    <div class="thanks">Hatur nuhun<span class="y">.</span></div>
+    <p class="lead">Selamat menerapkan proyek STEM di kelas — sampai jumpa di Gelar Karya STEM!</p>
+    <div class="schools row"><div class="school"><span class="dot"></span>SDN Puspamukti</div><div class="school"><span class="dot"></span>SDN Puspasari</div><div class="school"><span class="dot"></span>SDN 2 Pusparaja</div><div class="school"><span class="dot"></span>SDN Girilintang</div><div class="school"><span class="dot"></span>SDN 1 Cigalontang</div></div>
+    <div class="hazard bottom"></div>
+  </div></div><div class="foot"><span>Rabu, 21 Oktober 2026</span><span class="pg">44 / 44</span></div></section>
+
+</div></div>
+<nav id="controls" aria-label="Navigasi slide">
+  <button id="bPrev" title="Sebelumnya (←)">◀</button>
+  <span id="counter">1 / 44</span>
+  <button id="bNext" title="Berikutnya (→)">▶</button>
+  <button id="bMenu" title="Daftar slide (M)">☰</button>
+  <button id="bFull" title="Layar penuh (F)">⛶</button>
+  <button id="bPrint" title="Cetak / simpan PDF">🖨</button>
+</nav>
+<aside id="menu" hidden>
+  <div class="mhead"><b>Daftar Isi</b><button id="bClose" aria-label="Tutup">✕</button></div>
+  <div class="msec"><button data-go="0"><span>01</span>Pembuka</button><button data-go="4"><span>02</span>Memahami STEM</button><button data-go="10"><span>03</span>Proyek &amp; Langkah</button><button data-go="24"><span>04</span>Alat &amp; Bahan</button><button data-go="33"><span>05</span>Supervisi KS</button><button data-go="42"><span>06</span>Penutup</button></div>
+  <div class="mthumbs"><button data-go="0"><b>1</b>Sampul</button><button data-go="1"><b>2</b>Identitas kegiatan</button><button data-go="2"><b>3</b>Tujuan kegiatan</button><button data-go="3"><b>4</b>Rundown</button><button data-go="4"><b>5</b>Memahami STEM</button><button data-go="5"><b>6</b>Apa itu STEM</button><button data-go="6"><b>7</b>Tiga karakteristik</button><button data-go="7"><b>8</b>Tujuh tahap</button><button data-go="8"><b>9</b>3M dan prinsip</button><button data-go="9"><b>10</b>Profil lulusan &amp; peran</button><button data-go="10"><b>11</b>Daftar Proyek &amp; Langkah Pembuatan</button><button data-go="11"><b>12</b>Daftar proyek</button><button data-go="12"><b>13</b>K1 Ayo Mengukur Tanpa Penggaris! — tantangan</button><button data-go="13"><b>14</b>K1 Ayo Mengukur Tanpa Penggaris! — langkah</button><button data-go="14"><b>15</b>K2 Rumah Pola — tantangan</button><button data-go="15"><b>16</b>K2 Rumah Pola — langkah</button><button data-go="16"><b>17</b>K3 Lampu Senter Sederhana — tantangan</button><button data-go="17"><b>18</b>K3 Lampu Senter Sederhana — langkah</button><button data-go="18"><b>19</b>K4 Peta Kampungku — tantangan</button><button data-go="19"><b>20</b>K4 Peta Kampungku — langkah</button><button data-go="20"><b>21</b>K5 Sahabat Bumi — tantangan</button><button data-go="21"><b>22</b>K5 Sahabat Bumi — langkah</button><button data-go="22"><b>23</b>K6 Peta Timbul Wilayah Indonesia — tantangan</button><button data-go="23"><b>24</b>K6 Peta Timbul Wilayah Indonesia — langkah</button><button data-go="24"><b>25</b>Alat &amp; Bahan yang Dibawa</button><button data-go="25"><b>26</b>Perlengkapan umum</button><button data-go="26"><b>27</b>Alat K1</button><button data-go="27"><b>28</b>Alat K2</button><button data-go="28"><b>29</b>Alat K3</button><button data-go="29"><b>30</b>Alat K4</button><button data-go="30"><b>31</b>Alat K5</button><button data-go="31"><b>32</b>Alat K6</button><button data-go="32"><b>33</b>Keselamatan</button><button data-go="33"><b>34</b>Program Supervisi Kepala Sekolah</button><button data-go="34"><b>35</b>Identitas &amp; tujuan supervisi</button><button data-go="35"><b>36</b>Alur supervisi</button><button data-go="36"><b>37</b>Jadwal program</button><button data-go="37"><b>38</b>Jadwal observasi</button><button data-go="38"><b>39</b>Matriks sasaran</button><button data-go="39"><b>40</b>Instrumen observasi</button><button data-go="40"><b>41</b>Telaah modul</button><button data-go="41"><b>42</b>Coaching &amp; pelaporan</button><button data-go="42"><b>43</b>RTL</button><button data-go="43"><b>44</b>Penutup</button></div>
+  <p class="mhelp">Tombol: ← → / spasi pindah slide · M daftar isi · F layar penuh · Home/End awal/akhir</p>
+</aside>
+<script>(function(){
+  var stage=document.getElementById('stage');
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var bar=document.querySelector('#progress i');
+  var counter=document.getElementById('counter');
+  var menu=document.getElementById('menu');
+  var thumbs=[].slice.call(document.querySelectorAll('.mthumbs button'));
+  var cur=0;
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+             set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+  function fit(){
+    var s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+  function show(n){
+    cur=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(el,k){el.classList.toggle('active',k===cur)});
+    bar.style.width=((cur+1)/slides.length*100)+'%';
+    counter.textContent=(cur+1)+' / '+slides.length;
+    thumbs.forEach(function(b,k){b.classList.toggle('cur',k===cur)});
+    try{history.replaceState(null,'','#'+(cur+1))}catch(e){}
+  }
+  function editing(t){return t&&(t.isContentEditable||/INPUT|SELECT|TEXTAREA/.test(t.tagName))}
+  document.addEventListener('keydown',function(e){
+    if(editing(e.target))return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();show(cur+1)}
+    else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();show(cur-1)}
+    else if(k==='Home'){show(0)}else if(k==='End'){show(slides.length-1)}
+    else if(k==='m'||k==='M'){toggleMenu()}
+    else if(k==='f'||k==='F'){full()}
+    else if(k==='Escape'){menu.hidden=true}
+  });
+  var tx=null,ty=null;
+  document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(tx===null)return;var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5&&!e.target.closest('.inst-list,#menu'))show(cur+(dx<0?1:-1));tx=null;
+  },{passive:true});
+  function toggleMenu(){menu.hidden=!menu.hidden}
+  function full(){
+    try{if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen()}catch(e){}
+  }
+  document.getElementById('bPrev').onclick=function(){show(cur-1)};
+  document.getElementById('bNext').onclick=function(){show(cur+1)};
+  document.getElementById('bMenu').onclick=toggleMenu;
+  document.getElementById('bClose').onclick=toggleMenu;
+  document.getElementById('bFull').onclick=full;
+  document.getElementById('bPrint').onclick=function(){window.print()};
+  menu.addEventListener('click',function(e){
+    var b=e.target.closest('[data-go]');if(!b)return;show(+b.getAttribute('data-go'));menu.hidden=true;
+  });
+
+  /* checklist alat & bahan (diingat di peramban ini saja) */
+  var cbs=[].slice.call(document.querySelectorAll('.cb'));
+  function recount(){
+    [].forEach.call(document.querySelectorAll('.rc'),function(rc){
+      var g=rc.getAttribute('data-g');
+      rc.textContent=cbs.filter(function(c){return c.getAttribute('data-k').indexOf(g)===0&&c.classList.contains('on')}).length;
+    });
+  }
+  cbs.forEach(function(c){
+    var k='kkg-stem-21okt-'+c.getAttribute('data-k');
+    if(store.get(k)==='1'){c.classList.add('on');c.closest('tr').classList.add('done')}
+    c.addEventListener('click',function(){
+      var on=c.classList.toggle('on');c.closest('tr').classList.toggle('done',on);store.set(k,on?'1':'0');recount();
+    });
+  });
+  recount();
+
+  /* instrumen observasi */
+  var obsList=document.getElementById('obsList');
+  function obsCalc(){
+    var on=[].slice.call(obsList.querySelectorAll('button.on'));
+    var tot=on.reduce(function(a,b){return a+(+b.getAttribute('data-v'))},0),max=on.length*4;
+    document.getElementById('obsTot').textContent=tot;
+    document.getElementById('obsMax').textContent=max;
+    var nil=max?Math.round(tot/max*100):null;
+    document.getElementById('obsNilai').textContent=nil===null?'–':nil;
+    document.getElementById('obsPred').textContent=nil===null?'Belum diisi':
+      (nil>=86?'Sangat Baik':nil>=71?'Baik':nil>=56?'Cukup':'Perlu Bimbingan')+' · '+on.length+'/20 indikator';
+  }
+  if(obsList){
+    obsList.addEventListener('click',function(e){
+      var b=e.target.closest('button');if(!b)return;
+      var row=b.closest('.ir');var was=b.classList.contains('on');
+      [].forEach.call(row.querySelectorAll('button'),function(x){x.classList.remove('on')});
+      if(!was)b.classList.add('on');obsCalc();
+    });
+    document.getElementById('obsReset').onclick=function(){
+      [].forEach.call(obsList.querySelectorAll('button.on'),function(x){x.classList.remove('on')});
+      document.getElementById('obsGuru').value='';obsCalc();
+    };
+  }
+  /* telaah modul */
+  var telRows=[].slice.call(document.querySelectorAll('.tr'));
+  function telCalc(){
+    var y=0,ans=0;
+    telRows.forEach(function(r){var b=r.querySelector('button.on');if(b){ans++;if(b.getAttribute('data-v')==='y')y++}});
+    document.getElementById('telY').textContent=y;
+    document.getElementById('telPct').textContent=ans?Math.round(y/14*100)+'%':'–';
+    document.getElementById('telKes').textContent=!ans?'Belum ditelaah':
+      (ans<14?'Sedang ditelaah ('+ans+'/14)':(y>=12?'Layak tanpa perbaikan':y>=9?'Layak, perbaikan minor':'Perlu revisi'));
+  }
+  telRows.forEach(function(r){
+    r.addEventListener('click',function(e){
+      var b=e.target.closest('button');if(!b)return;var was=b.classList.contains('on');
+      [].forEach.call(r.querySelectorAll('button'),function(x){x.classList.remove('on')});
+      if(!was)b.classList.add('on');telCalc();
+    });
+  });
+  var tr=document.getElementById('telReset');
+  if(tr)tr.onclick=function(){telRows.forEach(function(r){[].forEach.call(r.querySelectorAll('button'),function(x){x.classList.remove('on')})});telCalc()};
+
+  window.addEventListener('resize',fit);
+  fit();
+  var h=parseInt((location.hash||'').slice(1),10);
+  show(isNaN(h)?0:h-1);
+})();
+</script>
+</body>
+</html>
